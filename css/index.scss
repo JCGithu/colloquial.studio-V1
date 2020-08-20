@@ -1,3 +1,5 @@
+@import "./sinon";
+
 html {
     --main-red: #FE5F55;
     --main-white: #F7F7FF;
@@ -7,7 +9,7 @@ html {
     font-family: 'Poppins', sans-serif;
 }
   
-body {
+#homeBody {
     background: var(--main-red);
     width: 100vw;
     height: 100vh;
@@ -38,6 +40,38 @@ svg {
     flex-direction: column;
     align-self: center;
     align-content: center;
+}
+
+#nav{
+    width: 100vw;
+    height: 50px;
+    opacity: 0.95;
+    background: var(--main-red);
+    position: absolute;
+    flex-direction: row;
+    display: flex;
+    transition: all ease 500ms;
+    svg{
+        margin-top: 0px;
+        margin-left: -20px;
+        margin-right: -20px;
+        height: 35px !important;
+        cursor: pointer;
+    }
+    p {
+        color: var(--main-white);
+        font-weight: bold;
+        line-height: 1em ;
+        cursor: pointer;
+        text-decoration: none;
+        a {
+            text-decoration: none;
+            color: var(--main-white);
+        }
+    }
+    &:hover{
+        opacity: 1;
+    }
 }
 
 @keyframes FadeIn {

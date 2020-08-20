@@ -1,0 +1,272 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+@font-face {
+  font-family: 'sunflower';
+  src: url("/dist/fonts/made_sunflower-webfont.ttf") format("truetype"), url("/dist/fonts/made_sunflower-webfont.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+#sinonBody {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background: var(--main-white);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#sinonBody h1 {
+  font-family: 'sunflower', serif;
+  color: var(--black);
+  font-size: 8em;
+  position: relative;
+  font-weight: 100;
+  margin: -0.2em;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  #sinonBody h1 {
+    font-size: 10vh;
+    text-align: center;
+    margin: 0;
+    margin-left: -0.5em;
+  }
+}
+
+#sinonBody button {
+  font-family: 'Lato';
+  font-weight: bold;
+  width: 200px;
+  margin: 0.5vw;
+  color: var(--main-red);
+  border-color: var(--main-red);
+  border-radius: 0.5em;
+  -webkit-transition: ease 0.2s all;
+  transition: ease 0.2s all;
+  font-size: 1.5em;
+  opacity: 0;
+  line-height: 0.5;
+  padding: .5rem 3rem;
+  color: var(--black);
+  -webkit-box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+          box-shadow: 0 0 6px 0 rgba(157, 96, 212, 0.5);
+  border: solid 3px transparent;
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  -webkit-box-shadow: 2px 1000px 1px var(--main-white) inset;
+          box-shadow: 2px 1000px 1px var(--main-white) inset;
+  cursor: pointer;
+}
+
+#sinonBody button sub {
+  font-size: 0.5em;
+  margin: 0;
+  padding: 0;
+}
+
+#sinonBody button:hover {
+  background: var(--main-red);
+  color: var(--main-white);
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  border-radius: 2em;
+  border: 0;
+}
+
+@media screen and (max-width: 768px) {
+  #sinonBody button {
+    margin: 1vh;
+  }
+}
+
+#sinonBody iframe {
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin: 1vw;
+  width: 356px;
+  height: 200px;
+  opacity: 0;
+}
+
+@media screen and (max-width: 768px) {
+  #sinonBody iframe {
+    width: 35.6vh;
+    height: 20vh;
+    margin: 1vh;
+  }
+}
+
+.sBox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 30vw;
+  height: 100vh;
+}
+
+.backdrop {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.backdrop svg {
+  position: relative;
+  display: block;
+  width: calc(149% + 1.3px);
+  height: 132px;
+}
+
+.backdrop .shape-fill {
+  fill: var(--main-red);
+}
+
+html {
+  --main-red: #FE5F55;
+  --main-white: #F7F7FF;
+  --light-blue: #577399;
+  --dark-blue: #577399;
+  --black: #495867;
+  font-family: 'Poppins', sans-serif;
+}
+
+#homeBody {
+  background: var(--main-red);
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+h1 {
+  color: var(--main-white);
+  margin: 0;
+  -webkit-animation: 1.2s ease-in-out 0s 1 FadeIn;
+          animation: 1.2s ease-in-out 0s 1 FadeIn;
+}
+
+svg {
+  width: 100px;
+  height: 100px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  -webkit-animation: 1.2s ease-in-out 0s 1 FadeIn;
+          animation: 1.2s ease-in-out 0s 1 FadeIn;
+}
+
+svg .cls-1 {
+  fill: #f7f7ff;
+}
+
+svg .cls-2 {
+  fill: #577399;
+}
+
+.loading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-item-align: center;
+      align-self: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+#nav {
+  width: 100vw;
+  height: 50px;
+  opacity: 0.95;
+  background: var(--main-red);
+  position: absolute;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-transition: all ease 500ms;
+  transition: all ease 500ms;
+}
+
+#nav svg {
+  margin-top: 0px;
+  margin-left: -20px;
+  margin-right: -20px;
+  height: 35px !important;
+  cursor: pointer;
+}
+
+#nav p {
+  color: var(--main-white);
+  font-weight: bold;
+  line-height: 1em;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#nav p a {
+  text-decoration: none;
+  color: var(--main-white);
+}
+
+#nav:hover {
+  opacity: 1;
+}
+
+@-webkit-keyframes FadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
+  }
+}
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 100;
+  }
+}
+/*# sourceMappingURL=index.css.map */
