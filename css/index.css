@@ -150,7 +150,8 @@ html {
   --main-white: #F7F7FF;
   --light-blue: #577399;
   --dark-blue: #577399;
-  --black: #495867;
+  --darker-blue: #495867;
+  --black: #262D36;
   font-family: 'Poppins', sans-serif;
 }
 
