@@ -20,12 +20,13 @@
         color: var(--black);
         font-size: 8em;
         position: relative;
+        display: flex;
         font-weight: 100;
         margin: -0.2em;
         text-align: center;
+        align-self: center;
         @media screen and (max-width:768px) {
             font-size: 10vh;
-            text-align: center;
         }
     }
     button {
@@ -71,7 +72,7 @@
         margin: 1vw;
         width: 356px;
         height: 200px;
-        opacity: 0;
+        
         @media screen and (max-width:768px) {
             width: 35.6vh;
             height: 20vh;
@@ -106,4 +107,31 @@
     .shape-fill {
         fill: var(--main-red);
     }
+}
+
+#sinonVideo{
+    align-self: center;
+    margin: 1vw;
+    width: 356px;
+    height: 200px;
+    @media screen and (max-width:768px) {
+        width: 35.6vh;
+        height: 20vh;
+        margin: 1vh;
+    }
+    div {
+        height: 100%;
+        width: 100%;
+    }
+    img{
+        height: 100%;
+        width: 100%;
+    }
+}
+
+#lineBreak{
+    opacity: 0.1;
+    font-size: xx-large;
+    margin-bottom: 0%;
+    margin-top: .3em;
 }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./dist/favicons/sinon.ico" />
     <link rel="stylesheet" href="./css/index.css" />
+    <script src="./js/youtube.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.0/anime.min.js" integrity="sha512-LfB+BcvR3zBt7ebVskhSWiSbEUiG3p5EcCprkieldsKhBeR6wpnLi0VpWC2GNgVGWP2n/skO8Bx2oKNjUhXCkw==" crossorigin="anonymous"></script>
     <title>Sinon</title>
 </head>
@@ -18,20 +19,18 @@
         </svg>
         <p><a href='/' title='Home'>colloquial</a></p>
     </div>
-    <!--<div class='backdrop'>
-        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
-        </svg>
-    </div> -->
     <div class="sBox">
         <h1>
             <span class="Sinon">Sinon</span>
         </h1>
         <div style="display: flex;justify-content: center;">
             <a href='https://github.com/JCGithu/Sinon/releases/download/v.1.2.2/Sinon.Setup.1.2.2.exe'><button>Windows <br><sub>Version 1.2.2</style></button></a>
+                <p id ='lineBreak'>|</p>
             <a href='https://github.com/JCGithu/Sinon/releases/download/v.1.2.2/Sinon.v1.2.2.Mac.zip'><button>Mac <br><sub>Version 1.2.2</sub></button></a>           
         </div>
-        <iframe src="https://www.youtube.com/embed/yrL3YwnyetI" frameborder="0" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+        <!-- <iframe src="https://www.youtube.com/embed/yrL3YwnyetI" frameborder="0" allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe> -->
+        <div class='video-player' id='sinonVideo' data-id="yrL3YwnyetI"></div>
+        
         <script>
             var textWrapper = document.querySelector('.Sinon');
             textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
