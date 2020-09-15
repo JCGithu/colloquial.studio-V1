@@ -115,6 +115,7 @@
     width: 356px;
     height: 200px;
     cursor: pointer;
+    transition: all ease 300ms;
     @media screen and (max-width:768px) {
         width: 35.6vh;
         height: 20vh;

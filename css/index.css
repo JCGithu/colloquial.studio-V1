@@ -154,6 +154,8 @@
   width: 356px;
   height: 200px;
   cursor: pointer;
+  -webkit-transition: all ease 300ms;
+  transition: all ease 300ms;
 }
 
 @media screen and (max-width: 768px) {
