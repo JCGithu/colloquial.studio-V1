@@ -1,5 +1,11 @@
 {
     "!discord": {
         "d": "Get a link for the discord!"
+    },
+    "!eat":{
+        "d": "Remind me to eat."
+    },
+    "!no":{
+        "d": "Remind me to eat."
     }
 }

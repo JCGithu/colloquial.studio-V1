@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
 @font-face {
   font-family: 'sunflower';
@@ -242,6 +243,10 @@ h1 {
           animation: 1.2s ease-in-out 0s 1 FadeIn;
 }
 
+h2 {
+  color: #F7F7FF;
+}
+
 svg {
   width: 100px;
   height: 100px;
@@ -332,5 +337,22 @@ svg .cls-2 {
   100% {
     opacity: 100;
   }
+}
+
+#commandGrid {
+  display: -ms-grid;
+  display: grid;
+  width: 90%;
+  -ms-grid-columns: (50%)[2];
+      grid-template-columns: repeat(2, 50%);
+}
+
+#commandGrid div {
+  padding: 0;
+  margin: 0;
+}
+
+.commandTitle {
+  width: 100%;
 }
 /*# sourceMappingURL=index.css.map */

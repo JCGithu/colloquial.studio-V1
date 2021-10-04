@@ -10,20 +10,24 @@ function readTextFile(file, callback) {
     rawFile.send(null);
 }
 
-let grid = document.getElementByID('commandGrid');
+let grid = document.getElementById('commandGrid');
 
 readTextFile('../data/commands.json', (data) => {
+    data = JSON.parse(data);
     for (let command in data){
-        let block = document.createElement('div');
-        let name = document.createElement('h1');
+        let block1 = document.createElement('div');
+        let block2 = document.createElement('div');
+        let name = document.createElement('h2');
         let description = document.createElement('p');
 
         name.innerHTML = command;
+        name.classList.add('commandTitle');
         description.innerHTML = data[command].d;
 
-        block.appendChild(name);
-        block.appendChild(description);
-        grid.appendChild(block);
+        block1.appendChild(name);
+        block2.appendChild(description);
+        grid.appendChild(block1);
+        grid.appendChild(block2);
     }
 })
 
