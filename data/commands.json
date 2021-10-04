@@ -1,11 +1,51 @@
 {
+    "!deez":{
+        "d": "Relive a moment where I fell to a very easy joke"
+    },
     "!discord": {
         "d": "Get a link for the discord!"
     },
     "!eat":{
         "d": "Remind me to eat."
     },
-    "!no":{
-        "d": "Remind me to eat."
+    "!lurk":{
+        "d": "For when you need to ditch for a bit."
+    },
+    "!unlurk":{
+        "d": "For whence you return"
+    },
+    "!quote":{
+        "d": "Add or view quotes. If you are a sub you can write !quote add <Quote> to add it to the database. !quote <number> to get a specific quote"
+    },
+    "!itchio":{
+        "d": "See how many more itch.io games I have left to play."
+    },
+    "!music":{
+        "d": "Find out more about the music playing"
+    },
+    "!song":{
+        "d": "See what song is playing."
+    },
+    "!project": {
+        "d": "Will say my current project"
+    },
+    "!tinytown": {
+        "d": "Get the link to the tiny town site"
+    },
+    "!stare":{
+        "d": "Stare at someone in chat"
+    },
+    "!wave":{
+        "d": "Wave to a person in chat, you need to @ them"
+    },
+    "!spam":{
+        "d": "Spam the chat."
+    },
+    "!time": {
+        "d": "Gives my local time"
+    },
+    "!uptime": {
+        "d": "See how long I've been streaming"
     }
+
 }
