@@ -1,17 +1,18 @@
 @import "./sinon";
 
+$main-red: #FE5F55;
+$main-white: #F7F7FF;
+$light-blue: #577399;
+$dark-blue: #577399;
+$darker-blue: #495867;
+$black: #262D36;
+
 html {
-    --main-red: #FE5F55;
-    --main-white: #F7F7FF;
-    --light-blue: #577399;
-    --dark-blue: #577399;
-    --darker-blue: #495867;
-    --black: #262D36;
     font-family: 'Poppins', sans-serif;
 }
   
 #homeBody {
-    background: var(--main-red);
+    background: $main-red;
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -21,7 +22,7 @@ html {
 }
   
 h1{ 
-    color: var(--main-white);
+    color: $main-white;
     margin: 0;
     animation: 1.2s ease-in-out 0s 1 FadeIn;
 }
@@ -47,7 +48,7 @@ svg {
     width: 100vw;
     height: 50px;
     opacity: 0.95;
-    background: var(--main-red);
+    background: $main-red;
     position: absolute;
     flex-direction: row;
     display: flex;
@@ -60,14 +61,14 @@ svg {
         cursor: pointer;
     }
     p {
-        color: var(--main-white);
+        color: $main-white;
         font-weight: bold;
         line-height: 1em ;
         cursor: pointer;
         text-decoration: none;
         a {
             text-decoration: none;
-            color: var(--main-white);
+            color: $main-white;
         }
     }
     &:hover{
