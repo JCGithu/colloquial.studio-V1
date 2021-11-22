@@ -1,0 +1,57 @@
+$main-red: #FE5F55;
+$main-white: #F7F7FF;
+$light-blue: #577399;
+$dark-blue: #577399;
+$darker-blue: #495867;
+$black: #262D36;
+
+#commandBody {
+    background-image: url("../dist/imgs/marble.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    h1{
+        text-align: center;
+    }
+}
+
+#commandGrid{
+    display: grid;
+    width: 100%;
+    @media (min-width: 768px) {
+        width: 75%;
+    }
+    margin: 0;
+    padding: 0;
+    grid-template-columns: 49% 49%;
+    gap: 1rem 1%;
+    background-color: lighten($black, 5%);
+    border-radius: 1rem;
+    p {
+        color: $main-red;
+        margin: 0;
+    }
+    h2{ 
+        margin: 0;
+    }
+    div {
+        padding: 0;
+        margin: 0;
+    }
+    * {
+        line-height: 1rem;
+        vertical-align: baseline;
+    }
+}
+
+.commandTitle{
+    width: 100%;
+    text-align: right;
+    padding-right: 1rem;
+}

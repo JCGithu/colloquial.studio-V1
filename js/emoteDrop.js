@@ -1,10 +1,19 @@
 const urlParams = new URLSearchParams(window.location.search);
-const u = urlParams.get('u');
+const u = urlParams.get('channel');
 const b = urlParams.get('bounce');
 const s = urlParams.get('emoteSize');
 const e = urlParams.get('ballSize');
 const l = urlParams.get('limit');
-const t = urlParams.get('time');
+const t = urlParams.get('expire');
+
+let urlInfo = {
+    channel: "",
+    bounce: "6",
+    emoteSize: "2",
+    ballLimit: "150",
+    expire: "30",
+    ballSize: "20"
+}
 
 if (u) {
     runDrop();
@@ -12,14 +21,41 @@ if (u) {
     runMenu()
 }
 
+function setAttributes(el, attrs) {
+    for(var key in attrs) {
+      el.setAttribute(key, attrs[key]);
+    }
+}
+
+function urlBuild(){
+    let urlString = 'https://colloquial.studio/emotedrop?';
+    for (let k in urlInfo){
+        urlString = urlString + `${k}=${urlInfo[k]}&`;
+    }
+    return urlString
+}
+
 function runMenu(){
-    let title = document.createElement('h1')
-    title.innerHTML = 'Emote Drop!';
-    document.body.appendChild(title);
+    //let id = ['channelName', 'emoteSize', 'bounce', 'expire', 'ballSize', 'ballLimit', 'output'];
+    let trackers = document.getElementsByClassName('track');
+    let output = document.getElementById('output');
+    for (var t = 0; t < trackers.length; t++) {
+        let title = trackers[t].id
+        trackers[t].addEventListener('change', (evt) => {
+            urlInfo[title] = evt.target.value;
+            output.value = urlBuild();
+        })
+        trackers[t].addEventListener('keyup', (evt) => {
+            urlInfo[title] = evt.target.value;
+            output.value = urlBuild();
+        })
+    }
 }
 
 
 function runDrop(){
+    let show = document.getElementById('show');
+    document.body.removeChild(show);
     const client = new tmi.Client({
         channels: [u]
     });
