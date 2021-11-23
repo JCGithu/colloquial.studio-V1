@@ -39,6 +39,7 @@ function runMenu(){
     //let id = ['channelName', 'emoteSize', 'bounce', 'expire', 'ballSize', 'ballLimit', 'output'];
     let trackers = document.getElementsByClassName('track');
     let output = document.getElementById('output');
+    let go = document.getElementById('go');
     for (var t = 0; t < trackers.length; t++) {
         let title = trackers[t].id
         trackers[t].addEventListener('change', (evt) => {
@@ -50,6 +51,9 @@ function runMenu(){
             output.value = urlBuild();
         })
     }
+    go.addEventListener('click', () =>{
+        window.open(output.value,"_self");
+    })
 }
 
 
