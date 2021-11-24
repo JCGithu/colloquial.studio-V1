@@ -142,6 +142,10 @@ p {
   font-size: 0.8rem;
 }
 
+#title {
+  margin: 0.8rem;
+}
+
 .div1 {
   -ms-grid-row: 1;
   -ms-grid-row-span: 1;
