@@ -19,10 +19,6 @@ body {
           justify-content: center;
 }
 
-h1 {
-  color: #fe5f55;
-}
-
 #inputGrid {
   display: -ms-grid;
   display: grid;
@@ -125,6 +121,20 @@ h4 {
   padding: 0;
   margin: 0;
   text-align: center;
+}
+
+h1 {
+  color: #fe5f55;
+  margin: 1rem;
+}
+
+h2 {
+  margin: 0.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: #fe5f55;
 }
 
 p {
