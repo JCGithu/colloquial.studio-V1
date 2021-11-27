@@ -75,6 +75,8 @@ function postBox(channel, tags, message, self, italics){
         firstM = false;
     }
     if (tags.username === 'colloquialbot') return;
+    if (tags.username === 'streamelements') return;
+    if (tags.username === 'nightbot') return;
     let toAdd = document.createElement('div');
     let emotes = formatEmotes(message,tags.emotes);
     let chatName = document.createElement('span');
