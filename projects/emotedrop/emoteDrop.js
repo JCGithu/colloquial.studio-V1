@@ -150,10 +150,10 @@ function runDrop(){
 
     //Animation Variables
     let scale = '2.0'
-    let ball = 20;
-    let limit = 100;
-    let time = 30;
-    let bounce = 0.5;
+    let ball =  20;
+    let limit = parseInt(l) || 100;
+    let time = parseInt(t)*1000 || 30000;
+    let bounce = b * 0.1 || 0.5;
     
     if (innerWidth > 1920) {
         scale = '3.0';
@@ -163,29 +163,12 @@ function runDrop(){
         scale = '1.0';
         ball = 10;
     }
-
-    if (b) bounce = b * 0.1;
     if (s) scale = `${s}.0`;
     if (e) ball = parseInt(e);
-    if (l) limit = parseInt(l);
-    if (t) time = parseInt(t);
 
     client.connect();
-
-    let IDs = [];
-
-    function removeCircle(){
-        Composite.remove(world,IDs[0]);
-        IDs.splice(0,1);
-    }
-
-    setInterval(function(){
-        if (IDs[0]) {
-            removeCircle()
-        };
-    }, time * 1000);
-
     client.on('message', (channel, tags, message, self) => {
+        let batch = [];
         for (let i in tags.emotes){
             for(let k in tags.emotes[i]){
                 let newCircle = Bodies.circle(getRandomInt(innerWidth * 0.9), 0, ball, {
@@ -196,12 +179,25 @@ function runDrop(){
                         }
                     }
                 });
-                IDs.push(newCircle);
-                Composite.add(world, [newCircle])
-                if (IDs.length > (limit*2)) removeCircle();
+                Composite.add(world, [newCircle]);
+                batch.push(newCircle);
             }
         }
-        if (IDs.length > limit) removeCircle();
-        if (IDs.length > (limit * 1.5)) removeCircle()
+        
+        let data = Matter.Composite.allBodies(world);
+
+        if (data.length > (limit + 3)) {
+            for (let i in data){
+                if (data.length > (limit + 3)) {
+                    Composite.remove(world, data[3]);
+                } else {
+                    break;
+                }
+            }
+        }
+
+        setInterval(function(){
+            Composite.remove(world, batch);
+        }, time);
     });	
 }
