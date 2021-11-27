@@ -1,6 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const u = urlParams.get('channel');
-let badgeData = {};
+const badgeData = {};
+var bttvEmoteCache = [];
 
 async function loadJSON(file) {
     return new Promise(function(resolve, reject){
@@ -14,7 +15,6 @@ async function loadJSON(file) {
         xml.send();
     })
 }
-'https://badges.twitch.tv/v1/badges/channels/509037856/display'
 
 async function runBadges(files){
     for (let f in files){
@@ -27,6 +27,22 @@ async function runBadges(files){
         })
         console.log('Badge data updated!');
     }
+}
+
+loadJSON(`https://api.betterttv.net/3/cached/emotes/global`).then((data) => {
+    bttvEmoteCache = JSON.parse(data); 
+})
+  
+function getBTTVEmotes(channel, id) {
+    return loadJSON(`https://api.betterttv.net/3/cached/users/twitch/${id}`).then((data) => {
+        data = JSON.parse(data);
+        for (let i in data.channelEmotes){
+            bttvEmoteCache.push(data.channelEmotes[i]);
+        }
+        for (let i in data.sharedEmotes){
+            bttvEmoteCache.push(data.sharedEmotes[i]);
+        }
+    });
 }
 
 let badgeList = [{"path": 'badges'}, {"path":'https://badges.twitch.tv/v1/badges/channels/509037856/display', "site": true}];
@@ -72,13 +88,15 @@ function postBox(channel, tags, message, self, italics){
     if (firstM){
         let badgeURL = `https://badges.twitch.tv/v1/badges/channels/${tags['room-id']}/display`
         runBadges([{"path": badgeURL, "site": true}]);
+        getBTTVEmotes(channel, tags['room-id']);
         firstM = false;
     }
+    console.log(bttvEmoteCache);
     if (tags.username === 'colloquialbot') return;
     if (tags.username === 'streamelements') return;
     if (tags.username === 'nightbot') return;
     let toAdd = document.createElement('div');
-    let emotes = formatEmotes(message,tags.emotes);
+    let emotes = formatEmotes(message, tags.emotes, bttvEmoteCache);
     let chatName = document.createElement('span');
     chatName.innerHTML = `<b>${tags.username}: </b>`;
     for (let u in userData){

@@ -16,7 +16,7 @@ function htmlEntities(html) {
   return html;
 }
   
-function formatEmotes(text, emotes) {
+function formatEmotes(text, emotes, bttvEmoteCache) {
     var splitText = text.split('');
     for (var i in emotes) {
         var e = emotes[i];
@@ -41,5 +41,18 @@ function formatEmotes(text, emotes) {
             }
         }
     }
-    return htmlEntities(splitText).join('');
+    if (bttvEmoteCache.length){
+      let target = htmlEntities(splitText).join('').split(' ');
+      for (let i in target){
+        bttvEmoteCache.forEach(element => {
+          if (target[i] === element.code){
+            target[i] = `<img src="https://cdn.betterttv.net/emote/${element.id}/3x"></img>`;
+          }
+        });
+      }
+      return target.join('');
+
+    } else {
+      return htmlEntities(splitText).join('');
+    }
 }
