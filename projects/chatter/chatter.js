@@ -1,26 +1,42 @@
 const urlParams = new URLSearchParams(window.location.search);
 const u = urlParams.get('channel');
+let badgeData = {};
 
-const badgeData = document.createElement('script');
+async function loadJSON(file) {
+    return new Promise(function(resolve, reject){
+        var xml = new XMLHttpRequest();
+        xml.overrideMimeType("application/json");
+        xml.open('GET', file, true);
+        xml.onreadystatechange = function() {
+            if (xml.readyState == 4 && xml.status == "200") resolve(xml.responseText);
+        }
+        xml.onerror = () => reject(xml.statusText);
+        xml.send();
+    })
+}
 
-var xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://badges.twitch.tv/v1/badges/global/display', true);
-xhr.withCredentials = true;
-xhr.setRequestHeader('Accept', 'application/json');
-xhr.setRequestHeader('access-control-allow-origin', 'https://colloquial.studio');
-xhr.send();
+async function runBadges(files){
+    for (let f in files){
+        console.log(files[f]);
+        let data = await loadJSON(`./projects/chatter/${files[f]}.json`);
+        data = JSON.parse(data)['badge_sets'];
+        Object.keys(data).forEach((k) => {
+            badgeData[k] = data[k];
+        })
+        console.log(badgeData);
+    }
+}
 
-console.log(xhr);
-
+runBadges(['badges', 'colloquialowl']);
 
 const userData = {
-    'lydiapancakes': "#FFC2A9",
-    "hellovonnie": '#bf94ff',
-    "astoldbyangela": "teal",
-    "colloquialowl": "#fe5f55",
-    "kiwi_fruitbird": "#00B160",
-    'arcasian': '#94588c',
-    'theyeteedotcom': '#3f4be4',
+    'lydiapancakes': {"colour": "#FFC2A9"},
+    "hellovonnie": {"colour": "#bf94ff"},
+    "astoldbyangela": {"colour": "teal"},
+    "colloquialowl": {"colour": "#fe5f55"},
+    "kiwi_fruitbird": {"colour": "#00B160"},
+    'arcasian': {"colour": "#94588c"},
+    'theyeteedotcom': {"colour": "#3f4be4"}
 }
 
 const client = new tmi.Client({
@@ -47,14 +63,26 @@ function removeTop(chatDiv) {
 
 function postBox(channel, tags, message, self, italics){
     console.log(tags);
+    console.log(tags.badges);
     if (tags.username === 'colloquialbot') return;
     let toAdd = document.createElement('div');
-    for (let u in userData){
-        if (u === tags.username) toAdd.style.backgroundColor = userData[u];
-    }
     let emotes = formatEmotes(message,tags.emotes);
-    let chatName = document.createElement('b');
-    chatName.innerHTML = `${tags.username}: `;
+    let chatName = document.createElement('span');
+    chatName.innerHTML = `<b>${tags.username}: </b>`;
+    for (let u in userData){
+        if (u === tags.username) {
+            toAdd.style.backgroundColor = userData[u].colour;
+        }
+    }
+    Object.keys(tags.badges).forEach((k) => {
+        if (badgeData[k]){
+            let v = tags.badges[k];
+            if (badgeData[k].versions[v]){
+                chatName.innerHTML = `<img src=${badgeData[k].versions[v]['image_url_4x']}></img> ${chatName.innerHTML}`;
+            }
+        }
+        
+    })
     let chatText = document.createElement('span');
     chatText.innerHTML = emotes;
     toAdd.id = 'chatbox';
@@ -66,7 +94,7 @@ function postBox(channel, tags, message, self, italics){
 
 client.on('chat', (channel, tags, message, self) => {
     if (tags['custom-reward-id']){
-        if (tags['custom-reward-id'] === '62dbe65f-de95-48db-a985-734f5eb761a3') userData[tags.username] = message;
+        if (tags['custom-reward-id'] === '62dbe65f-de95-48db-a985-734f5eb761a3') userData[tags.username].colour = message;
     }
     postBox(channel, tags, message, self, false);
 });
