@@ -27,7 +27,10 @@ async function runBadges(files){
     }
 }
 
-runBadges(['badges', 'colloquialowl']);
+let badgeList = ['badges'];
+if (u === 'colloquialowl') badgeList.push('colloquialowl');
+
+runBadges(badgeList);
 
 const userData = {
     'lydiapancakes': {"colour": "#FFC2A9"},
