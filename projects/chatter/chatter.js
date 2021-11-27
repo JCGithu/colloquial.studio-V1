@@ -84,15 +84,17 @@ function postBox(channel, tags, message, self, italics){
             toAdd.style.backgroundColor = userData[u].colour;
         }
     }
-    Object.keys(tags.badges).forEach((k) => {
-        if (badgeData[k]){
-            let v = tags.badges[k];
-            if (badgeData[k].versions[v]){
-                chatName.innerHTML = `<img src=${badgeData[k].versions[v]['image_url_4x']}></img> ${chatName.innerHTML}`;
+    if (tags.badges){
+        Object.keys(tags.badges).forEach((k) => {
+            if (badgeData[k]){
+                let v = tags.badges[k];
+                if (badgeData[k].versions[v]){
+                    chatName.innerHTML = `<img src=${badgeData[k].versions[v]['image_url_4x']}></img> ${chatName.innerHTML}`;
+                }
             }
-        }
-        
-    })
+            
+        })
+    }
     let chatText = document.createElement('span');
     chatText.innerHTML = emotes;
     toAdd.id = 'chatbox';
