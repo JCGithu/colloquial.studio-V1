@@ -3,21 +3,14 @@ const u = urlParams.get('channel');
 
 const badgeData = document.createElement('script');
 
-/* badgeData.src = 'https://badges.twitch.tv/v1/badges/global/display';
-document.body.appendChild(badgeData); */
-
 var xhr = new XMLHttpRequest();
 xhr.open('GET', 'https://badges.twitch.tv/v1/badges/global/display', true);
 xhr.withCredentials = true;
 xhr.setRequestHeader('Accept', 'application/json');
+xhr.setRequestHeader('access-control-allow-origin', 'https://colloquial.studio');
 xhr.send();
 
 console.log(xhr);
-
-/* badgeData.addEventListener('onDataLoad', (data)=> {
-    console.log('loaded!');
-    console.log(data);
-}) */
 
 
 const userData = {
