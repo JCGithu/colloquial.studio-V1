@@ -14,21 +14,23 @@ async function loadJSON(file) {
         xml.send();
     })
 }
+'https://badges.twitch.tv/v1/badges/channels/509037856/display'
 
 async function runBadges(files){
     for (let f in files){
-        console.log(files[f]);
-        let data = await loadJSON(`./projects/chatter/${files[f]}.json`);
+        let URL = `./projects/chatter/${files[f].path}.json`
+        if (files[f].site) URL = files[f].path
+        let data = await loadJSON(URL);
         data = JSON.parse(data)['badge_sets'];
         Object.keys(data).forEach((k) => {
             badgeData[k] = data[k];
         })
-        console.log(badgeData);
+        console.log('Badge data updated!');
     }
 }
 
-let badgeList = ['badges'];
-if (u === 'colloquialowl') badgeList.push('colloquialowl');
+let badgeList = [{"path": 'badges'}, {"path":'https://badges.twitch.tv/v1/badges/channels/509037856/display', "site": true}];
+//if (u === 'colloquialowl') badgeList.push('colloquialowl');
 
 runBadges(badgeList);
 
@@ -64,9 +66,14 @@ function removeTop(chatDiv) {
     }
 }
 
+let firstM = true;
+
 function postBox(channel, tags, message, self, italics){
-    console.log(tags);
-    console.log(tags.badges);
+    if (firstM){
+        let badgeURL = `https://badges.twitch.tv/v1/badges/channels/${tags['room-id']}/display`
+        runBadges([{"path": badgeURL, "site": true}]);
+        firstM = false;
+    }
     if (tags.username === 'colloquialbot') return;
     let toAdd = document.createElement('div');
     let emotes = formatEmotes(message,tags.emotes);
