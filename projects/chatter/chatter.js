@@ -46,7 +46,6 @@ function getBTTVEmotes(channel, id) {
 }
 
 let badgeList = [{"path": 'badges'}, {"path":'https://badges.twitch.tv/v1/badges/channels/509037856/display', "site": true}];
-//if (u === 'colloquialowl') badgeList.push('colloquialowl');
 
 runBadges(badgeList);
 

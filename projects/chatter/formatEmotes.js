@@ -50,7 +50,7 @@ function formatEmotes(text, emotes, bttvEmoteCache) {
           }
         });
       }
-      return target.join('');
+      return target.join(' ');
 
     } else {
       return htmlEntities(splitText).join('');
