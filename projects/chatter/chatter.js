@@ -49,14 +49,16 @@ let badgeList = [{"path": 'badges'}, {"path":'https://badges.twitch.tv/v1/badges
 
 runBadges(badgeList);
 
-const userData = {
+let userData = {
     'lydiapancakes': {"colour": "#FFC2A9"},
     "hellovonnie": {"colour": "#bf94ff"},
     "astoldbyangela": {"colour": "teal"},
     "colloquialowl": {"colour": "#fe5f55"},
     "kiwi_fruitbird": {"colour": "#00B160"},
     'arcasian': {"colour": "#94588c"},
-    'theyeteedotcom': {"colour": "#3f4be4"}
+    'theyeteedotcom': {"colour": "#3f4be4"},
+    'natewattz': {"colour": "#0500FF"},
+    'pikaprogram': {"colour": "white"}
 }
 
 const client = new tmi.Client({
@@ -125,7 +127,13 @@ function postBox(channel, tags, message, self, italics){
 
 client.on('chat', (channel, tags, message, self) => {
     if (tags['custom-reward-id']){
-        if (tags['custom-reward-id'] === '62dbe65f-de95-48db-a985-734f5eb761a3') userData[tags.username].colour = message;
+        if (tags['custom-reward-id'] === '62dbe65f-de95-48db-a985-734f5eb761a3') {
+            if (userData[tags.username].colour) {
+                userData[tags.username].colour = message;
+                return;
+            }
+            userData[tags.username] = {"colour": message};
+        }
     }
     postBox(channel, tags, message, self, false);
 });
