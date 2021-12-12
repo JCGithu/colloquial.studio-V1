@@ -75,7 +75,6 @@ async function runChatter(){
         ['natewattz', {"colour": "#D4FF00"}],
         ['pikaprogram', {"colour": "white"}],
         ['hellojodie', {"colour": "#9bbb8a"}],
-
     ]);
 
     const client = new tmi.Client({
@@ -109,7 +108,7 @@ async function runChatter(){
             getBTTVEmotes(channel, tags['room-id']);
             firstM = false;
         }
-        //if (tags.username === 'colloquialbot') return;
+        if (tags.username === 'colloquialbot') return;
         if (tags.username === 'streamelements') return;
         if (tags.username === 'nightbot') return;
         
@@ -117,9 +116,9 @@ async function runChatter(){
         let emotes = formatEmotes(message, tags.emotes, bttvEmoteCache);
         let chatName = document.createElement('span');
         chatName.innerHTML = `<b>${tags.username}: </b>`;
-        if (userData.has(tags.username)){
-            toAdd.style.backgroundColor = userData.get(tags.username).colour;
-        }
+        chatName.style.color = tags.color;
+        toAdd.style.color = tags.color;
+        toAdd.style.backgroundColor = '2a313b';
         if (tags.badges){
             Object.keys(tags.badges).forEach((k) => {
                 if (badgeData[k]){
@@ -132,6 +131,7 @@ async function runChatter(){
             })
         }
         let chatText = document.createElement('span');
+        chatText.style.color = '#f7f7ff'
         chatText.innerHTML = emotes;
         toAdd.id = 'chatbox';
         toAdd.appendChild(chatName);
@@ -140,18 +140,6 @@ async function runChatter(){
         removeTop(toAdd);
     }
 
-    client.on('chat', (channel, tags, message, self) => {
-        postBox(channel, tags, message, self, false);
-        if (!tags['custom-reward-id']) return;
-        if (tags['custom-reward-id'] === '62dbe65f-de95-48db-a985-734f5eb761a3') {
-            if (userData.has(tags.username)) {
-                let data = userData.get(tags.username);
-                data.colour = message;
-                userData.set(tags.username, data);
-                return;
-            }
-            userData.set(tags.username, {"colour": message});
-        }
-    });
+    client.on('chat', (channel, tags, message, self) => {postBox(channel, tags, message, self, false)});
     client.on('action', (channel, tags, message, self) => {postBox(channel, tags, message, self, false)});	
 }

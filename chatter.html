@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700,400&display=swap" rel="stylesheet">
     <script src='./js/tmi.min.js'></script>
     <script src='./projects/chatter/formatEmotes.js'></script>
+    <script src='./projects/copyText.js'></script>
     <link rel="shortcut icon" href="./dist/favicons/colloquial.ico" />
 </head>
 <body>
@@ -30,29 +31,25 @@
                 <option value="horz">Horizontal</option>
             </select>
             <div class="div5">
-                <h4>Emotes</h4>
-            </div>
-            <input class="div6" type="checkbox">
-            <div class="div7">
-                <h4>Show bots</h4>
-            </div>
-            <label class="switch div8">
-                <input type="checkbox">
-                <span class="slider round"></span>
-            </label>
-            <div class="div9">
                 <h4>Background colour</h4>
                 <p>Any CSS colour value (HEX, RGB, HSL)</p>
                 <p>If blank will be none.</p>
             </div>
-            <input id='channel' type="text" placeholder="[Channel Name Here]" class="div10 track">
-            <div class="div11">
-                <h4>Reward ID</h4>
-                <p>Let users change their chat colour.</p>
+            <input id='channel' type="text" placeholder="[Channel Name Here]" class="div6 track">
+            <div class="div7">
+                <h4>Emotes</h4>
+                <input type="checkbox">
             </div>
-            <input id='channel' type="text" placeholder="[Channel Name Here]" class="div12 track">
+            <div class="div8">
+                <h4>Show bots</h4>
+                <input type="checkbox">
+            </div>
+            <div class="div9">
+                <h4>Show badges</h4>
+                <input type="checkbox">
+            </div>
         </div>
-        <div class="div13">
+        <div class="div11">
             <h2>Output</h2>
             <input id='output' type="text" class="div13">
             <div>
