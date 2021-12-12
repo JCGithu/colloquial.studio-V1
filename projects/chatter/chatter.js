@@ -132,6 +132,7 @@ async function runChatter(){
         }
         let chatText = document.createElement('span');
         chatText.style.color = '#f7f7ff'
+        chatText.style.fontFamily = 'Poppins';
         chatText.innerHTML = emotes;
         toAdd.id = 'chatbox';
         toAdd.appendChild(chatName);
