@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .small-h h4 {
+    @apply text-center font-bold text-purple-700 text-lg;
+  }
+  .small-h {
+    @apply text-center font-bold text-purple-700 text-lg;
+  }
+  .small-h p{
+    @apply text-center text-purple-400 font-light text-sm; 
+  }
+}
+
+
