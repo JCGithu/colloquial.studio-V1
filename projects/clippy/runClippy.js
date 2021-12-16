@@ -1,4 +1,7 @@
 console.log('CLIPPY IS HERE');
+document.body.style.backgroundColor = 'rgba(0,0,0,0)';
+let show = document.getElementById('menu');
+document.body.removeChild(show);
 
 clippy.load('Clippy', function(theBoy) {
   theBoy.show();
@@ -18,7 +21,7 @@ clippy.load('Clippy', function(theBoy) {
   
   client.connect();
   client.on('message', (channel, tags, message) => {
-    console.log(pointID);
+    console.log(tags['custom-reward-id']);
     if (pointID){
       if (tags['custom-reward-id'] === pointID){
         theBoy.animate();
