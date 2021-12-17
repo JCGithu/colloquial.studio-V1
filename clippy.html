@@ -14,8 +14,9 @@
 <body class="flex content-middle items-center justify-center place-content-center h-screen w-screen bg-slate-900">
   <div id='menu' class="bg-slate-100 rounded-xl p-5 flex justify-center flex-col shadow-2xl shadow-purple-600/50 selection:bg-purple-600 selection:text-white">
       <div id='title' class="text-center p-2 mb-2">
-          <h1 class="text-purple-500 font-bold text-4xl ">Clippy!</h1>
-          <p>Made on stream over at <a class="underline" href="https://twitch.tv/colloquialowl">ColloquialOwl</a>.</p>
+          <h1 class="text-purple-500 font-bold text-4xl font-extrabold">Clippy!</h1>
+          <h3 class="text-lg font-medium">Have Clippy join your stream!</h3>
+          <p class="text-sm">Made on stream over at <a class="underline" href="https://twitch.tv/colloquialowl">ColloquialOwl</a>.</p>
       </div>
       <div id='inputGrid' class="grid grid-cols-2 gap-1">
           <div class="small-h">
@@ -32,6 +33,7 @@
       </div>
       <div class="text-center flex flex-col align-middle">
           <h4 class="small-h text-2xl py-2">Output</h4>
+          <p class="text-sm">Just add this URL as a Browser Source!</p>
           <input id='output' type="text" class="rounded">
           <div class="flex w-full content-center align-middle justify-center p-1">
               <button id='go' class="bg-purple-400 text-xl text-white font-semibold rounded p-1 m-1 hover:scale-105 transition-all duration-1000">Go!</button>
