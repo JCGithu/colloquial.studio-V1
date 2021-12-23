@@ -59,7 +59,8 @@ function roleBlockUpdate(role, roleUsers){
 }
 
 function addSprite(roleData, user, role, roleUsers){
-  if (document.getElementById(role).querySelectorAll('.spriteBox').length > 10) {
+  let roleBox = document.getElementById(role);
+  if (roleBox.querySelectorAll('.spriteBox').length > 10) {
     roleBox.getElementsByClassName("blockNum")[0].innerHTML = `<h1>${roleUsers}</h1><p>${guilds[role].name}</p>`;
     return;
   }
@@ -73,7 +74,6 @@ function addSprite(roleData, user, role, roleUsers){
   sprite.classList.add('sprite');
   sprite.src = guilds[role].src;
   spriteBox.appendChild(sprite);
-  let roleBox = document.getElementById(role)
   roleBox.appendChild(spriteBox);
   console.log(`Added ${user}, their status is now ${roleData[user].status}`);
   roleBlockUpdate(role, roleUsers);
@@ -99,16 +99,23 @@ function removeSprite(user, roleData, role, roleUsers){
   }, removeTime + 200);
 }
 
+async function countUsers(data){
+  let roleUsers = 0;
+  for (let user in data){
+    if(data[user].status === 'online') roleUsers = roleUsers + 1;
+  }
+  return roleUsers;
+}
+
 async function dataUpdate(){
   let data = await callAPI();
   console.log(data);
   for (let role in data){
     let roleData = data[role];
-    let roleUsers = Object.keys(roleData).length
+    let roleUsers = await countUsers(roleData);
+    console.log(roleUsers);
     if (roleUsers == 0){
-      if(document.getElementById(role)) {
-        dom.gallery.removeChild(document.getElementById(role));
-      }
+      if(document.getElementById(role)) dom.gallery.removeChild(document.getElementById(role));
       continue;
     }
     if(!document.getElementById(role)) addBlock(role);
@@ -116,7 +123,7 @@ async function dataUpdate(){
       let showing = false;
       if (document.getElementById(roleData[user].id)) showing = true;
       if (showing && roleData[user].status != 'online'){
-        removeSprite(user, roleData, role);
+        removeSprite(user, roleData, role, roleUsers);
         continue;
       }
       if (roleData[user].status === 'online' && !showing) addSprite(roleData, user, role, roleUsers);
