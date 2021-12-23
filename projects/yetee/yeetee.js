@@ -92,7 +92,7 @@ function removeSprite(user, roleData, role, roleUsers){
     { duration: removeTime, fill: 'forwards' }
   );
   console.log(`Removing ${user}, their status is now ${roleData[user].status}`);
-  setTimeout(() => {
+  setTimeout((roleUsers)=> {
     let roleBox = document.getElementById(role);
     roleBox.removeChild(targetUser);
     roleBlockUpdate(role, roleUsers);
