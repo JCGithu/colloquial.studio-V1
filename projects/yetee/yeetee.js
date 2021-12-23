@@ -50,14 +50,19 @@ function addBlock(role){
   dom.gallery.appendChild(block);
 }
 
-function roleBlockUpdate(roleBox, role){
+function roleBlockUpdate(role, roleUsers){
+  let roleBox = document.getElementById(role);
   let spriteCount = roleBox.querySelectorAll('.spriteBox').length;
   roleBox.style.width = `${150+ ((spriteCount -1) * 40)}px`;
-  roleBox.getElementsByClassName("blockNum")[0].innerHTML = `<h1>${spriteCount}</h1><p>${guilds[role].name}</p>`;
+  roleBox.getElementsByClassName("blockNum")[0].innerHTML = `<h1>${roleUsers}</h1><p>${guilds[role].name}</p>`;
   console.log(`there are ${spriteCount} elements`);
 }
 
-function addSprite(roleData, user, role){
+function addSprite(roleData, user, role, roleUsers){
+  if (document.getElementById(role).querySelectorAll('.spriteBox').length > 10) {
+    roleBox.getElementsByClassName("blockNum")[0].innerHTML = `<h1>${roleUsers}</h1><p>${guilds[role].name}</p>`;
+    return;
+  }
   let spriteBox = document.createElement('span');
   spriteBox.innerHTML = `<div class='spriteName'>${user}</div>`
   spriteBox.id = roleData[user].id;
@@ -68,13 +73,14 @@ function addSprite(roleData, user, role){
   sprite.classList.add('sprite');
   sprite.src = guilds[role].src;
   spriteBox.appendChild(sprite);
-  let roleBox = document.getElementById(role);
+  let roleBox = document.getElementById(role)
   roleBox.appendChild(spriteBox);
   console.log(`Added ${user}, their status is now ${roleData[user].status}`);
-  roleBlockUpdate(roleBox, role);
+  roleBlockUpdate(role, roleUsers);
 }
 
-function removeSprite(user, roleData, role){
+function removeSprite(user, roleData, role, roleUsers){
+  if (!document.getElementById(roleData[user].id)) return;
   let targetUser = document.getElementById(roleData[user].id);
   let removeTime = 1000;
   targetUser.animate([
@@ -89,17 +95,17 @@ function removeSprite(user, roleData, role){
   setTimeout(() => {
     let roleBox = document.getElementById(role);
     roleBox.removeChild(targetUser);
-    roleBlockUpdate(roleBox, role);
+    roleBlockUpdate(role, roleUsers);
   }, removeTime + 200);
 }
 
-setInterval(async() => {
+async function dataUpdate(){
   let data = await callAPI();
   console.log(data);
-  var list = document.getElementsByClassName("sprite");
   for (let role in data){
     let roleData = data[role];
-    if (Object.keys(roleData).length == 0){
+    let roleUsers = Object.keys(roleData).length
+    if (roleUsers == 0){
       if(document.getElementById(role)) {
         dom.gallery.removeChild(document.getElementById(role));
       }
@@ -113,7 +119,13 @@ setInterval(async() => {
         removeSprite(user, roleData, role);
         continue;
       }
-      if (roleData[user].status === 'online' && !showing) addSprite(roleData, user, role);
+      if (roleData[user].status === 'online' && !showing) addSprite(roleData, user, role, roleUsers);
     }
   }
+}
+
+dataUpdate();
+
+setInterval(async() => {
+  dataUpdate();
 }, 10000);

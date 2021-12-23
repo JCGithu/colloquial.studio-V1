@@ -252,7 +252,9 @@ img {
 }
 
 #bottomBanner {
-  background-color: rgba(0, 153, 255, 0.5);
+  background: -webkit-gradient(linear, left top, left bottom, from(#00d2ff), to(#3a47d5));
+  background: linear-gradient(180deg, #00d2ff 0%, #3a47d5 100%);
+  opacity: 1;
   width: 100%;
   position: absolute;
   bottom: -3.5rem;
