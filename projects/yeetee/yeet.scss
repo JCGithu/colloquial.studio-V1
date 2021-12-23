@@ -1,0 +1,118 @@
+body{
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+#gallery{
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  align-content: flex-start;
+  flex-direction: row;
+}
+
+.roleBlock{
+  position: relative;
+  height: 100px;
+}
+
+img {
+  filter: drop-shadow(5px 5px 5px rgba(34, 34, 34, 0.5));
+}
+
+.spriteBox{
+  position: absolute;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  animation-fill-mode: forwards;
+  &:hover{
+    .spriteName{
+      visibility: visible !important;
+    }
+  }
+  @for $i from 1 through 30 {
+    &:nth-child(#{$i}) {
+      left: #{($i - 2) * 40}px !important;
+      z-index: #{30 - $i};
+    }
+  }
+}
+
+.spriteName{
+  position: absolute;
+  z-index: 20;
+  color: red;
+  font-family: 'Poppins';
+  font-weight: bold;
+  visibility: hidden;
+}
+
+.blockNum{
+  position: absolute;
+  font-weight: bold;
+  font-family: 'Poppins';
+  h1{
+    font-size: xx-large;
+    padding-right: 1rem;
+  }
+  display: flex;
+  flex-direction: row;
+  p {
+    font-size: smaller;
+    align-self: end;
+  }
+  color: #fff;
+  text-shadow: 2px 2px 2px #053CB1;
+  left: 1rem;
+  bottom: -2.5rem;
+  z-index: 40;
+}
+
+.scaleOut{
+  transition: transform 5s ease, width 5s ease 1s;
+  transform: scaleX(0) scaleY(0) !important;
+  width: 0px !important;
+}
+
+.sprite{
+  width: 150px;
+  animation: 1s ease-in-out 0s 1 scaleIn;
+}
+
+#bottomBanner{
+  background-color: rgba(0, 153, 255, 0.5);
+  width: 100%;
+  position: absolute;
+  bottom: -3.5rem;
+  border-radius: 1rem;
+  height: 45px;
+  transition: width 5s ease;
+}
+
+@keyframes scaleIn {
+  0% {
+    transform: scaleX(1) scaleY(1) translateY(200%);
+  }
+  60%{
+    transform: scaleY(1.2) scaleX(0.8) translateY(-10%);
+  }
+  80%{
+    transform: scaleY(0.9) scaleX(1.1) translateY(3%);
+  }
+  100% {
+    transform: scaleX(1) scaleY(1) translateY(0);
+  }
+}
+
+@keyframes scaleOut {
+  0% {
+    transform: scaleX(1) scaleY(1);
+    width: 100%;
+  }
+  100%{
+    transform: scaleX(0) scaleY(0);
+    width: 0%;
+  }
+}
