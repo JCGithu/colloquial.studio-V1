@@ -65,7 +65,6 @@ function roleBlockUpdate(role, roleUsers){
 function addSprite(roleData, user, role, roleUsers){
   let roleBox = document.getElementById(role);
   if (roleBox.querySelectorAll('.spriteBox').length >= 5) {
-    console.log('more than 5!');
     roleBox.getElementsByClassName("blockNum")[0].innerHTML = `<h1>${roleUsers}</h1><p>${guilds[role].name}</p>`;
     return;
   }
@@ -114,10 +113,7 @@ async function countUsers(data){
 
 function roleGlow(role, roleUsers){
   let glow = 'drop-shadow(5px 5px 5px rgba(34, 34, 34, 0.5))'
-  if (roleUsers >= 5) {
-    console.log('SHould be glowin!')
-    glow = 'drop-shadow(0px 0px 9px #01BFFF)';
-  }
+  if (roleUsers >= 5) glow = 'drop-shadow(0px 0px 9px #01BFFF)';
   let roleBox = document.getElementById(role);
   let imgs = roleBox.querySelectorAll('.sprite');
   for (img in imgs) {
@@ -131,7 +127,6 @@ async function dataUpdate(data){
   for (let role in data){
     let roleData = data[role];
     let roleUsers = await countUsers(roleData);
-    console.log(roleUsers);
     if (roleUsers == 0){
       if(document.getElementById(role)) gallery.removeChild(document.getElementById(role));
       continue;
