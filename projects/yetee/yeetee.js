@@ -26,18 +26,21 @@ let guilds = {
   "401448428284018709": {
     src:"./RightClickNinja.png",
     name: 'Yetee Artist!'
+  },
+  "772498414553792522": {
+    src: "./VectorKnight.png",
+    name: 'JACK TEST',
   }
 }
 
-async function callAPI(){
-  var response = await fetch(`https://yeetee-discord.herokuapp.com/`);
-  var body = await response.json();
-  return body;
-}
+//const socket = io('ws://localhost:500');
+const socket = io('https://yeetee-discord.herokuapp.com/');
 
-const dom = {
-  gallery: document.getElementById('gallery')
-}
+socket.on("connect_error", (err) => {
+  console.log(`connect_error due to ${err.message}`);
+});
+
+const gallery = document.getElementById('gallery')
 
 function addBlock(role){
   let block = document.createElement('div');
@@ -47,20 +50,22 @@ function addBlock(role){
   blockNum.id = `num${role}`;
   blockNum.classList.add('blockNum');
   block.appendChild(blockNum);
-  dom.gallery.appendChild(block);
+  gallery.appendChild(block);
 }
 
 function roleBlockUpdate(role, roleUsers){
   let roleBox = document.getElementById(role);
   let spriteCount = roleBox.querySelectorAll('.spriteBox').length;
   roleBox.style.width = `${150+ ((spriteCount -1) * 40)}px`;
+  console.log( `roleUsers is ${roleUsers}`);
   roleBox.getElementsByClassName("blockNum")[0].innerHTML = `<h1>${roleUsers}</h1><p>${guilds[role].name}</p>`;
   console.log(`there are ${spriteCount} elements`);
 }
 
 function addSprite(roleData, user, role, roleUsers){
   let roleBox = document.getElementById(role);
-  if (roleBox.querySelectorAll('.spriteBox').length > 10) {
+  if (roleBox.querySelectorAll('.spriteBox').length >= 5) {
+    console.log('more than 5!');
     roleBox.getElementsByClassName("blockNum")[0].innerHTML = `<h1>${roleUsers}</h1><p>${guilds[role].name}</p>`;
     return;
   }
@@ -91,8 +96,8 @@ function removeSprite(user, roleData, role, roleUsers){
   ],
     { duration: removeTime, fill: 'forwards' }
   );
-  console.log(`Removing ${user}, their status is now ${roleData[user].status}`);
-  setTimeout((roleUsers)=> {
+  console.log(`Removing ${user}, their status is now ${roleData[user].status}, ${roleUsers} left!`);
+  setTimeout(() => {
     let roleBox = document.getElementById(role);
     roleBox.removeChild(targetUser);
     roleBlockUpdate(role, roleUsers);
@@ -107,15 +112,28 @@ async function countUsers(data){
   return roleUsers;
 }
 
-async function dataUpdate(){
-  let data = await callAPI();
+function roleGlow(role, roleUsers){
+  let glow = 'drop-shadow(5px 5px 5px rgba(34, 34, 34, 0.5))'
+  if (roleUsers >= 5) {
+    console.log('SHould be glowin!')
+    glow = 'drop-shadow(0px 0px 9px #01BFFF)';
+  }
+  let roleBox = document.getElementById(role);
+  let imgs = roleBox.querySelectorAll('.sprite');
+  for (img in imgs) {
+    if(!imgs[img]) continue;
+    imgs[img].style.filter = glow;
+  }
+}
+
+async function dataUpdate(data){
   console.log(data);
   for (let role in data){
     let roleData = data[role];
     let roleUsers = await countUsers(roleData);
     console.log(roleUsers);
     if (roleUsers == 0){
-      if(document.getElementById(role)) dom.gallery.removeChild(document.getElementById(role));
+      if(document.getElementById(role)) gallery.removeChild(document.getElementById(role));
       continue;
     }
     if(!document.getElementById(role)) addBlock(role);
@@ -126,13 +144,12 @@ async function dataUpdate(){
         removeSprite(user, roleData, role, roleUsers);
         continue;
       }
-      if (roleData[user].status === 'online' && !showing) addSprite(roleData, user, role, roleUsers);
+      if (roleData[user].status === 'online' && !showing) {
+        addSprite(roleData, user, role, roleUsers);
+      }
     }
+    roleGlow(role, roleUsers)
   }
 }
 
-dataUpdate();
-
-setInterval(async() => {
-  dataUpdate();
-}, 10000);
+socket.on('message', event => dataUpdate(event));

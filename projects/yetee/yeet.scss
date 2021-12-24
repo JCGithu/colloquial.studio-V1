@@ -63,8 +63,8 @@ img {
     font-size: smaller;
     align-self: end;
   }
-  color: #fff;
-  text-shadow: 2px 2px 2px #053CB1;
+  color: #F9FAFF;
+  text-shadow: 2px 2px 2px #242450;
   left: 1rem;
   bottom: -2.5rem;
   z-index: 40;
@@ -79,10 +79,11 @@ img {
 .sprite{
   width: 150px;
   animation: 1s ease-in-out 0s 1 scaleIn;
+  transition: filter 1s ease-in-out;
 }
 
 #bottomBanner{
-  background: linear-gradient(180deg, #00d2ff 0%, #3a47d5 100%);
+  background: linear-gradient(180deg, #01bfff 0%, #0B48B4 70%, #3F4BE4 100%);
   opacity: 1;
   width: 100%;
   position: absolute;
