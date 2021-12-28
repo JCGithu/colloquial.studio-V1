@@ -7,6 +7,10 @@ const m = urlParams.get('message');
 const i = urlParams.get('gif');
 const c = urlParams.get('colour');
 
+const r = urlParams.get('r');
+const g = urlParams.get('g');
+const b = urlParams.get('b');
+
 img.src = './eventBox/ewok.gif';
 
 if (t) {
@@ -15,7 +19,7 @@ if (t) {
   console.log(space);
   textWrapper.style.letterSpacing = `${space}rem`
 }
-if (c) textWrapper.style.backgroundColor = c;
+if (r) textWrapper.style.backgroundColor = `rgba(${r},${g},${b},0.7)`;
 if (m) message.innerHTML = m;
 if (i) img.src = `./eventBox/${i}.gif`;
 textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
