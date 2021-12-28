@@ -19,7 +19,7 @@ if (t) {
   console.log(space);
   textWrapper.style.letterSpacing = `${space}rem`
 }
-if (r) textWrapper.style.backgroundColor = `rgba(${r},${g},${b},0.7)`;
+if (r) textWrapper.style.backgroundColor = `rgba(${r},${g},${b},1)`;
 if (m) message.innerHTML = m;
 if (i) img.src = `./eventBox/${i}.gif`;
 textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
