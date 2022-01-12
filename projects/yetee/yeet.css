@@ -96,111 +96,11 @@ img {
   z-index: 20;
 }
 
-.spriteBox:nth-child(11) {
-  left: 360px !important;
-  z-index: 19;
-}
-
-.spriteBox:nth-child(12) {
-  left: 400px !important;
-  z-index: 18;
-}
-
-.spriteBox:nth-child(13) {
-  left: 440px !important;
-  z-index: 17;
-}
-
-.spriteBox:nth-child(14) {
-  left: 480px !important;
-  z-index: 16;
-}
-
-.spriteBox:nth-child(15) {
-  left: 520px !important;
-  z-index: 15;
-}
-
-.spriteBox:nth-child(16) {
-  left: 560px !important;
-  z-index: 14;
-}
-
-.spriteBox:nth-child(17) {
-  left: 600px !important;
-  z-index: 13;
-}
-
-.spriteBox:nth-child(18) {
-  left: 640px !important;
-  z-index: 12;
-}
-
-.spriteBox:nth-child(19) {
-  left: 680px !important;
-  z-index: 11;
-}
-
-.spriteBox:nth-child(20) {
-  left: 720px !important;
-  z-index: 10;
-}
-
-.spriteBox:nth-child(21) {
-  left: 760px !important;
-  z-index: 9;
-}
-
-.spriteBox:nth-child(22) {
-  left: 800px !important;
-  z-index: 8;
-}
-
-.spriteBox:nth-child(23) {
-  left: 840px !important;
-  z-index: 7;
-}
-
-.spriteBox:nth-child(24) {
-  left: 880px !important;
-  z-index: 6;
-}
-
-.spriteBox:nth-child(25) {
-  left: 920px !important;
-  z-index: 5;
-}
-
-.spriteBox:nth-child(26) {
-  left: 960px !important;
-  z-index: 4;
-}
-
-.spriteBox:nth-child(27) {
-  left: 1000px !important;
-  z-index: 3;
-}
-
-.spriteBox:nth-child(28) {
-  left: 1040px !important;
-  z-index: 2;
-}
-
-.spriteBox:nth-child(29) {
-  left: 1080px !important;
-  z-index: 1;
-}
-
-.spriteBox:nth-child(30) {
-  left: 1120px !important;
-  z-index: 0;
-}
-
 .spriteName {
   position: absolute;
   z-index: 20;
   color: red;
-  font-family: 'Poppins';
+  font-family: 'Open Sans';
   font-weight: bold;
   visibility: hidden;
 }
@@ -208,7 +108,7 @@ img {
 .blockNum {
   position: absolute;
   font-weight: bold;
-  font-family: 'Poppins';
+  font-family: 'Open Sans';
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -217,15 +117,15 @@ img {
       -ms-flex-direction: row;
           flex-direction: row;
   color: #F9FAFF;
-  text-shadow: 2px 2px 2px #242450;
+  text-shadow: 1px 1px 0px var(--shadow), 2px 2px 0px var(--shadow), 3px 3px 0.5px var(--shadow);
   left: 1rem;
-  bottom: -2.5rem;
+  bottom: -2.35rem;
   z-index: 40;
 }
 
 .blockNum h1 {
   font-size: xx-large;
-  padding-right: 1rem;
+  padding-right: 0.25rem;
 }
 
 .blockNum p {
@@ -233,6 +133,7 @@ img {
   -ms-flex-item-align: end;
       -ms-grid-row-align: end;
       align-self: end;
+  white-space: nowrap;
 }
 
 .scaleOut {
@@ -255,9 +156,7 @@ img {
   transition: filter 1s ease-in-out, -webkit-filter 1s ease-in-out;
 }
 
-#bottomBanner {
-  background: -webkit-gradient(linear, left top, left bottom, from(#01bfff), color-stop(70%, #0B48B4), to(#3F4BE4));
-  background: linear-gradient(180deg, #01bfff 0%, #0B48B4 70%, #3F4BE4 100%);
+.bottomBanner {
   opacity: 1;
   width: 100%;
   position: absolute;

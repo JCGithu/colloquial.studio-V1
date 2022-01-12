@@ -32,7 +32,7 @@ img {
       visibility: visible !important;
     }
   }
-  @for $i from 1 through 30 {
+  @for $i from 1 through 10 {
     &:nth-child(#{$i}) {
       left: #{($i - 2) * 40}px !important;
       z-index: #{30 - $i};
@@ -44,7 +44,7 @@ img {
   position: absolute;
   z-index: 20;
   color: red;
-  font-family: 'Poppins';
+  font-family: 'Open Sans';
   font-weight: bold;
   visibility: hidden;
 }
@@ -52,21 +52,22 @@ img {
 .blockNum{
   position: absolute;
   font-weight: bold;
-  font-family: 'Poppins';
+  font-family: 'Open Sans';
   h1{
     font-size: xx-large;
-    padding-right: 1rem;
+    padding-right: 0.25rem;
   }
   display: flex;
   flex-direction: row;
   p {
     font-size: smaller;
     align-self: end;
+    white-space: nowrap;
   }
   color: #F9FAFF;
-  text-shadow: 2px 2px 2px #242450;
+  text-shadow: 1px 1px 0px var(--shadow), 2px 2px 0px var(--shadow) , 3px 3px 0.5px var(--shadow);
   left: 1rem;
-  bottom: -2.5rem;
+  bottom: -2.35rem;
   z-index: 40;
 }
 
@@ -82,8 +83,8 @@ img {
   transition: filter 1s ease-in-out;
 }
 
-#bottomBanner{
-  background: linear-gradient(180deg, #01bfff 0%, #0B48B4 70%, #3F4BE4 100%);
+.bottomBanner{
+  //background: linear-gradient(180deg, #01bfff 0%, #0B48B4 70%, #3F4BE4 100%);
   opacity: 1;
   width: 100%;
   position: absolute;
