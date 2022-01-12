@@ -136,7 +136,7 @@ async function countUsers(data){
 
 function roleGlow(role, roleUsers){
   let glow = 'filter: drop-shadow(5px 5px 5px rgba(34, 34, 34, 0.5))'
-  if (roleUsers >= 5) glow = 'filter: drop-shadow(0px 0px 9px #01BFFF)';
+  if (roleUsers >= 5) glow = 'filter: drop-shadow(0px 0px 9px var(--shadow))';
   let roleBox = document.getElementById(role);
   let imgs = roleBox.querySelectorAll('.sprite');
   for (img in imgs) {
