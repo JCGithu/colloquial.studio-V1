@@ -11,7 +11,7 @@ body{
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  background-color: #fe60558f;
+  background-color: var(--user);
   position: relative;
   border-radius: 2rem;
   transform: translateY(-200%);

@@ -1,6 +1,7 @@
 let textWrapper = document.querySelector('.title');
 let message = document.getElementById('message');
 let img = document.getElementById('img');
+let box = document.getElementById('theBox');
 const urlParams = new URLSearchParams(window.location.search);
 const t = urlParams.get('target');
 const m = urlParams.get('message');
@@ -19,9 +20,14 @@ if (t) {
   console.log(space);
   textWrapper.style.letterSpacing = `${space}rem`
 }
-if (r) textWrapper.style.backgroundColor = `rgba(${r},${g},${b},1)`;
+//if (r) textWrapper.style.backgroundColor = `rgba(${r},${g},${b},1)`;
 if (m) message.innerHTML = m;
 if (i) img.src = `./eventBox/${i}.gif`;
+if (r) {
+  box.style.setProperty('--user', `rgba(${r},${g},${b},1)`);
+} else {
+  box.style.setProperty('--user', '#fe5f55');
+}
 textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 
 

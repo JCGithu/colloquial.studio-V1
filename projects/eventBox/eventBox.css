@@ -27,7 +27,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  background-color: #fe60558f;
+  background-color: var(--user);
   position: relative;
   border-radius: 2rem;
   -webkit-transform: translateY(-200%);
