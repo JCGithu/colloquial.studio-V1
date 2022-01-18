@@ -46,12 +46,6 @@ const data = [
     id: "channel",
     type: "text",
   },
-/*   {
-    title: 'Font',
-    id: 'font',
-    type: 'select',
-    options: ['Poppins', 'Arial', 'Garamond', 'Courier New'],
-  }, */
   {
     title: 'Align',
     id: 'align',

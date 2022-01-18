@@ -59,9 +59,11 @@ async function loadDashboard(settings, data){
       div.innerHTML = `<h2>${obj.title}</h2>`;
       let select = document.createElement('select');
       select.classList.add('dashInput');
+      select.id = obj.id;
       for (let o in obj.options){
         let option = document.createElement("option");
         option.text = obj.options[o];
+        option.value = obj.options[o];
         option.style.fontFamily = `${obj.options[o]} !important`;
         select.add(option);
       }
@@ -107,6 +109,7 @@ async function loadDashboard(settings, data){
   for (var t = 0; t < trackers.length; t++) {
     let title = trackers[t].id
     trackers[t].addEventListener('change', (evt) => {
+      console.log('change and value is ' + evt.target.value);
       if (evt.target.type === 'checkbox'){
         let box = document.getElementById(evt.target.id);
         settings.url[title] = box.checked;

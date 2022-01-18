@@ -108,7 +108,7 @@ client.connect();
 
 function removeTop(chatDiv) {
   let display = chatDiv.getBoundingClientRect();
-  if (display.y + display.height > window.innerHeight - 10) {
+  if (display.y + display.height > window.innerHeight - 60) {
     document.querySelector('.chatbox').remove();
     removeTop(chatDiv);
   }
