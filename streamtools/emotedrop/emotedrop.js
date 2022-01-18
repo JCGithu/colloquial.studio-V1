@@ -1,6 +1,6 @@
 document.body.style.backgroundColor = 'rgba(0,0,0,0)';
 
-function runDrop(u,b,s,e,l,t){
+function runDrop({u,b,s,e,l,t}){
   let show = document.getElementById('show');
   document.body.removeChild(show);
   const client = new tmi.Client({

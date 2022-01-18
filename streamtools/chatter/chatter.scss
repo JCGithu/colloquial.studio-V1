@@ -1,0 +1,77 @@
+@font-face {
+    font-family:"Poppins";
+    src: url('../../fonts/Poppins-Bold.otf') format("truetype");
+    font-weight: bold;
+}
+@font-face {
+    font-family:"Poppins";
+    src: url('../../fonts/Poppins-Medium.otf') format("truetype");
+    font-weight: medium;
+}
+
+@font-face {
+    font-family:"Poppins";
+    src: url('../../fonts/Poppins-Regular.otf') format("truetype");
+    font-weight: normal;
+}
+
+/* html{
+    font-size: x-large;
+    border-radius: 1rem;
+    font-family: 'Poppins', sans-serif;
+} */
+
+body{
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+#chatBoundary{
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    //background-color: rgba(0,0,0,0.3);
+    height: 94vh;
+    padding: 0.5rem;
+}
+
+.emote{
+    height: 1.1rem;
+    margin-bottom: -0.1rem;
+    display: flex;
+}
+
+.chatbox{
+    display: inline-block;
+    width: max-content;
+    max-width: 90vw;
+    border-radius: 0.5rem;
+    margin: 2.5px 10px 2.5px 10px;
+    font-weight: normal;
+    padding: 5px 15px 5px 10px;
+    overflow-wrap: break-word;
+    font-family: 'Poppins', sans-serif;
+    background-color: #262d36;
+    animation: shadow-pop-br 0.3s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+    .chatName{
+        font-weight: bold;
+    }
+}
+
+$shadow: #2a313b;
+
+@keyframes shadow-pop-br {
+    0%{
+        box-shadow: 0 0, 0 0, 0 0 , 0 0 , 0 0 , 0 0 , 0 0 , 0 0;
+        transform: translateX(0) translateY(0);
+        opacity: 0%;
+    }
+    10%{
+        opacity: 100%;
+    }
+    100% {
+        box-shadow: 1px 1px, 2px 2px, 3px 3px, 4px 4px, 5px 5px, 6px 6px, 7px 7px, 8px 8px;
+        transform: translateX(-8px) translateY(-8px);
+    }
+}

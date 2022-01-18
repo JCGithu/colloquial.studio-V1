@@ -1,9 +1,9 @@
 module.exports = {
-  content: ['./*.{html,js}'],
+  content: ['./*.{html,js}', './streamtools/*.{html,js}'],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins'],
+        sans: ['Poppins', 'Open Sans'],
       }
     },
   },

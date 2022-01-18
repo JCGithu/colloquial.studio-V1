@@ -7,20 +7,18 @@
 }
 
 .clippy-balloon {
-
     background: #FFC;
     color: black;
-    padding: 8px;
+    padding: 9px;
     border: 1px solid black;
     border-radius: 5px;
-
 }
 
 .clippy-content {
     max-width: 200px;
     min-width: 120px;
     font-family: "Microsoft Sans", sans-serif;
-    font-size: 10pt;
+    font-size: 9pt;
 }
 
 .clippy-tip {

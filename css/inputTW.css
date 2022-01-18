@@ -12,10 +12,17 @@
 }
 
 @font-face {
-  font-family:"Poppins";
-  src: url('../fonts/Poppins-Regular.otf') format("truetype");
+  font-family:"Open Sans";
+  src: url('../fonts/OpenSans-Regular.otf') format("truetype");
   font-weight: normal;
 }
+
+@font-face {
+  font-family:"Open Sans";
+  src: url('../fonts/OpenSans-Bold.otf') format("truetype");
+  font-weight: bold;
+}
+
 
 @tailwind base;
 @tailwind components;

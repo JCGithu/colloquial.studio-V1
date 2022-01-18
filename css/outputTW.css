@@ -17,11 +17,19 @@
 }
 
 @font-face {
-  font-family:"Poppins";
+  font-family:"Open Sans";
 
-  src: url('../fonts/Poppins-Regular.otf') format("truetype");
+  src: url('../fonts/OpenSans-Regular.otf') format("truetype");
 
   font-weight: normal;
+}
+
+@font-face {
+  font-family:"Open Sans";
+
+  src: url('../fonts/OpenSans-Bold.otf') format("truetype");
+
+  font-weight: bold;
 }
 
 /*
@@ -68,7 +76,7 @@ html {
   -o-tab-size: 4;
      tab-size: 4;
   /* 3 */
-  font-family: Poppins;
+  font-family: Poppins, Open Sans;
   /* 4 */
 }
 
@@ -600,12 +608,21 @@ Ensure the default browser behavior of the `hidden` attribute.
   padding-bottom:0.25rem;
 }
 
+.pt-4{
+  padding-top:1rem;
+}
+
 .text-center{
   text-align:center;
 }
 
 .align-middle{
   vertical-align:middle;
+}
+
+.text-4xl{
+  font-size:2.25rem;
+  line-height:2.5rem;
 }
 
 .text-sm{
@@ -618,9 +635,9 @@ Ensure the default browser behavior of the `hidden` attribute.
   line-height:2rem;
 }
 
-.text-4xl{
-  font-size:2.25rem;
-  line-height:2.5rem;
+.text-lg{
+  font-size:1.125rem;
+  line-height:1.75rem;
 }
 
 .text-xl{
@@ -634,6 +651,14 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .font-light{
   font-weight:300;
+}
+
+.font-extrabold{
+  font-weight:800;
+}
+
+.font-medium{
+  font-weight:500;
 }
 
 .font-semibold{
@@ -680,12 +705,12 @@ Ensure the default browser behavior of the `hidden` attribute.
   transition-duration:150ms;
 }
 
-.duration-1000{
-  transition-duration:1000ms;
-}
-
 .duration-300{
   transition-duration:300ms;
+}
+
+.duration-1000{
+  transition-duration:1000ms;
 }
 
 @layer {
@@ -821,11 +846,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   --tw-scale-x:1.1;
   --tw-scale-y:1.1;
   transform:var(--tw-transform);
-}
-
-.hover\:text-xl:hover{
-  font-size:1.25rem;
-  line-height:1.75rem;
 }
 
 .hover\:text-lg:hover{

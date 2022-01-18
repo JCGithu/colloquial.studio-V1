@@ -3,31 +3,25 @@ let message = document.getElementById('message');
 let img = document.getElementById('img');
 let box = document.getElementById('theBox');
 const urlParams = new URLSearchParams(window.location.search);
-const t = urlParams.get('target');
-const m = urlParams.get('message');
-const i = urlParams.get('gif');
-const c = urlParams.get('colour');
+const params = {
+  t: urlParams.get('target'),
+  m: urlParams.get('message'),
+  i: urlParams.get('gif'),
+  c: urlParams.get('colour') || 'fe5f55'
+}
 
-const r = urlParams.get('r');
-const g = urlParams.get('g');
-const b = urlParams.get('b');
+img.src = params.i || './eventBox/ewok.gif';
 
-img.src = './eventBox/ewok.gif';
-
-if (t) {
-  textWrapper.innerHTML = t;
-  let space = 1 - (t.length * 0.05);
+if (params.t) {
+  textWrapper.innerHTML = params.t;
+  let space = 1 - (params.t.length * 0.05); 
   console.log(space);
   textWrapper.style.letterSpacing = `${space}rem`
 }
 //if (r) textWrapper.style.backgroundColor = `rgba(${r},${g},${b},1)`;
-if (m) message.innerHTML = m;
-if (i) img.src = `./eventBox/${i}.gif`;
-if (r) {
-  box.style.setProperty('--user', `rgba(${r},${g},${b},1)`);
-} else {
-  box.style.setProperty('--user', '#fe5f55');
-}
+if (params.m) message.innerHTML = params.m;
+if (params.i) img.src = `./eventBox/${params.i}.gif`;
+box.style.setProperty('--user', `#${params.c}`);
 textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
 
 

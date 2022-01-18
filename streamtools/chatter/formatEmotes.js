@@ -36,7 +36,7 @@ function formatEmotes(text, emotes, bttvEmoteCache) {
                 splitText.splice(
                 mote[0],
                 1,
-                `<img class="emoticon" src="http://static-cdn.jtvnw.net/emoticons/v2/${i}/default/light/3.0">`
+                `<img class="emote" src="http://static-cdn.jtvnw.net/emoticons/v2/${i}/default/light/3.0">`
                 );
             }
         }
@@ -46,7 +46,7 @@ function formatEmotes(text, emotes, bttvEmoteCache) {
       for (let i in target){
         bttvEmoteCache.forEach(element => {
           if (target[i] === element.code){
-            target[i] = `<img src="https://cdn.betterttv.net/emote/${element.id}/3x"></img>`;
+            target[i] = `<img class='emote' src="https://cdn.betterttv.net/emote/${element.id}/3x"></img>`;
           }
         });
       }
