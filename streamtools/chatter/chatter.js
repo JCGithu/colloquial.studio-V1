@@ -41,6 +41,8 @@ if (params.align) {
   bound.style.alignItems = params.align;
 }
 
+if (params.font) bound.style.fontFamily = params.font;
+
 //document.body.style.fontSize = 'xx-large'
 
 /*
@@ -107,7 +109,8 @@ client.connect();
 
 function removeTop(chatDiv) {
   let display = chatDiv.getBoundingClientRect();
-  if (display.y + display.height > window.innerHeight - 60) {
+  console.log(display.y, display.height, window.innerHeight)
+  if (display.y >= window.innerHeight - (display.height * 1.5)) {
     document.querySelector('.chatbox').remove();
     removeTop(chatDiv);
   }
@@ -139,7 +142,8 @@ function postBox(channel, tags, message, self, italics){
   let chatBubble = document.createElement('div');
   if (params.chatcolour) chatBubble.style.backgroundColor = `#${params.chatcolour}`
   let emotes = formatEmotes(message, tags.emotes, bttvEmoteCache);
-  let chatName = document.createElement('span');
+  let chatName = document.createElement('div');
+  chatName.classList.add('chatPart');
   chatName.innerHTML = `<b>${tags.username}: </b>`;
 
   if (!tags.color || tags.color === '#FFFFFF' || !params.togglecol) tags.color = params.highcolour;
@@ -160,9 +164,10 @@ function postBox(channel, tags, message, self, italics){
     })
   }
 
-  let chatText = document.createElement('span');
+  let chatText = document.createElement('div');
+  chatText.classList.add('chatPart');
   chatText.style.color = params.fontcolour;
-  chatText.style.fontFamily = 'Poppins';
+  //chatText.style.fontFamily = 'Poppins';
   chatText.innerHTML = emotes;
   chatBubble.classList.add('chatbox');
   chatBubble.appendChild(chatName);
