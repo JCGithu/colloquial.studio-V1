@@ -36,7 +36,7 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   border-radius: 1rem;
-  height: 94vh;
+  height: 96vh;
   padding: 1rem 0.5rem;
   overflow: hidden;
 }
