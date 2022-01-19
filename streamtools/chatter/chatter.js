@@ -47,13 +47,11 @@ if (params.align) {
 
 if (params.font) bound.style.fontFamily = params.font;
 
-//document.body.style.fontSize = 'xx-large'
-
-/*
-font: urlParams.get('font'),
-align: urlParams.get('align'),
-togglecol: urlParams.get('togglecol'),
-*/
+if (params.fontsize) {
+  let hmm = document.querySelector('html');
+  let fontRange = ['smaller', 'small', 'regular', 'large', 'larger', 'x-large', 'xx-large', 'xxx-large']
+  hmm.style.fontSize = fontRange[params.fontsize];
+}
 
 async function loadJSON(file) {
   return new Promise(function(resolve, reject){

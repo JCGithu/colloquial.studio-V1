@@ -3,6 +3,7 @@ const params = {
   u: urlParams.get('channel'),
   font: urlParams.get('font'),
   align: urlParams.get('align'),
+  fontsize: urlParams.get('fontsize'),
   chatcolour: urlParams.get('chatcolour'),
   highcolour: urlParams.get('highcolour'),
   bgcolour: urlParams.get('bgcolour'),
@@ -20,8 +21,9 @@ var bttvEmoteCache = [];
 const settings = {
   base: 'https://colloquial.studio/streamtools/chatter?',
   url: {
-    channel: "",
+    channel: "na",
     font: 'Poppins',
+    fontsize: 2,
     align: 'left',
     chatcolour: '262d36',
     highcolour: '525be1',
@@ -36,7 +38,11 @@ const settings = {
   },
   title: "Chatter!",
   tag: `Made on stream over at <a class="underline" href="https://twitch.tv/colloquialowl">ColloquialOwl</a>.`,
-  description: `Please input the channel of the Twitch chat you want to read.<br> After picking your settings you can find the URL to put into OBS at the bottom!<br><br><i>Custom fonts coming eventually</i>`,
+  description: `
+    Please input the channel of the Twitch chat you want to read.<br>
+    After picking your settings you can find the URL to put into OBS at the bottom!<br><br>
+    <i>Channel Name is the only info required for it to work!</i>
+    `,
 }
 
 const data = [
@@ -47,10 +53,25 @@ const data = [
     type: "text",
   },
   {
+    title: 'Custom Font',
+    subtitle: 'Currently: Poppins. You will need to put the exact font name installed on your computer',
+    placeholder: 'Poppins',
+    id: "font",
+    type: "text",
+  },
+  {
     title: 'Align',
     id: 'align',
     type: 'select',
     options: ['Left', 'Center', 'Right'],
+  },
+  {
+    title: "Font Size",
+    id: "fontsize",
+    type: 'range',
+    min: 0,
+    max: 7,
+    value: 2,
   },
   {
     title: 'Default chat bubble colour',
