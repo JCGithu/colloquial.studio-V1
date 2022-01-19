@@ -305,9 +305,11 @@ button {
   text-align: left;
   position: relative;
   z-index: 3;
+  overflow-y: auto;
   @include inputStyles;
+  @include scrollbar;
   input {
-    margin-top: 1rem;
+    margin-top: 0.4rem;
     background-color: $black !important;
     border-color: $deepBlue;
     color: $white !important;
@@ -321,11 +323,14 @@ button {
       box-shadow: inset 0px -207px 0px -200px $deepBlue !important;
     }
   }
+  h2{
+    margin-top: 0.3rem; 
+  }
   p {
     color: $black;
     text-align: justify;
     overflow-y: auto;
-    max-height: 50vh;
+    //max-height: 35vh;
     padding: 0.2rem 0.2rem 2rem 0;
     a {
       color: $purple;
@@ -342,10 +347,6 @@ button {
       word-break: normal;
       border-radius: 5px;
     }
-    @include scrollbar();
-  }
-  h2{
-    margin-top: 1rem;
   }
   @media only screen and (max-width:$breakpoint) { 
     border-radius: 0rem 0rem 2rem 2rem;

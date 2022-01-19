@@ -124,6 +124,7 @@ button:hover {
   text-align: left;
   position: relative;
   z-index: 3;
+  overflow-y: auto;
 }
 
 #DashTitle input {
@@ -309,8 +310,31 @@ button:hover {
           box-shadow: 0px 0px 10px inset rgba(251, 245, 235, 0.5);
 }
 
+#DashTitle::-webkit-scrollbar-track {
+  background-clip: padding-box;
+  border-radius: 100px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding-right: 0.5rem;
+  margin: 1rem;
+  width: 10px;
+  border: 8px solid rgba(0, 0, 0, 0);
+}
+
+#DashTitle::-webkit-scrollbar {
+  width: 25px;
+  background-color: rgba(0, 0, 0, 0);
+  margin-right: 1rem;
+}
+
+#DashTitle::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  border: 8px solid rgba(0, 0, 0, 0);
+  background-color: #803cff;
+  background-clip: padding-box;
+}
+
 #DashTitle input {
-  margin-top: 1rem;
+  margin-top: 0.4rem;
   background-color: #0a122a !important;
   border-color: #525be1;
   color: #fbf5eb !important;
@@ -333,11 +357,14 @@ button:hover {
           box-shadow: inset 0px -207px 0px -200px #525be1 !important;
 }
 
+#DashTitle h2 {
+  margin-top: 0.3rem;
+}
+
 #DashTitle p {
   color: #0a122a;
   text-align: justify;
   overflow-y: auto;
-  max-height: 50vh;
   padding: 0.2rem 0.2rem 2rem 0;
 }
 
@@ -356,33 +383,6 @@ button:hover {
   letter-spacing: -0.05em;
   word-break: normal;
   border-radius: 5px;
-}
-
-#DashTitle p::-webkit-scrollbar-track {
-  background-clip: padding-box;
-  border-radius: 100px;
-  background-color: rgba(255, 255, 255, 0.7);
-  padding-right: 0.5rem;
-  margin: 1rem;
-  width: 10px;
-  border: 8px solid rgba(0, 0, 0, 0);
-}
-
-#DashTitle p::-webkit-scrollbar {
-  width: 25px;
-  background-color: rgba(0, 0, 0, 0);
-  margin-right: 1rem;
-}
-
-#DashTitle p::-webkit-scrollbar-thumb {
-  border-radius: 100px;
-  border: 8px solid rgba(0, 0, 0, 0);
-  background-color: #803cff;
-  background-clip: padding-box;
-}
-
-#DashTitle h2 {
-  margin-top: 1rem;
 }
 
 @media only screen and (max-width: 900px) {
