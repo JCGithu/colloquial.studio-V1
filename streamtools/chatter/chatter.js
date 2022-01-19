@@ -36,9 +36,8 @@ if (params.hidebot) params.hidebot = splitList(params.hidebot);
 if (params.hidecom) params.hidecom = splitList(params.hidecom);
 
 if (params.align) {
-  if (params.align === 'left') params.align = 'flex-start';
-  if (params.align === 'right') params.align = 'flex-end';
-  console.log('we are aligning');
+  if (params.align === 'Left' || params.align === 'left') params.align = 'flex-start';
+  if (params.align === 'Right' || params.align === 'right') params.align = 'flex-end';
   bound.style.alignItems = params.align;
 }
 

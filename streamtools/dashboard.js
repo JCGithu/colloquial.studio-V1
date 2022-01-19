@@ -59,6 +59,7 @@ async function loadDashboard(settings, data){
       div.innerHTML = `<h2>${obj.title}</h2>`;
       let select = document.createElement('select');
       select.classList.add('dashInput');
+      select.classList.add('urlBuild');
       select.id = obj.id;
       for (let o in obj.options){
         let option = document.createElement("option");
@@ -133,6 +134,9 @@ async function loadDashboard(settings, data){
     trackers[t].addEventListener('keyup', (evt) => {
       settings.url[title] = evt.target.value;
       output.value = urlBuild(settings);
+    })
+    trackers[t].addEventListener('click', (evt) => {
+      console.log('woah you clicked ' + evt.target.id)
     })
   }
 
