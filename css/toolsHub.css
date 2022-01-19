@@ -42,16 +42,25 @@ p {
   background-color: #525be1;
   border-radius: 1rem;
   margin: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   color: #fbf5eb;
   -webkit-transition: 1s all;
   transition: 1s all;
   cursor: pointer;
 }
 
-.toolBubble:hover {
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+.toolBubble:nth-child(odd):hover {
+  -webkit-transform: scale(1.05) rotate(-1deg) translateX(3rem);
+          transform: scale(1.05) rotate(-1deg) translateX(3rem);
+  -webkit-box-shadow: 5px 5px 15px 10px #000000;
+          box-shadow: 5px 5px 15px 10px #000000;
+}
+
+.toolBubble:nth-child(even):hover {
+  -webkit-transform: scale(1.05) rotate(1deg) translateX(-3rem);
+          transform: scale(1.05) rotate(1deg) translateX(-3rem);
+  -webkit-box-shadow: 5px 5px 15px 10px #000000;
+          box-shadow: 5px 5px 15px 10px #000000;
 }
 
 .toolBubble * {

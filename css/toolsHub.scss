@@ -48,12 +48,21 @@ p{
   background-color: $deepBlue;
   border-radius: 1rem;
   margin: 0.5rem;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
   color: $white;
   transition: 1s all;
   cursor: pointer;
-  &:hover{
-    transform: scale(1.1);
+  &:nth-child(odd){
+    &:hover{
+      transform: scale(1.05) rotate(-1deg) translateX(3rem);
+      box-shadow: 5px 5px 15px 10px #000000;
+    }
+  }
+  &:nth-child(even){
+    &:hover{
+      transform: scale(1.05) rotate(1deg) translateX(-3rem);
+      box-shadow: 5px 5px 15px 10px #000000;
+    }
   }
   * {
     pointer-events: none;
@@ -63,5 +72,5 @@ p{
 .theToolBox{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding: 1rem;
+  padding: 1rem;  
 }
