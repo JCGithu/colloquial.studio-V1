@@ -13,8 +13,12 @@ function addAlpha(color, opacity) {
 
 if (params.bgcolour) bound.style.backgroundColor = `#${params.bgcolour}`;
 if (params.bgopacity) {
-  let alpha_ed = addAlpha(params.bgcolour, (parseInt(params.bgopacity) * 0.1))
-  bound.style.backgroundColor = `#${alpha_ed}`;
+  if (params.bgopacity === '0') {
+    bound.style.backgroundColor = `rgba(0,0,0,0)`;
+  } else {
+    let alpha_ed = addAlpha(params.bgcolour, (parseInt(params.bgopacity) * 0.1))
+    bound.style.backgroundColor = `#${alpha_ed}`;
+  }
 }
 
 if (params.highcolour) params.highcolour = `#${params.highcolour}`;
