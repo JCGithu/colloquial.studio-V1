@@ -51,6 +51,7 @@ body {
 
 .twitchBadge {
   padding: 0.1rem;
+  height: 1.1rem;
 }
 
 .chatbox {
@@ -61,6 +62,8 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
@@ -70,7 +73,6 @@ body {
   font-weight: normal;
   padding: 5px 15px 5px 10px;
   overflow-wrap: break-word;
-  font-family: 'Poppins', sans-serif;
   background-color: #262d36;
   -webkit-animation: shadow-pop-br 0.3s cubic-bezier(0.47, 0, 0.745, 0.715) both;
           animation: shadow-pop-br 0.3s cubic-bezier(0.47, 0, 0.745, 0.715) both;
@@ -79,9 +81,12 @@ body {
 .chatbox .chatName {
   font-weight: bold;
   padding-right: 0.3rem;
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
 }
 
-.chatbox span {
+.chatbox div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
