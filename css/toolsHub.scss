@@ -1,0 +1,67 @@
+// // Colours
+$white: #fbf5eb;
+$deepBlue: #525be1;
+$lightbeige: #FFECD2;
+$beige: #FED1B9;
+$darkbeige: #ffd69c;
+$deepPurple: #583098;
+$fadedPurple: #9b82c2;
+$purple: #803cff;
+$palepurple: #d4d1ff;
+$palepurple2: #f1ecff;
+$pink: #FF769A;
+$orange: #fcb69f;
+$black: #0a122a;
+
+
+html{ 
+  font-family: 'Poppins';
+  background-color: $black;
+  color: $white;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+body{
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+h2{
+  text-decoration: underline;
+  color: white;
+}
+
+p{
+  text-decoration: none !important;
+}
+
+.toolBubble{
+  background-color: $deepBlue;
+  border-radius: 1rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  color: $white;
+  transition: 1s all;
+  cursor: pointer;
+  &:hover{
+    transform: scale(1.1);
+  }
+  * {
+    pointer-events: none;
+  }
+}
+
+.theToolBox{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 1rem;
+}

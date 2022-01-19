@@ -4,13 +4,34 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./css/toolsHub.css" />
   <title>Stream Tools</title>
 </head>
 <body>
   <h1>Hi</h1>
   <p>This is a temp page just to list out the tools!</p>
-  <h2><a href="streamtools/emotedrop">Emote Drop</a></h2>
-  <h2><a href="streamtools/chatter">Chatter</a></h2>
-  <h2><a href="streamtools/clippy">Clippy</a></h2>
+  <div class="theToolBox">
+  <div class="toolBubble" id='emotedrop'>
+    <h2>Emote Drop</h2>
+    <p>Have your chat drop emotes onto your stream!</p>
+  </div>
+  <div class="toolBubble" id='chatter'>
+    <h2>Chatter</h2>
+    <p>Another chatbox overlay! Very customisable though...</p>
+  </div>
+  <div class="toolBubble" id='clippy'>
+    <h2>Clippy</h2>
+    <p>Clippy is back you say? He never left I say. Have your favourite Microsoft Word helper on-stream to welcome your chat and delight your visitors with his sultry charm.</p>
+  </div>
+</div>
+<script>
+  let boxes = document.getElementsByClassName('toolBubble');
+  for (let b in boxes){
+    if (typeof(boxes[b]) != 'object') continue;
+    boxes[b].addEventListener('click', (evt) => {
+      window.location.href = `streamtools/${evt.target.id}`;
+    })
+  }
+</script>
 </body>
 </html>
