@@ -14,12 +14,18 @@ const params = {
 if (params.pointID) params.pointID = params.pointID.replace(/_/g, '-');
 
 const settings = {
-  base: 'https://colloquial.studio/streamtools/clippy?',
+  base: 'https://colloquial.studio/streamtools/clock?',
   url: {
-    channel: "",
-    pointID: '',
-    welcome: 'true',
-    animate: 'true'
+    time: '',
+    format: '',
+    bg: '',
+    bgopacity: 1,
+    font: '',
+    fontcol: '',
+    align: '',
+    scale: 1,
+    padding: '',
+    timePadding: '',
   },
   title: "Clock",
   tag: `Made on stream over at <a class="underline" href="https://twitch.tv/colloquialowl">ColloquialOwl</a>.`,
@@ -112,7 +118,7 @@ const data = [
 ]
 
 
-if (params.u) {
+if (params.time) {
   loadScript('./clock/clock.js').then(()=>{
     console.log('laoding clock');
   })
