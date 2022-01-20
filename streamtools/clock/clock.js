@@ -1,7 +1,3 @@
-const clock = document.getElementById('clock');
-const frame = document.getElementById('frame');
-const timeText = document.getElementById('time');
-
 let frame = document.createElement('div');
 frame.id = 'frame';
 frame.style.height = '100vh',
