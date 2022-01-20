@@ -81,7 +81,8 @@ const data = [
   {
     title: "Font Colour",
     id: "fontcol",
-    type: "color"
+    type: "color",
+    value: '#2f3437',
   },
   {
     title: 'Align',
