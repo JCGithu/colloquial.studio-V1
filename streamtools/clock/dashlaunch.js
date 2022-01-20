@@ -1,9 +1,15 @@
 const urlParams = new URLSearchParams(window.location.search);
 const params = {
-  u: urlParams.get('channel'),
-  pointID: urlParams.get('pointID'),
-  welcome: urlParams.get('welcome'),
-  animate: urlParams.get('animate'),
+  time: urlParams.get('time'),
+  format: urlParams.get('format'),
+  bg: urlParams.get('bg'),
+  bgopacity: urlParams.get('bgopacity'),
+  font: urlParams.get('font'),
+  fontcol: urlParams.get('fontcol'),
+  align: urlParams.get('align'),
+  scale: urlParams.get('scale'),
+  padding: urlParams.get('padding'),
+  timePadding: urlParams.get('timePadding'),
 }
 if (params.pointID) params.pointID = params.pointID.replace(/_/g, '-');
 
@@ -54,7 +60,7 @@ const data = [
   },
   {
     title: 'Background Colour',
-    id: "bgcol",
+    id: "bg",
     type: "color",
     value: '#2f3437',
   },
@@ -65,6 +71,12 @@ const data = [
     min: 0,
     max: 10,
     value: 10,
+  },
+  {
+    title: "Font",
+    subtitle: 'Must be the exact name of font family installed on your computer',
+    id: "font",
+    type: 'text'
   },
   {
     title: "Font Colour",
@@ -79,6 +91,7 @@ const data = [
   },
   {
     title: 'Scale',
+    subtitle: 'The number will be a multiplier, so 2 will double the size.',
     id: "scale",
     value: 1,
     type: 'number'
