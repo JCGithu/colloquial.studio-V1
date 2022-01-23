@@ -37,22 +37,22 @@ toast.style.transform = "scale(0)"
 toast.id = 'toast';
 document.body.appendChild(toast);
 
-const client = new tmi.Client({
-  channels: [params.u]
-});
-let THEWORD = 'CUBED';
-if (params.word) THEWORD = params.word;
-
-client.on("connected", () => {
-  console.log('Reading from Twitch! ✅');
-  toast.innerHTML = `Connected to ${params.u} chat`;
-  toast.style.visibility = 'visible';
-  toast.style.transform = "scale(1)";
-  setTimeout(()=>{
-    toast.style.transform = "scale(0)";
-  }, 5000)
-})
-client.connect();
+if (params.u){
+  const client = new tmi.Client({
+    channels: [params.u]
+  });
+  client.on("connected", () => {
+    console.log('Reading from Twitch! ✅');
+    toast.innerHTML = `Connected to ${params.u} chat`;
+    toast.style.visibility = 'visible';
+    toast.style.transform = "scale(1)";
+    setTimeout(()=>{
+      toast.style.transform = "scale(0)";
+    }, 5000)
+  })
+  client.connect();
+}
+let THEWORD = '';
 
 //Create Poll
 let poll = {};
@@ -109,9 +109,6 @@ let letStart = false;
 
 //SOUNDS
 let roundStartSound = new Audio('./projects/twordle/race.mp3');
-
-
-
 
 //WORD INPUT AND STARTING
 wordInput.addEventListener('keyup', ()=>{
@@ -298,20 +295,23 @@ function fail(){
   eventbox.innerHTML = '<h1>FAILED!</h1><button id="enter" onclick="location.reload()">Play again?</button>';
 }
 
-client.on('message', (channel, tags, message, self) => {
-  let upper = message.toUpperCase();
-  if (message.length === 1 && !usersVoted.includes(tags.username)){
-    let characterCode = upper.charCodeAt(0);
-    if (characterCode >= 65 && characterCode <= 91){
-      ++poll[upper];
-      usersVoted.push(tags.username);
-      console.log(`${tags.username} has voted!`);
-      console.log(poll);
+if (params.u){
+  client.on('message', (channel, tags, message, self) => {
+    let upper = message.toUpperCase();
+    if (message.length === 1 && !usersVoted.includes(tags.username)){
+      let characterCode = upper.charCodeAt(0);
+      if (characterCode >= 65 && characterCode <= 91){
+        ++poll[upper];
+        usersVoted.push(tags.username);
+        console.log(`${tags.username} has voted!`);
+        console.log(poll);
+      }
+    } else if (message.length === 1 && usersVoted.includes(tags.username)){
+      console.log(`${tags.username} has already voted!`);
     }
-  } else if (message.length === 1 && usersVoted.includes(tags.username)){
-    console.log(`${tags.username} has already voted!`);
-  }
-});
+  });
+}
+
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
