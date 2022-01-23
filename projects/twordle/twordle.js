@@ -168,7 +168,7 @@ function runRow(){
     return fail(); 
   } else {
     guess = '';
-    eventbox.innerHTML = `<h2>${rowMessage[getRandomInt(rowMessage.length)]}</h2><br><button id="enter" onclick="newRound()">Next Letter</button>`;
+    eventbox.innerHTML = `<h2>${rowMessage[getRandomInt(rowMessage.length)]}</h2><button id="enter" onclick="newRound()">Next Letter</button>`;
     console.log(wordsGuessed);
   }
 }
