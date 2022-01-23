@@ -1,6 +1,7 @@
 const urlParams = new URLSearchParams(window.location.search);
 const params = {
   u: urlParams.get('channel'),
+  round: urlParams.get('round')
 }
 
 //USERNAME POP UP
@@ -230,6 +231,7 @@ function newRound(){
 }
 
 let roundTimer = 30;
+if (params.round) roundTimer = params.round; 
 
 function runRound(){
   let i = roundTimer + 1;
