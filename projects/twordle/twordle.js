@@ -139,7 +139,17 @@ newBody.appendChild(twordleHTML);
 document.body.appendChild(newBody);
 
 const canvas = document.getElementById('your_custom_canvas_id')
-const jsConfetti = new JSConfetti({ canvas })
+const jsConfetti = new JSConfetti({ canvas });
+
+let votedBubble = document.createElement('div');
+votedBubble.id = 'voted';
+let gridPos = grid.getBoundingClientRect();
+votedBubble.innerHTML = '';
+votedBubble.style.left = `${gridPos.right}px`;
+votedBubble.style.top = `${gridPos.top}px`;
+document.body.appendChild(votedBubble);
+console.log(gridPos);
+
 
 let wordsGuessed = [];
 let guess = '';
@@ -222,15 +232,19 @@ function newRound(){
   }, 1000);
 }
 
-let roundTimer = 5;
+let roundTimer = 30;
 
 function runRound(){
   let i = roundTimer + 1;
   roundStartSound.play();
   var roundClock = setInterval(function() {
+    //if (usersVoted.length > 0) votedBubble.style.visibility = 'visible';
     --i;
-    eventbox.innerHTML =  `<h2>${i}</h2>`;
+    eventbox.innerHTML =  `<h2>${i}</h2><p>${usersVoted.length} votes</p>`;
+    votedBubble.innerHTML = `${usersVoted.join(' voted!<br>')} voted!`;
+    //if (usersVoted.length === 1) votedBubble.innerHTML = `${usersVoted[0]} voted!`;
     if (i === 0) {
+      //votedBubble.style.visibility = 'hidden';
       clearInterval(roundClock);
       finishRound();
     };
@@ -259,12 +273,9 @@ function finishRound(){
     buttonText = 'Next Letter';
     printText = finalResult[0];
   }
-  eventbox.innerHTML = `<h2>${printText}</h2><button id="enter" onClick="newRound()">${buttonText}</button>`;
+  eventbox.innerHTML = `<h2>${printText}</h2><h4>(${finalPoll[finalResult]} votes)</h4><button id="enter" onClick="newRound()">${buttonText}</button>`;
   if (guess.length === 5){
-    console.log(' ~~~ GUESS READY! ~~~')
-    console.log(guess);
-    console.log('~~~~~~~~~')
-    eventbox.innerHTML = `<h2>${finalResult}</h2><button id="enter" onClick="runRow()">Check Word</button>`;
+    eventbox.innerHTML = `<h2>${finalResult}</h2><h4>(${finalPoll[finalResult]} votes)</h4><button id="enter" onClick="runRow()">Check Word</button>`;
     if (wordsGuessed.length === 5) eventbox.innerHTML = `<h2>${finalResult}</h2><br><p>Final chance! Good Luck!</p><button id="enter" onClick="runRow()">Fingers Crossed!</button>`;
   } 
   gridCheck(false);
@@ -316,34 +327,11 @@ document.addEventListener("keyup", function(event) {
 
 
 //TEST INPUTS
-setInterval(() => {
+/* setInterval(() => {
   let keys = Object.keys(poll);
   let targetLetter = keys[getRandomInt(26)];
   let testingLetters = ['C','B','D'];
   ++poll['D'];
-  //++poll[targetLetter];
-  //++poll[testingLetters[getRandomInt(3)]]
-}, 2000);
-
-// WORKFLOW
-/* 
-  Start button
-    3 second countdown
-  Round start
-    5 second runin
-    60 second countdown
-    Runs a poll, pulling in data
-    Inputs the letter
-  If >5 letters runs Next Round
-  If 5 letters runs Check Word
-    Colour in the letters
-    If all green play Success
-    If all lines done play Failure
-    Next Round;
-*/
-
-
-//TO DO
-/* 
-  Change users voted to a map so we can track it better.
-*/
+  ++poll[targetLetter];
+  ++poll[testingLetters[getRandomInt(3)]]
+}, 2000); */

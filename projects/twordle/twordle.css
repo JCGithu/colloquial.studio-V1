@@ -289,12 +289,18 @@
 .eventbox h2 {
   color: white;
   padding: 0.5rem 1rem;
+  font-size: large;
 }
 
 .eventbox h1 {
   color: white;
   padding: 0.5rem 1rem;
   font-size: x-large;
+}
+
+.eventbox h4 {
+  font-size: small;
+  margin-top: -0.7rem;
 }
 
 .eventbox button {
@@ -344,6 +350,20 @@ input:focus {
   border-width: 0;
   color: #804ddf;
   background-color: white;
+}
+
+#voted {
+  position: absolute;
+  background-color: #edd9bb;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  margin-left: 1.5rem;
+  margin-top: 1.5rem;
+  visibility: hidden;
+  font-size: smaller;
+  -webkit-box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+          box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  color: #804ddf;
 }
 
 .wrong {

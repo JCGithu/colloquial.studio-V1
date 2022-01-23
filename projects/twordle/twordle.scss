@@ -98,11 +98,16 @@ $green: rgb(67, 148, 67);
   h2{
     color: white;
     padding: 0.5rem 1rem;
+    font-size: large;
   }
   h1{
     color: white;
     padding: 0.5rem 1rem;
     font-size: x-large;
+  }
+  h4{
+    font-size: small;
+    margin-top: -0.7rem;
   }
   button{
     background-color: darken($main, 10);
@@ -133,6 +138,19 @@ input{
     color: $purple;
     background-color: white;
   }
+}
+
+#voted{
+  position: absolute;
+  background-color: lighten($main, 10);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  margin-left: 1.5rem;
+  margin-top: 1.5rem;
+  visibility: hidden;
+  font-size: smaller;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  color: $purple;
 }
 
 .wrong{
