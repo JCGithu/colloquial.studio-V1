@@ -28,7 +28,7 @@ if (!params.u){
     targetUser = userInput.value;
   })
   submit.addEventListener('click', () =>{
-    window.open(`http://127.0.0.1:5501/twordle.html?channel=${targetUser}`,"_self");
+    window.open(`http://colloquial.studio/twordle?channel=${targetUser}`,"_self");
   })
 }
 
