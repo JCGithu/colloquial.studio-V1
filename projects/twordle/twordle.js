@@ -121,8 +121,8 @@ let THEWORD = '';
 //Create Poll
 let poll = {};
 let usersVoted = [];
-for (let i = 0; i < 26; i++){
-  poll[String.fromCharCode(i + 65)] = 0;
+for (let m = 0; m < 26; m++){
+  poll[String.fromCharCode(m + 65)] = 0;
 }
 let pollRunning = false; 
 console.log(poll);
@@ -367,10 +367,6 @@ function success(){
 }
 
 function fail(){
-/*   var rows = document.getElementsByClassName('row');
-  for (var i = 0; i < rows.length; i++) {
-    rows[i].style.backgroundColor = 'red';
-  } */
   eventbox.innerHTML = '<h1>FAILED!</h1><button id="enter" onclick="location.reload()">Play again?</button>';
 }
 
