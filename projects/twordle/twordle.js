@@ -3,7 +3,11 @@ const params = {
   u: urlParams.get('channel'),
   round: urlParams.get('round'),
   levi: urlParams.get('levi'),
+  auto: urlParams.get('auto'),
+  dark: urlParams.get('dark')
 }
+
+if (params.dark) params.levi = params.dark;
 
 //USERNAME POP UP
 if (!params.u){
@@ -22,15 +26,57 @@ if (!params.u){
   submit.innerHTML = 'Go!';
 
   innerPopUp.appendChild(userInput);
-  innerPopUp.appendChild(submit);
+  
   userpopup.appendChild(innerPopUp);
   document.body.appendChild(userpopup);
-
   userInput.addEventListener('keyup', ()=>{
     targetUser = userInput.value;
+  });
+
+  let settings = {
+    'Dark Mode': {
+      type: 'checkbox'
+    },
+    'Auto Mode': {
+      type: 'checkbox',
+    },
+    'Round Timer': {
+      type: 'number',
+      value: 25
+    }
+  }
+
+  Object.keys(settings).forEach((el) => {
+    console.log(el);
+    console.log(settings[el]);
+    let thediv = document.createElement('div');
+    if (settings[el].type === 'checkbox'){
+      thediv.innerHTML = `
+      <label class="checkContainer">${el}
+        <input type="checkbox" id="${el}" class="check">
+        <span class="checkmark"></span>
+      </label>`
+    } else {
+      let input = document.createElement('input');
+      thediv.innerHTML = el;
+      input.type = settings[el].type;
+      input.id = el;
+      if (settings[el].value) input.value = settings[el].value;
+      thediv.appendChild(input);
+    }
+    innerPopUp.appendChild(thediv);
   })
+  innerPopUp.appendChild(submit);
+  let autoMode = document.getElementById('Auto Mode');
+  let darkMode = document.getElementById('Dark Mode');
+  console.log(darkMode);
   submit.addEventListener('click', () =>{
-    window.open(`http://colloquial.studio/twordle?channel=${targetUser}`,"_self");
+    let urlArray = [`channel=${targetUser}`];
+    urlArray.push(`dark=${darkMode.checked}`);
+    urlArray.push(`auto=${autoMode.checked}`);
+    urlArray.push(`round=${document.getElementById('Round Timer').value}`)
+    ///settings.url[title] = box.checked;
+    window.open(`http://colloquial.studio/twordle?${urlArray.join('&')}`,"_self");
   })
 }
 
@@ -156,8 +202,6 @@ if (params.levi){
 newBody.appendChild(twordleHTML);
 document.body.appendChild(newBody);
 
-
-
 const canvas = document.getElementById('your_custom_canvas_id')
 const jsConfetti = new JSConfetti({ canvas });
 
@@ -252,11 +296,13 @@ function newRound(){
   }, 1000);
 }
 
-let roundTimer = 30;
-if (params.round) roundTimer = params.round; 
+let roundTimer = parseInt(params.round) || 30;
+console.log(params.round)
 
 function runRound(){
   let i = roundTimer + 1;
+  console.log(roundTimer + 1);
+  console.log(i);
   roundStartSound.play();
   var roundClock = setInterval(function() {
     //if (usersVoted.length > 0) votedBubble.style.visibility = 'visible';
@@ -295,10 +341,18 @@ function finishRound(){
     printText = finalResult[0];
   }
   eventbox.innerHTML = `<h2>${printText}</h2><h4>(${finalPoll[finalResult]} votes)</h4><button id="enter" onClick="newRound()">${buttonText}</button>`;
+  
   if (guess.length === 5){
     eventbox.innerHTML = `<h2>${finalResult}</h2><h4>(${finalPoll[finalResult]} votes)</h4><button id="enter" onClick="runRow()">Check Word</button>`;
     if (wordsGuessed.length === 5) eventbox.innerHTML = `<h2>${finalResult}</h2><br><p>Final chance! Good Luck!</p><button id="enter" onClick="runRow()">Fingers Crossed!</button>`;
-  } 
+  }
+  if (params.auto){
+    setTimeout(()=>{
+      if (guess.length === 5) {runRow()}
+      else {newRound()}
+    }, 5000)
+  }
+
   gridCheck(false);
 }
 
