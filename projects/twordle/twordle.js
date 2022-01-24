@@ -304,7 +304,7 @@ console.log(params.round)
 function runRound(){
   let timeLeft = roundTimer + 1;
   console.log(roundTimer + 1);
-  console.log(i);
+  console.log(roundTimer);
   roundStartSound.play();
   var roundClock = setInterval(function() {
     //if (usersVoted.length > 0) votedBubble.style.visibility = 'visible';
