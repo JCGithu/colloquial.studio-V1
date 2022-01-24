@@ -52,6 +52,20 @@ if (params.u){
     }, 5000)
   })
   client.connect();
+  client.on('message', (channel, tags, message, self) => {
+    let upper = message.toUpperCase();
+    if (message.length === 1 && !usersVoted.includes(tags.username)){
+      let characterCode = upper.charCodeAt(0);
+      if (characterCode >= 65 && characterCode <= 91){
+        ++poll[upper];
+        usersVoted.push(tags.username);
+        console.log(`${tags.username} has voted!`);
+        console.log(poll);
+      }
+    } else if (message.length === 1 && usersVoted.includes(tags.username)){
+      console.log(`${tags.username} has already voted!`);
+    }
+  });
 }
 let THEWORD = '';
 
@@ -296,24 +310,6 @@ function fail(){
   } */
   eventbox.innerHTML = '<h1>FAILED!</h1><button id="enter" onclick="location.reload()">Play again?</button>';
 }
-
-if (params.u){
-  client.on('message', (channel, tags, message, self) => {
-    let upper = message.toUpperCase();
-    if (message.length === 1 && !usersVoted.includes(tags.username)){
-      let characterCode = upper.charCodeAt(0);
-      if (characterCode >= 65 && characterCode <= 91){
-        ++poll[upper];
-        usersVoted.push(tags.username);
-        console.log(`${tags.username} has voted!`);
-        console.log(poll);
-      }
-    } else if (message.length === 1 && usersVoted.includes(tags.username)){
-      console.log(`${tags.username} has already voted!`);
-    }
-  });
-}
-
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * max);
