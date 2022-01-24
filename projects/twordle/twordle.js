@@ -350,8 +350,7 @@ function finishRound(){
   }
   if (params.auto){
     setTimeout(()=>{
-      if (guess.length === 5) {runRow()}
-      else {newRound()}
+      if (document.getElementById('enter')) document.getElementById('enter').click;
     }, 5000)
   }
 
