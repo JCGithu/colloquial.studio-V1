@@ -1,7 +1,8 @@
 const urlParams = new URLSearchParams(window.location.search);
 const params = {
   u: urlParams.get('channel'),
-  round: urlParams.get('round')
+  round: urlParams.get('round'),
+  levi: urlParams.get('levi'),
 }
 
 //USERNAME POP UP
@@ -147,8 +148,15 @@ startButton.addEventListener('click', ()=> {
   },1000);
 })
 
+if (params.levi){
+  twordleHTML.style.backgroundColor = '#232323';
+  newBody.style.backgroundColor = '#232323';
+}
+
 newBody.appendChild(twordleHTML);
 document.body.appendChild(newBody);
+
+
 
 const canvas = document.getElementById('your_custom_canvas_id')
 const jsConfetti = new JSConfetti({ canvas });
