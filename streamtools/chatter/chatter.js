@@ -144,14 +144,14 @@ function postBox(channel, tags, message, self, italics){
   let chatBubble = document.createElement('div');
   if (params.chatcolour) chatBubble.style.backgroundColor = `#${params.chatcolour}`
   let emotes = formatEmotes(message, tags.emotes, bttvEmoteCache);
-  let chatName = document.createElement('div');
-  chatName.classList.add('chatPart');
+  let chatName = document.createElement('p');
+  //chatName.classList.add('chatPart');
   chatName.innerHTML = `<b>${tags.username}: </b>`;
 
   if (!tags.color || tags.color === '#FFFFFF' || !params.togglecol) tags.color = params.highcolour;
 
   chatName.style.color = tags.color;
-  chatName.classList.add('chatName');
+  //chatName.classList.add('chatName');
   chatBubble.style.color = tags.color;
   chatBubble.style.backgroundColor = params.chatcolour;
 
@@ -166,14 +166,18 @@ function postBox(channel, tags, message, self, italics){
     })
   }
 
-  let chatText = document.createElement('div');
-  chatText.classList.add('chatPart');
-  chatText.style.color = params.fontcolour;
+  //let chatText = document.createElement('div');
+  //chatText.classList.add('chatPart');
+  //chatText.style.color = params.fontcolour;
   //chatText.style.fontFamily = 'Poppins';
-  chatText.innerHTML = emotes;
+  let messageSpan = document.createElement('span');
+  messageSpan.innerHTML = emotes;
+  messageSpan.style.color = params.fontcolour;
+  chatName.appendChild(messageSpan);
+  //chatName.innerHTML = `${chatName.innerHTML} ${emotes}`;
   chatBubble.classList.add('chatbox');
   chatBubble.appendChild(chatName);
-  chatBubble.appendChild(chatText);
+  //chatBubble.appendChild(chatText);
   bound.appendChild(chatBubble);
   removeTop(chatBubble);
 }

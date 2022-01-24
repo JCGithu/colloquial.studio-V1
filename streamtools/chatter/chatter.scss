@@ -15,11 +15,9 @@
     font-weight: normal;
 }
 
-/* html{
-    font-size: x-large;
-    border-radius: 1rem;
-    font-family: 'Poppins', sans-serif;
-} */
+html{
+    font-size: 16px;
+}
 
 body{
     overflow: hidden;
@@ -31,7 +29,6 @@ body{
     display: flex;
     flex-direction: column;
     border-radius: 1rem;
-    //background-color: rgba(0,0,0,0.3);
     height: 96vh;
     padding: 1rem 0.5rem;
     overflow: hidden;
@@ -40,16 +37,17 @@ body{
 .emote{
     height: 1.1rem;
     margin-bottom: -0.1rem;
-    display: flex;
+    display: block;
 }
 
 .twitchBadge{
     padding: 0.1rem;
     height: 1.1rem;
+    display: inline-block;
 }
 
 .chatbox{
-    display: flex;
+    display: inline-block;
     flex-direction: row;
     flex-wrap: nowrap;
     width: max-content;
@@ -69,6 +67,11 @@ body{
     div {
         display: flex;
         flex-direction: row;
+    }
+    span{
+        img{
+            display: initial;
+        }
     }
 }
 

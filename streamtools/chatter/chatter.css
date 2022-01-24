@@ -16,11 +16,10 @@
   font-weight: normal;
 }
 
-/* html{
-    font-size: x-large;
-    border-radius: 1rem;
-    font-family: 'Poppins', sans-serif;
-} */
+html {
+  font-size: 16px;
+}
+
 body {
   overflow: hidden;
   margin: 0;
@@ -44,20 +43,17 @@ body {
 .emote {
   height: 1.1rem;
   margin-bottom: -0.1rem;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: block;
 }
 
 .twitchBadge {
   padding: 0.1rem;
   height: 1.1rem;
+  display: inline-block;
 }
 
 .chatbox {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: inline-block;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
@@ -94,6 +90,10 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+}
+
+.chatbox span img {
+  display: initial;
 }
 
 @-webkit-keyframes shadow-pop-br {
