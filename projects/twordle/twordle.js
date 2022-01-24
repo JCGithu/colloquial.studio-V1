@@ -7,6 +7,7 @@ const params = {
   dark: urlParams.get('dark')
 }
 
+if (params.dark === 'false') params.dark = false;
 if (params.dark) params.levi = params.dark;
 
 //USERNAME POP UP
