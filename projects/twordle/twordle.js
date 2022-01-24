@@ -137,9 +137,9 @@ title.innerHTML = "<h1>Twordle</h1><p>Made by <a href='https://www.twitch.tv/col
 title.classList.add('Title');
 twordleHTML.appendChild(title);
 let grid = document.createElement('div');
-for (let Rowi = 1; Rowi <= 6; Rowi++){
+for (let rowCount = 1; rowCount <= 6; rowCount++){
   let row = document.createElement('div');
-  row.id = `row${Rowi}`;
+  row.id = `row${rowCount}`;
   row.className = 'row';
   for (let j = 1; j <= 5; j++){
     let num = document.createElement('div');
