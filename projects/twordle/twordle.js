@@ -137,9 +137,9 @@ title.innerHTML = "<h1>Twordle</h1><p>Made by <a href='https://www.twitch.tv/col
 title.classList.add('Title');
 twordleHTML.appendChild(title);
 let grid = document.createElement('div');
-for (let i = 1; i <= 6; i++){
+for (let Rowi = 1; Rowi <= 6; Rowi++){
   let row = document.createElement('div');
-  row.id = `row${i}`;
+  row.id = `row${Rowi}`;
   row.className = 'row';
   for (let j = 1; j <= 5; j++){
     let num = document.createElement('div');
@@ -287,10 +287,10 @@ function newRound(){
     poll[key] = 0;
   });
   usersVoted = [];
-  let i = 4;
+  let untilRound = 4;
   var preroundTimer = setInterval(function() {
-    --i;
-    eventbox.innerHTML =  `<h2>Round Opening in... ${i}</h2>`;
+    --untilRound;
+    eventbox.innerHTML =  `<h2>Round Opening in... ${untilRound}</h2>`;
     if (i === 1) {
       clearInterval(preroundTimer);
       runRound();
@@ -302,14 +302,14 @@ let roundTimer = parseInt(params.round) || 30;
 console.log(params.round)
 
 function runRound(){
-  let i = roundTimer + 1;
+  let timeLeft = roundTimer + 1;
   console.log(roundTimer + 1);
   console.log(i);
   roundStartSound.play();
   var roundClock = setInterval(function() {
     //if (usersVoted.length > 0) votedBubble.style.visibility = 'visible';
-    --i;
-    eventbox.innerHTML =  `<h2>${i}</h2><p>${usersVoted.length} votes</p>`;
+    --timeLeft;
+    eventbox.innerHTML =  `<h2>${timeLeft}</h2><p>${usersVoted.length} votes</p>`;
     votedBubble.innerHTML = `${usersVoted.join(' voted!<br>')} voted!`;
     //if (usersVoted.length === 1) votedBubble.innerHTML = `${usersVoted[0]} voted!`;
     if (i === 0) {
