@@ -291,7 +291,7 @@ function newRound(){
   var preroundTimer = setInterval(function() {
     --untilRound;
     eventbox.innerHTML =  `<h2>Round Opening in... ${untilRound}</h2>`;
-    if (i === 1) {
+    if (untilRound === 1) {
       clearInterval(preroundTimer);
       runRound();
     };
