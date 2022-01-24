@@ -312,7 +312,7 @@ function runRound(){
     eventbox.innerHTML =  `<h2>${timeLeft}</h2><p>${usersVoted.length} votes</p>`;
     votedBubble.innerHTML = `${usersVoted.join(' voted!<br>')} voted!`;
     //if (usersVoted.length === 1) votedBubble.innerHTML = `${usersVoted[0]} voted!`;
-    if (i === 0) {
+    if (roundTimer === 0) {
       //votedBubble.style.visibility = 'hidden';
       clearInterval(roundClock);
       finishRound();
