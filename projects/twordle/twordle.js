@@ -8,6 +8,7 @@ const params = {
 }
 
 if (params.dark === 'false') params.dark = false;
+if (params.auto === 'false') params.auto = false;
 if (params.dark) params.levi = params.dark;
 
 //USERNAME POP UP
