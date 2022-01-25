@@ -303,8 +303,6 @@ console.log(params.round)
 
 function runRound(){
   let timeLeft = roundTimer + 1;
-  console.log(roundTimer + 1);
-  console.log(roundTimer);
   roundStartSound.play();
   var roundClock = setInterval(function() {
     //if (usersVoted.length > 0) votedBubble.style.visibility = 'visible';
@@ -312,7 +310,7 @@ function runRound(){
     eventbox.innerHTML =  `<h2>${timeLeft}</h2><p>${usersVoted.length} votes</p>`;
     votedBubble.innerHTML = `${usersVoted.join(' voted!<br>')} voted!`;
     //if (usersVoted.length === 1) votedBubble.innerHTML = `${usersVoted[0]} voted!`;
-    if (roundTimer === 0) {
+    if (timeLeft === 0) {
       //votedBubble.style.visibility = 'hidden';
       clearInterval(roundClock);
       finishRound();
@@ -329,20 +327,24 @@ const getMax = object => {
 function finishRound(){
   let finalPoll = poll;
   let finalResult = getMax(finalPoll);
-  let printText; 
+  let mainText, subText;
   let buttonText = 'Retry?';
   console.log('== ROUND BREAKDOWN ==');
   console.log(finalPoll);
   console.log(finalResult);
   console.log("votes: " + finalPoll[finalResult[0]]);
-  if (finalPoll[finalResult[0]] === 0) {printText = 'No one entered!'}
-  else if (finalResult.length > 1) printText = `<h2>Draw!</h2><br>${finalResult} with ${finalPoll[finalResult[0]]} votes.`;
+  if (finalPoll[finalResult[0]] === 0) {mainText = 'No one entered!'; subText = ''}
+  else if (finalResult.length > 1) {
+    mainText = `Draw!`
+    subText = `${finalResult.join(', ')} with ${finalPoll[finalResult[0]]} votes.`;
+  };
   if (finalResult.length === 1) {
     guess = guess + finalResult;
     buttonText = 'Next Letter';
-    printText = finalResult[0];
+    mainText = finalResult[0];
+    subText = `(${finalPoll[finalResult]} votes)`
   }
-  eventbox.innerHTML = `<h2>${printText}</h2><h4>(${finalPoll[finalResult]} votes)</h4><button id="enter" onClick="newRound()">${buttonText}</button>`;
+  eventbox.innerHTML = `<h2>${mainText}</h2><h4>${subText}</h4><button id="enter" onClick="newRound()">${buttonText}</button>`;
   
   if (guess.length === 5){
     eventbox.innerHTML = `<h2>${finalResult}</h2><h4>(${finalPoll[finalResult]} votes)</h4><button id="enter" onClick="runRow()">Check Word</button>`;
@@ -350,7 +352,7 @@ function finishRound(){
   }
   if (params.auto){
     setTimeout(()=>{
-      if (document.getElementById('enter')) document.getElementById('enter').click;
+      if (document.getElementById('enter')) document.getElementById('enter').click();
     }, 5000)
   }
 
