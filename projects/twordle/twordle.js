@@ -163,6 +163,7 @@ eventbox.appendChild(wordInput);
 let startButton = document.createElement('button');
 startButton.id = 'start';
 startButton.innerHTML = "Start!";
+startButton.id = 'enter';
 eventbox.appendChild(startButton);
 twordleHTML.appendChild(eventbox);
 // POTENTIAL RANDOM WORD GEN
@@ -173,6 +174,7 @@ let letStart = false;
 
 //SOUNDS
 let roundStartSound = new Audio('./projects/twordle/race.mp3');
+roundStartSound.volume = 0.3;
 
 //WORD INPUT AND STARTING
 wordInput.addEventListener('keyup', ()=>{
@@ -240,6 +242,11 @@ function runRow(){
     eventbox.innerHTML = `<h2>${rowMessage[getRandomInt(rowMessage.length)]}</h2><button id="enter" onclick="newRound()">Next Letter</button>`;
     console.log(wordsGuessed);
   }
+  if (params.auto){
+    setTimeout(()=>{
+      if (document.getElementById('enter')) document.getElementById('enter').click();
+    }, 5000)
+  }
 }
 
 function gridCheck(finishedRow){
@@ -263,7 +270,6 @@ async function fillIn(row, input,  finishedRow){
     }
   }
   if (finishedRow){
-    console.log('getting here');
     if (guess === THEWORD) return success();
     if (wordsGuessed.length === 6) return fail();
   }
