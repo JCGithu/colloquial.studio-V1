@@ -1,8 +1,15 @@
 @charset "UTF-8";
-body {
+html {
   overflow: hidden;
+}
+
+body {
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
+  width: 100vw;
+  height: 100%;
+  min-height: 100vh;
 }
 
 #twordleBody {
@@ -15,7 +22,8 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   width: 100vw;
   margin: 0;
   padding: 0;
@@ -24,6 +32,9 @@ body {
 }
 
 #twordle {
+  overflow-y: auto;
+  height: 100%;
+  max-height: 90vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -255,7 +266,21 @@ body {
 }
 
 .Title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.Title button {
+  padding: 0rem 0rem;
+  margin: 0.3rem 0rem;
+  background-color: #d2a057;
+  cursor: pointer;
 }
 
 .Title h1 {
@@ -317,6 +342,7 @@ body {
   margin: 0.5rem;
   -webkit-transition: 0.2s all;
   transition: 0.2s all;
+  width: auto;
 }
 
 .eventbox button:hover {
@@ -376,6 +402,7 @@ input:focus {
 .wrong {
   background-color: #ddb77f;
   border-width: 0;
+  opacity: 0.6;
 }
 
 .correct {
@@ -405,6 +432,8 @@ form:required:focus:invalid {
   position: absolute;
   width: 100vw;
   height: 100vh;
+  top: 0;
+  left: 0;
   padding: 0;
   margin: 0;
   overflow: hidden;
@@ -419,25 +448,6 @@ form:required:focus:invalid {
           align-items: center;
   z-index: 10;
   background-color: rgba(0, 0, 0, 0.5);
-}
-
-#popup div {
-  width: auto;
-  border-radius: 1rem;
-  text-align: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: #e2c293;
-  padding: 2rem;
-  color: white;
 }
 
 #innerPopUp {
@@ -457,6 +467,16 @@ form:required:focus:invalid {
   background-color: #e2c293;
   padding: 2rem;
   color: white;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  color: white;
+}
+
+@media screen and (max-width: 900px) {
+  #innerPopUp {
+    padding: 0.5rem;
+  }
 }
 
 #innerPopUp div {
@@ -468,6 +488,9 @@ form:required:focus:invalid {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 #innerPopUp div input {
@@ -490,6 +513,7 @@ form:required:focus:invalid {
       -ms-user-select: none;
           user-select: none;
   cursor: pointer;
+  padding-right: 0.3rem;
 }
 
 #innerPopUp label input {
@@ -553,12 +577,109 @@ form:required:focus:invalid {
 }
 
 #innerPopUp button {
-  background-color: #d7ab6b;
+  background-color: #d7ab6b !important;
   width: -webkit-max-content;
   width: -moz-max-content;
   width: max-content;
   padding: 0.5rem 2rem;
   border-radius: 1rem;
+}
+
+#howTo {
+  text-align: left !important;
+  width: 100%;
+  max-width: 90vw;
+  height: auto;
+  max-height: 90vh;
+  border-radius: 1rem;
+  overflow-y: auto;
+  color: #855e24;
+  font-size: 20px;
+  background-color: #e2c293;
+  padding: 2rem;
+}
+
+#howTo code {
+  background-color: #232323;
+  border-radius: 0.5rem;
+  padding: 0.2rem 1rem;
+  margin: 0rem 0.2rem;
+  color: white;
+}
+
+#howTo h2 {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+#howTo div {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#howTo button {
+  background-color: #d7ab6b !important;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  color: white;
+  padding: 0.5rem 2rem;
+  margin: 1rem;
+  border-radius: 1rem;
+}
+
+#howTo span {
+  width: 4rem !important;
+  height: 4rem !important;
+  margin: 1rem;
+  background-color: red;
+}
+
+#boxbox {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+#boxbox span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-width: 4px;
+  border-color: #f2e4cf;
+}
+
+#boxbox :nth-child(1) {
+  background-color: #d7ab6b;
+}
+
+#boxbox :nth-child(2) {
+  background-color: #d4913a;
+}
+
+#boxbox :nth-child(3) {
+  background-color: #439443;
 }
 
 #toast {

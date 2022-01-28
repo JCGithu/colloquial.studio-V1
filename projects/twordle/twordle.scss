@@ -1,18 +1,27 @@
 $main: rgb(226, 194, 147);
 $purple: rgb(128, 77, 223);
 $green: rgb(67, 148, 67);
+$orange: rgb(212, 145, 58);
+
+html{
+  overflow: hidden;
+}
 
 body{
-  overflow: hidden;
+  overflow-x: hidden;
   margin: 0;
   padding: 0;
+  width: 100vw;
+  height: 100%;
+  min-height: 100vh;
 }
 
 #twordleBody{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   width: 100vw;
   margin: 0;
   padding: 0;
@@ -21,6 +30,9 @@ body{
 }
 
 #twordle {
+  overflow-y: auto;
+  height: 100%;
+  max-height: 90vh;
   display: flex;
   position: relative;
   flex-direction: column;
@@ -73,6 +85,14 @@ body{
 }
 
 .Title {
+  display: flex;
+  flex-direction: column;
+  button{
+    padding: 0rem 0rem;
+    margin: 0.3rem 0rem;
+    background-color: darken($main, 15);
+    cursor: pointer;
+  }
   h1 {
     color: $purple;
     text-align: center;
@@ -121,6 +141,7 @@ body{
     padding: 0.5rem 1rem;
     margin: 0.5rem;
     transition: 0.2s all;
+    width: auto;
     &:hover{
       transform: scale(1.02);
       box-shadow: 0px 0px 10px inset rgba(255, 255, 255, 0.2);
@@ -162,6 +183,7 @@ input{
 .wrong{
   background-color: darken($main,5);
   border-width: 0;
+  opacity: 0.6;
 }
 
 .correct {
@@ -175,7 +197,7 @@ input{
 }
 
 .maybe{
-  background-color: rgb(212, 145, 58);
+  background-color: $orange;
   border-width: 0;
 }
 
@@ -191,6 +213,8 @@ form{
   position: absolute;
   width: 100vw;
   height: 100vh;
+  top:0;
+  left: 0;
   padding: 0;
   margin: 0;
   overflow: hidden;
@@ -199,17 +223,6 @@ form{
   align-items: center;
   z-index: 10;
   background-color: fade-out(black, 0.5);
-  div{
-    width: auto;
-    border-radius: 1rem;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: $main;
-    padding: 2rem;
-    color: white;
-  }
 }
 
 @mixin checkmark {
@@ -270,10 +283,18 @@ form{
   background-color: $main;
   padding: 2rem;
   color: white;
-  div{
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  @media screen and (max-width: 900px) {
+    padding: 0.5rem;
+  }
+  color: white;
+  div {
     padding: 0;
     display: flex;
     flex-direction: row;
+    align-items: center;
     input{ 
       width: 5rem;
     }
@@ -284,6 +305,7 @@ form{
   }
   label{
     @include checkmark;
+    padding-right: 0.3rem;
   }
   h1{
     color: $purple;
@@ -291,11 +313,81 @@ form{
     font-size: larger;
   }
   button{
-    background-color: darken($main, 10);
+    background-color: darken($main, 10) !important;
     width: max-content;
     padding: 0.5rem 2rem;
     border-radius: 1rem;
+  }
+}
 
+#howTo{
+  text-align: left !important;
+  width: 100%;
+  max-width: 90vw;
+  height: auto;
+  max-height: 90vh;
+  border-radius: 1rem;
+  overflow-y: auto;
+  color: darken($main, 40) ;
+  font-size: 20px;
+  background-color: $main;
+  padding: 2rem;
+  code{
+    background-color: #232323;
+    border-radius: 0.5rem;
+    padding: 0.2rem 1rem;
+    margin: 0rem 0.2rem;
+    color: white;
+  }
+  h2{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+  div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  button{
+    background-color: darken($main, 10) !important;
+    width: max-content;
+    color: white;
+    padding: 0.5rem 2rem;
+    margin: 1rem;
+    border-radius: 1rem;
+  }
+  span{
+    width: 4rem !important;
+    height: 4rem !important;
+    margin: 1rem;
+    background-color: red;
+  }
+}
+
+#boxbox{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  color: white;
+  font-size: 2.5rem;
+  font-weight: bold;
+  span{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    border-width: 4px;
+    border-color: lighten($main, 15);
+  }
+  :nth-child(1){
+    background-color: darken($main, 10);
+  }
+  :nth-child(2){
+    background-color: $orange;
+  }
+  :nth-child(3){
+    background-color: $green;
   }
 }
 

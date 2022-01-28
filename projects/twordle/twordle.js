@@ -12,75 +12,6 @@ if (params.auto === 'false') params.auto = false;
 if (params.dark) params.levi = params.dark;
 
 //USERNAME POP UP
-if (!params.u){
-  
-  let userpopup = document.createElement('div');
-  let innerPopUp = document.createElement('div');
-  let userInput = document.createElement('input');
-  let submit = document.createElement('button');
-  let targetUser = '';
-
-  userpopup.id = 'popup';
-  innerPopUp.id = 'innerPopUp';
-  innerPopUp.innerHTML = "<h1>Input a username!</h1><p>If you want to play with chat, put in your username below</p>";
-  userInput.placeholder = "[Channel Name Here]";
-  userInput.id = 'channel';
-  submit.innerHTML = 'Go!';
-
-  innerPopUp.appendChild(userInput);
-  
-  userpopup.appendChild(innerPopUp);
-  document.body.appendChild(userpopup);
-  userInput.addEventListener('keyup', ()=>{
-    targetUser = userInput.value;
-  });
-
-  let settings = {
-    'Dark Mode': {
-      type: 'checkbox'
-    },
-    'Auto Mode': {
-      type: 'checkbox',
-    },
-    'Round Timer': {
-      type: 'number',
-      value: 25
-    }
-  }
-
-  Object.keys(settings).forEach((el) => {
-    console.log(el);
-    console.log(settings[el]);
-    let thediv = document.createElement('div');
-    if (settings[el].type === 'checkbox'){
-      thediv.innerHTML = `
-      <label class="checkContainer">${el}
-        <input type="checkbox" id="${el}" class="check">
-        <span class="checkmark"></span>
-      </label>`
-    } else {
-      let input = document.createElement('input');
-      thediv.innerHTML = el;
-      input.type = settings[el].type;
-      input.id = el;
-      if (settings[el].value) input.value = settings[el].value;
-      thediv.appendChild(input);
-    }
-    innerPopUp.appendChild(thediv);
-  })
-  innerPopUp.appendChild(submit);
-  let autoMode = document.getElementById('Auto Mode');
-  let darkMode = document.getElementById('Dark Mode');
-  console.log(darkMode);
-  submit.addEventListener('click', () =>{
-    let urlArray = [`channel=${targetUser}`];
-    urlArray.push(`dark=${darkMode.checked}`);
-    urlArray.push(`auto=${autoMode.checked}`);
-    urlArray.push(`round=${document.getElementById('Round Timer').value}`)
-    ///settings.url[title] = box.checked;
-    window.open(`http://colloquial.studio/twordle?${urlArray.join('&')}`,"_self");
-  })
-}
 
 let toast = document.createElement('div');
 toast.style.transform = "scale(0)"
@@ -133,7 +64,7 @@ newBody.id = 'twordleBody';
 let twordleHTML = document.createElement('div');
 twordleHTML.id = 'twordle';
 let title = document.createElement('div');
-title.innerHTML = "<h1>Twordle</h1><p>Made by <a href='https://www.twitch.tv/colloquialowl'>ColloquialOwl</a>, Inspired by <a href='https://www.powerlanguage.co.uk/wordle/'>Wordle</a>.</p>"
+title.innerHTML = "<h1>Twordle</h1><p>Made by <a href='https://www.twitch.tv/colloquialowl'>ColloquialOwl</a>, Inspired by <a href='https://www.powerlanguage.co.uk/wordle/'>Wordle</a>.</p><button onclick='howTo()'>How to Play</button>"
 title.classList.add('Title');
 twordleHTML.appendChild(title);
 let grid = document.createElement('div');
@@ -221,6 +152,9 @@ console.log(gridPos);
 
 let wordsGuessed = [];
 let guess = '';
+let playing = false;
+let correct = 0;
+let maybe = 0;
 
 let rowMessage = [
   'How did it go?',
@@ -239,12 +173,18 @@ function runRow(){
     return fail(); 
   } else {
     guess = '';
-    eventbox.innerHTML = `<h2>${rowMessage[getRandomInt(rowMessage.length)]}</h2><button id="enter" onclick="newRound()">Next Letter</button>`;
+    let secondLine = ``;
+    if (maybe || correct) {
+      let maybeText = ` letter${maybe > 1 ? 's' : '' } in the word,`;
+      let correctText = ` letter${correct > 1 ? 's':''} correct!`;
+      secondLine = `<p>${maybe ? maybe + maybeText + '<br>' : ''} ${correct ? correct + correctText : ''}</p>`
+    }
+    eventbox.innerHTML = `<h2>${rowMessage[getRandomInt(rowMessage.length)]}</h2>${secondLine}<button id="enter" onclick="newRound()">Next Letter</button>`;
     console.log(wordsGuessed);
   }
   if (params.auto){
     setTimeout(()=>{
-      if (document.getElementById('enter')) document.getElementById('enter').click();
+      if (document.getElementById('enter') && !playing) document.getElementById('enter').click();
     }, 5000)
   }
 }
@@ -260,6 +200,8 @@ function gridCheck(finishedRow){
 }
 
 async function fillIn(row, input,  finishedRow){
+  correct = 0;
+  maybe = 0;
   for (let p = 0; p < 5; p++){
     console.log(input);
     let block = row.children[p];
@@ -282,13 +224,16 @@ async function colourIn(i, block){
   }
   if (THEWORD[i] === guess[i]) {
     block.classList.add('correct');
+    ++correct;
     return;
   }
   block.classList.add('maybe');
+  ++maybe;
   return;
 }
 
 function newRound(){
+  playing = true;
   Object.keys(poll).forEach(key => {
     poll[key] = 0;
   });
@@ -305,9 +250,9 @@ function newRound(){
 }
 
 let roundTimer = parseInt(params.round) || 30;
-console.log(params.round)
 
 function runRound(){
+  playing = true;
   let timeLeft = roundTimer + 1;
   roundStartSound.play();
   var roundClock = setInterval(function() {
@@ -331,6 +276,7 @@ const getMax = object => {
 };
 
 function finishRound(){
+  playing = false;
   let finalPoll = poll;
   let finalResult = getMax(finalPoll);
   let mainText, subText;
@@ -358,7 +304,7 @@ function finishRound(){
   }
   if (params.auto){
     setTimeout(()=>{
-      if (document.getElementById('enter')) document.getElementById('enter').click();
+      if (document.getElementById('enter') && !playing) document.getElementById('enter').click();
     }, 5000)
   }
 
