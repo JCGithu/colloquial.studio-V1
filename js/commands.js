@@ -10,24 +10,41 @@ function readTextFile(file, callback) {
     rawFile.send(null);
 }
 
-let grid = document.getElementById('commandGrid');
+let table = document.getElementById('table');
 
 readTextFile('../data/commands.json', (data) => {
     data = JSON.parse(data);
     for (let command in data){
-        let block1 = document.createElement('div');
-        let block2 = document.createElement('div');
-        let name = document.createElement('h2');
-        let description = document.createElement('p');
+        let block = document.createElement('tr');
+        let name = document.createElement('td');
+        name.className = 'name';
+        let description = document.createElement('td');
 
         name.innerHTML = command;
-        name.classList.add('commandTitle');
         description.innerHTML = data[command].d;
 
-        block1.appendChild(name);
-        block2.appendChild(description);
-        grid.appendChild(block1);
-        grid.appendChild(block2);
+        block.appendChild(name);
+        block.appendChild(description);
+        table.appendChild(block);
     }
 })
 
+function searching() {
+    // Declare variables
+    let input = document.getElementById("searchbar");
+    let filter = input.value.toUpperCase();
+    let tr = table.getElementsByTagName("tr");
+  
+    // Loop through all table rows, and hide those who don't match the search query
+    for (let i = 0; i < tr.length; i++) {
+      let td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        let txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
