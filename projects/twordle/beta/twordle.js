@@ -396,14 +396,9 @@ function scaleCheck(){
     }
   }
 
-  //Event Box
-  eventbox.style.setProperty('--eventH1', `${bottomHeight * 0.1}px`)
-  eventbox.style.setProperty('--eventH2', `${bottomHeight * 0.07}px`)
-  eventbox.style.setProperty('--eventH4', `${bottomHeight * 0.05}px`)
-  eventbox.style.fontSize = `${bottomHeight*0.05}px`
-
   //Grid
   let gridSize = wordleheight - bottomHeight - titleSize;
+  if (gridSize > 420) gridSize = 420;
   grid.style.height = `${gridSize}px`;
   grid.style.width = `${gridSize * (5/6)}px`;
   let rows = document.getElementsByClassName('row');

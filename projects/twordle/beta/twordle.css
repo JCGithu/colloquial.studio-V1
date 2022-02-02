@@ -59,6 +59,9 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   color: white;
   -webkit-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
@@ -394,15 +397,15 @@ body {
 }
 
 .eventbox h2 {
-  font-size: var(--eventH2);
+  font-size: var(2rem);
 }
 
 .eventbox h1 {
-  font-size: var(--eventH1);
+  font-size: var(3rem);
 }
 
 .eventbox h4 {
-  font-size: var(--eventH4);
+  font-size: var(1rem);
   margin-top: -0.7rem;
 }
 

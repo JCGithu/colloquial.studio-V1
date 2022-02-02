@@ -52,6 +52,7 @@ body{
   display: flex;
   position: relative;
   flex-direction: column;
+  justify-content: center;
   color: white;
   //transform: scale(1.1);
   //background-color: black;
@@ -174,13 +175,13 @@ body{
     color: white;
   }
   h2{
-    font-size: var(--eventH2);
+    font-size: var(2rem);
   }
   h1{
-    font-size: var(--eventH1);
+    font-size: var(3rem);
   }
   h4{
-    font-size: var(--eventH4);
+    font-size: var(1rem);
     margin-top: -0.7rem;
   }
   button{
