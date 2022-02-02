@@ -354,13 +354,7 @@ if (params.keyboard){
     keyboard.appendChild(row);
   }
   Bottom.prepend(keyboard);
-  //Bottom.prependChild(keyboard);
-  eventbox.style.transform = 'scale(0.8) translateY(-10%)'
-} else {
-  Bottom.style.height = '17vh';
-  title.style.height = '21vh';
-  twordleHTML.style.transform = 'scale(1.2)';
-}
+} 
 
 let scaleX = 1;
 let scaleY = 1;
@@ -402,7 +396,6 @@ document.addEventListener("keyup", function(event) {
     document.getElementById("enter").click();
   }
 });
-
 
 //TEST INPUTS
 /* setInterval(() => {

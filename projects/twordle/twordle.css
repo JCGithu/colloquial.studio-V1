@@ -48,9 +48,7 @@ body {
 
 #twordle {
   overflow-y: hidden;
-  height: 100vh;
-  -webkit-transform: scale(1.1);
-          transform: scale(1.1);
+  height: 96vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -62,7 +60,6 @@ body {
   color: white;
   -webkit-transition: all 0.1s ease-in-out;
   transition: all 0.1s ease-in-out;
-  padding: 2vh;
 }
 
 @-webkit-keyframes popIn {
@@ -92,6 +89,8 @@ body {
   border-radius: 2px;
   width: 6vh;
   height: 6vh;
+  max-width: 60px;
+  max-height: 60px;
   font-size: x-large;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -283,7 +282,7 @@ body {
 }
 
 .Title {
-  height: 18vh;
+  height: 115px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -405,7 +404,6 @@ body {
 }
 
 #bottom {
-  height: 27vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
