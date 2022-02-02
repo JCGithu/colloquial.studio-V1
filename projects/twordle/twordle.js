@@ -5,7 +5,8 @@ const params = {
   levi: urlParams.get('levi'),
   auto: urlParams.get('auto'),
   dark: urlParams.get('dark'),
-  keyboard: urlParams.get('keyboard')
+  keyboard: urlParams.get('keyboard'),
+  demo: urlParams.get('demo')
 }
 
 if (params.levi) params.dark = params.levi;
@@ -360,21 +361,60 @@ let scaleX = 1;
 let scaleY = 1;
 
 
-/* function scaleCheck(){
-  let twordlePlace = twordleHTML.getBoundingClientRect();
-  //let scale = (window.innerHeight / twordlePlace.height) - 0.1;
-  scaleX = window.innerWidth / (twordlePlace.width / scaleX);
-  scaleY = window.innerHeight / (twordlePlace.height /scaleY);
-  scaleX = Math.min(scaleX, scaleY);
-  scaleY = scaleX;
+function scaleCheck(){
+  let wordleheight = (window.innerHeight * 0.96);
+  let bottomHeight = Math.round(wordleheight * 0.15);
+  console.log(bottomHeight);
+  let titleGrab = title.getBoundingClientRect();
+  let titleSize = titleGrab.height;
+  if (params.keyboard) bottomHeight = Math.round(wordleheight * 0.3);
+  Bottom.style.height = `${bottomHeight}px`;
+  eventbox.style.maxHeight = `${bottomHeight * 0.5}px`;
+  
+  //KEYBOARD
+  keyboard.style.height = `${bottomHeight * 0.5}px`;
+  if (Math.round(bottomHeight * 0.1) < 13) keyboard.style.fontSize = `${Math.round(bottomHeight * 0.1)}px`;
+  let keyRows = document.getElementsByClassName('keyRow');
+  let keyLetters = document.getElementsByClassName('keyLetter');
+  //max font size 15px 
+  for (let r2 = 0; r2 < keyRows.length; r2++ ){
+    keyRows[r2].style.height = `${Math.round((bottomHeight * 0.5)*0.3)}px`
+  }
+  for (let l2 = 0; l2 < keyLetters.length; l2++ ){
+    if (Math.round(bottomHeight * 0.1) < 13) {
+      keyLetters[l2].style.padding = `0px ${Math.round(bottomHeight*0.1)}px`
+    } else {
+      keyLetters[l2].style.padding = `0px 13px`
+    }
+  }
 
-  //console.log(twordlePlace);
-  console.log(scaleY);
-  //console.log(scale);
-  twordleHTML.style.transform = `scale(${scaleX})`;
+  //Event Box
+  eventbox.style.setProperty('--eventH1', `${bottomHeight * 0.1}px`)
+  eventbox.style.setProperty('--eventH2', `${bottomHeight * 0.07}px`)
+  eventbox.style.setProperty('--eventH4', `${bottomHeight * 0.05}px`)
+  eventbox.style.fontSize = `${bottomHeight*0.05}px`
+
+  //Grid
+  let gridSize = wordleheight - bottomHeight - titleSize;
+  grid.style.height = `${gridSize}px`;
+  grid.style.width = `${gridSize * (5/6)}px`;
+  let rows = document.getElementsByClassName('row');
+  let numbs = document.getElementsByClassName('num');
+  for (let r = 0; r < rows.length; r++ ){
+    rows[r].style.height = `${gridSize / 6}px`;
+    rows[r].style.width = `${gridSize * (5/6)}px`
+  }
+  for (let n = 0; n < numbs.length; n++){
+    numbs[n].style.height = `${gridSize / 7}px`;
+    numbs[n].style.width = `${gridSize / 7}px`;
+  }
 }
 
-scaleCheck(); */
+scaleCheck();
+window.addEventListener('resize', () => {
+  scaleCheck();
+  setTimeout(scaleCheck(), 500);
+});
 
 function success(){
   jsConfetti.addConfetti();
@@ -398,11 +438,14 @@ document.addEventListener("keyup", function(event) {
 });
 
 //TEST INPUTS
-/* setInterval(() => {
-  let keys = Object.keys(poll);
-  let targetLetter = keys[getRandomInt(26)];
-  let testingLetters = ['C','B','D'];
-  //++poll['D'];
-  //++poll[targetLetter];
-  ++poll[testingLetters[getRandomInt(3)]]
-}, 2000);  */
+
+if (params.demo){
+  setInterval(() => {
+    let keys = Object.keys(poll);
+    let targetLetter = keys[getRandomInt(26)];
+    let testingLetters = ['C','B','D'];
+    //++poll['D'];
+    //++poll[targetLetter];
+    ++poll[testingLetters[getRandomInt(3)]]
+  }, 2000);
+}
