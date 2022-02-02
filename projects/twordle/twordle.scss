@@ -16,6 +16,7 @@ html{
   --mainLighten15: #{lighten($main, 15)};
   --textColour: white;
   --dark: #232323;
+  --howTo: #{$main};
   &[data-theme='dark'] {
     --main: #232323;
     --textColour: white;
@@ -128,6 +129,10 @@ body{
 
 #grid{
   height: 47vh;
+    @media only screen and (max-height: '900px' ) {
+    transform: scale(0.9) translateY(-2vh);
+    max-height: max-content;
+  }
 }
 
 .eventbox {
@@ -136,14 +141,15 @@ body{
   width: 90%;
   height: max-content;
   max-height: 15vh;
-  @media only screen and (max-height: '900px' ) {
-    transform: scale(0.7) translateY(-30%);
-    max-height: max-content;
-  }
   z-index: 4;
   text-align: center;
   border-radius: 1rem;
   margin: 5%;
+  @media only screen and (max-height: '900px' ) {
+    transform: scale(0.7) translateY(-20%);
+    max-height: max-content;
+    margin: 1% 5%;
+  }
   padding: 0 0.5rem;
   transition: 1s all;
   transform: scale(0.9) translateY(-5%);
@@ -182,6 +188,15 @@ body{
   height: 27vh;
   display: flex;
   flex-direction: column;
+  @media only screen and (max-height: '900px' ) {
+    transform: translateY(-3.5vh);
+  }
+}
+
+.keyboard{
+  @media only screen and (max-height: '900px' ) {
+    transform: scale(0.9) translateY(-5%);
+  }
 }
 
 .keyRow{
@@ -387,9 +402,9 @@ form{
   max-height: 90vh;
   border-radius: 1rem;
   overflow-y: auto;
-  color: var(--mainDarken40) ;
+  color: var(--mainDarken40);
   font-size: 20px;
-  background-color: var(--main);
+  background-color: var(--howTo);
   padding: 2rem;
   code{
     background-color: #232323;

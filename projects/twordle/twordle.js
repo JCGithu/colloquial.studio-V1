@@ -355,6 +355,7 @@ if (params.keyboard){
   }
   Bottom.prepend(keyboard);
   //Bottom.prependChild(keyboard);
+  eventbox.style.transform = 'scale(0.8) translateY(-10%)'
 } else {
   Bottom.style.height = '17vh';
   title.style.height = '21vh';
@@ -411,4 +412,4 @@ document.addEventListener("keyup", function(event) {
   //++poll['D'];
   //++poll[targetLetter];
   ++poll[testingLetters[getRandomInt(3)]]
-}, 2000); */
+}, 2000);  */

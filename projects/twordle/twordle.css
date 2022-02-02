@@ -11,6 +11,7 @@ html {
   --mainLighten15: #f2e4cf;
   --textColour: white;
   --dark: #232323;
+  --howTo: #e2c293;
 }
 
 html[data-theme='dark'] {
@@ -321,6 +322,16 @@ body {
   height: 47vh;
 }
 
+@media only screen and (max-height: 900px) {
+  #grid {
+    -webkit-transform: scale(0.9) translateY(-2vh);
+            transform: scale(0.9) translateY(-2vh);
+    max-height: -webkit-max-content;
+    max-height: -moz-max-content;
+    max-height: max-content;
+  }
+}
+
 .eventbox {
   position: relative;
   background-color: var(--mainDarken20);
@@ -342,11 +353,12 @@ body {
 
 @media only screen and (max-height: 900px) {
   .eventbox {
-    -webkit-transform: scale(0.7) translateY(-30%);
-            transform: scale(0.7) translateY(-30%);
+    -webkit-transform: scale(0.7) translateY(-20%);
+            transform: scale(0.7) translateY(-20%);
     max-height: -webkit-max-content;
     max-height: -moz-max-content;
     max-height: max-content;
+    margin: 1% 5%;
   }
 }
 
@@ -401,6 +413,20 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+@media only screen and (max-height: 900px) {
+  #bottom {
+    -webkit-transform: translateY(-3.5vh);
+            transform: translateY(-3.5vh);
+  }
+}
+
+@media only screen and (max-height: 900px) {
+  .keyboard {
+    -webkit-transform: scale(0.9) translateY(-5%);
+            transform: scale(0.9) translateY(-5%);
+  }
 }
 
 .keyRow {
@@ -682,7 +708,7 @@ form:required:focus:invalid {
   overflow-y: auto;
   color: var(--mainDarken40);
   font-size: 20px;
-  background-color: var(--main);
+  background-color: var(--howTo);
   padding: 2rem;
 }
 
