@@ -81,6 +81,7 @@ function roleBlockUpdate(role, roleUsers){
   let spriteCount = roleBox.querySelectorAll('.spriteBox').length;
   roleBox.style.setProperty('--shadow', guilds[role].color);
   roleBox.style.width = `${150+ ((spriteCount -1) * 40)}px`;
+  if (roleUsers >= 5) roleBox.style.width = `${150+ ((spriteCount -1) * 12)}px`;
   roleBox.getElementsByClassName("blockNum")[0].innerHTML = `<h1>${roleUsers}</h1><p>${guilds[role].name}</p>`;
 }
 
@@ -138,6 +139,16 @@ function roleGlow(role, roleUsers){
   let glow = 'filter: drop-shadow(5px 5px 5px rgba(34, 34, 34, 0.5))'
   if (roleUsers >= 5) glow = 'filter: drop-shadow(0px 0px 9px var(--shadow))';
   let roleBox = document.getElementById(role);
+  let spans = roleBox.querySelectorAll('.spriteBox');
+  for (span in spans){
+    if (typeof spans[span] != 'object') continue;
+    if (roleUsers >=5){
+      spans[span].classList.add('spriteFull')
+    } else {
+      spans[span].classList.remove('spriteFull')
+    }
+  }
+  
   let imgs = roleBox.querySelectorAll('.sprite');
   for (img in imgs) {
     if(imgs[img]) imgs[img].style = glow;

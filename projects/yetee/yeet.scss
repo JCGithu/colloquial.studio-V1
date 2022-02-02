@@ -34,7 +34,16 @@ img {
   }
   @for $i from 1 through 10 {
     &:nth-child(#{$i}) {
-      left: #{($i - 2) * 40}px !important;
+      left: #{($i - 2) * 30}px !important;
+      z-index: #{30 - $i};
+    }
+  }
+}
+
+.spriteFull{
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      left: #{($i - 2) * 10}px !important;
       z-index: #{30 - $i};
     }
   }

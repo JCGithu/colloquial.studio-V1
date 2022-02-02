@@ -47,7 +47,7 @@ img {
 }
 
 .spriteBox:nth-child(1) {
-  left: -40px !important;
+  left: -30px !important;
   z-index: 29;
 }
 
@@ -57,42 +57,92 @@ img {
 }
 
 .spriteBox:nth-child(3) {
-  left: 40px !important;
+  left: 30px !important;
   z-index: 27;
 }
 
 .spriteBox:nth-child(4) {
-  left: 80px !important;
+  left: 60px !important;
   z-index: 26;
 }
 
 .spriteBox:nth-child(5) {
-  left: 120px !important;
+  left: 90px !important;
   z-index: 25;
 }
 
 .spriteBox:nth-child(6) {
-  left: 160px !important;
+  left: 120px !important;
   z-index: 24;
 }
 
 .spriteBox:nth-child(7) {
-  left: 200px !important;
+  left: 150px !important;
   z-index: 23;
 }
 
 .spriteBox:nth-child(8) {
-  left: 240px !important;
+  left: 180px !important;
   z-index: 22;
 }
 
 .spriteBox:nth-child(9) {
-  left: 280px !important;
+  left: 210px !important;
   z-index: 21;
 }
 
 .spriteBox:nth-child(10) {
-  left: 320px !important;
+  left: 240px !important;
+  z-index: 20;
+}
+
+.spriteFull:nth-child(1) {
+  left: -10px !important;
+  z-index: 29;
+}
+
+.spriteFull:nth-child(2) {
+  left: 0px !important;
+  z-index: 28;
+}
+
+.spriteFull:nth-child(3) {
+  left: 10px !important;
+  z-index: 27;
+}
+
+.spriteFull:nth-child(4) {
+  left: 20px !important;
+  z-index: 26;
+}
+
+.spriteFull:nth-child(5) {
+  left: 30px !important;
+  z-index: 25;
+}
+
+.spriteFull:nth-child(6) {
+  left: 40px !important;
+  z-index: 24;
+}
+
+.spriteFull:nth-child(7) {
+  left: 50px !important;
+  z-index: 23;
+}
+
+.spriteFull:nth-child(8) {
+  left: 60px !important;
+  z-index: 22;
+}
+
+.spriteFull:nth-child(9) {
+  left: 70px !important;
+  z-index: 21;
+}
+
+.spriteFull:nth-child(10) {
+  left: 80px !important;
   z-index: 20;
 }
 
