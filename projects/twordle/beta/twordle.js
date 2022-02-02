@@ -68,7 +68,7 @@ newBody.id = 'twordleBody';
 let twordleHTML = document.createElement('div');
 twordleHTML.id = 'twordle';
 let title = document.createElement('div');
-title.innerHTML = "<h1>Twordle</h1><p>Made by <a href='https://www.twitch.tv/colloquialowl'>ColloquialOwl</a>, Inspired by <a href='https://www.powerlanguage.co.uk/wordle/'>Wordle</a>.</p><button onclick='howTo()'>How to Play</button>"
+title.innerHTML = `<h1>Twordle</h1><p>Made by <a href='https://www.twitch.tv/colloquialowl'>ColloquialOwl</a>, Inspired by <a href='https://www.powerlanguage.co.uk/wordle/'>Wordle</a> ${params.u ? params.u === 'coollike' ? 'tests <img src="https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_561564985653480f92a4198486e1179f/default/light/3.0"></img>' : 'nope' : 'nada'}.</p><button onclick='howTo()'>How to Play</button>`
 title.classList.add('Title');
 twordleHTML.appendChild(title);
 let grid = document.createElement('div');
@@ -367,25 +367,23 @@ function scaleCheck(){
   console.log(bottomHeight);
   let titleGrab = title.getBoundingClientRect();
   let titleSize = titleGrab.height;
+  let keyHeight = bottomHeight * 0.5;
 
+  let maxKeyboardHeight = 125
+  let maxKeyRowHeight = 40;
 
-  eventbox.style.maxHeight = `${bottomHeight}px`;
-  if (params.keyboard) {
-    bottomHeight = Math.round(wordleheight * 0.3);
-    eventbox.style.maxHeight = `${bottomHeight * 0.5}px`;
-  }
-  Bottom.style.height = `${bottomHeight}px`;
-  
-  
   //KEYBOARD
   if(params.keyboard){
-    keyboard.style.height = `${bottomHeight * 0.5}px`;
+    if ((bottomHeight * 0.5) > maxKeyboardHeight) keyHeight = maxKeyboardHeight;
+    keyboard.style.height = `${keyHeight}px`;
     if (Math.round(bottomHeight * 0.1) < 13) keyboard.style.fontSize = `${Math.round(bottomHeight * 0.1)}px`;
     let keyRows = document.getElementsByClassName('keyRow');
     let keyLetters = document.getElementsByClassName('keyLetter');
     //max font size 15px 
     for (let r2 = 0; r2 < keyRows.length; r2++ ){
-      keyRows[r2].style.height = `${Math.round((bottomHeight * 0.5)*0.3)}px`
+      let targetSize = Math.round(bottomHeight *0.15);
+      if (targetSize > maxKeyRowHeight) targetSize = maxKeyRowHeight;
+      keyRows[r2].style.height = `${targetSize}px`
     }
     for (let l2 = 0; l2 < keyLetters.length; l2++ ){
       if (Math.round(bottomHeight * 0.1) < 13) {
@@ -395,6 +393,14 @@ function scaleCheck(){
       }
     }
   }
+
+  eventbox.style.maxHeight = `${bottomHeight}px`;
+  if (params.keyboard) {
+    bottomHeight = Math.round(wordleheight * 0.3);
+    eventbox.style.maxHeight = `${bottomHeight - keyHeight}px`;
+  }
+  Bottom.style.height = `${bottomHeight}px`;
+  
 
   //Grid
   let gridSize = wordleheight - bottomHeight - titleSize;

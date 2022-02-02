@@ -281,6 +281,10 @@ body {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
+.Title img {
+  width: 1rem;
+}
+
 .Title button {
   padding: 0rem 0rem;
   margin: 0.3rem 0rem;
@@ -697,5 +701,12 @@ form:required:focus:invalid {
   z-index: 10;
   -webkit-transition: cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s all;
   transition: cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s all;
+}
+
+#charlie {
+  position: absolute;
+  z-index: 10;
+  bottom: 0;
+  left: 0;
 }
 /*# sourceMappingURL=twordle.css.map */

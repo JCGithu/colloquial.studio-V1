@@ -64,7 +64,7 @@ newBody.id = 'twordleBody';
 let twordleHTML = document.createElement('div');
 twordleHTML.id = 'twordle';
 let title = document.createElement('div');
-title.innerHTML = "<h1>Twordle</h1><p>Made by <a href='https://www.twitch.tv/colloquialowl'>ColloquialOwl</a>, Inspired by <a href='https://www.powerlanguage.co.uk/wordle/'>Wordle</a>.</p><button onclick='howTo()'>How to Play</button>"
+title.innerHTML = `<h1>Twordle</h1><p>Made by <a href='https://www.twitch.tv/colloquialowl'>ColloquialOwl</a>, Inspired by <a href='https://www.powerlanguage.co.uk/wordle/'>Wordle</a>.</p><button onclick='howTo()'>How to Play</button>`
 title.classList.add('Title');
 twordleHTML.appendChild(title);
 let grid = document.createElement('div');
@@ -81,6 +81,15 @@ for (let rowCount = 1; rowCount <= 6; rowCount++){
   grid.appendChild(row);
 }
 twordleHTML.appendChild(grid);
+
+if (params.u){
+  if (params.u === 'coollike'){
+    let charlie = document.createElement('img');
+    charlie.src = "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_561564985653480f92a4198486e1179f/default/light/3.0"
+    charlie.id = 'charlie';
+    document.body.appendChild(charlie);
+  }
+}
 
 //EVENT BOX GENERATION
 let eventbox = document.createElement('div');
