@@ -213,6 +213,7 @@ body{
 
 .keyboard{
   font-size: 13px;
+  transition: all 0.5s;
 }
 
 .keyRow{
@@ -371,6 +372,7 @@ input{
   max-width: 90%;
   max-height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden;
   @media screen and (max-width: 900px) {
     padding: 0.5rem;
   }

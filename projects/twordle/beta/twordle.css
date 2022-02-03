@@ -465,6 +465,8 @@ body {
 
 .keyboard {
   font-size: 13px;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 .keyRow {
@@ -616,6 +618,7 @@ input:focus {
   max-width: 90%;
   max-height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden;
   color: white;
 }
 

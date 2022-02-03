@@ -283,6 +283,7 @@ input{
   max-width: 90%;
   max-height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden;
   @media screen and (max-width: 900px) {
     padding: 0.5rem;
   }
