@@ -4,12 +4,16 @@ const params = {
   round: urlParams.get('round'),
   levi: urlParams.get('levi'),
   auto: urlParams.get('auto'),
-  dark: urlParams.get('dark')
+  dark: urlParams.get('dark'),
+  keyboard: urlParams.get('keyboard'),
+  demo: urlParams.get('demo')
 }
 
-if (params.dark === 'false') params.dark = false;
-if (params.auto === 'false') params.auto = false;
-if (params.dark) params.levi = params.dark;
+if (params.levi) params.dark = params.levi;
+params.dark = (params.dark === 'true');
+console.log(params.dark);
+params.auto = (params.auto === 'true');
+params.keyboard = (params.keyboard === 'true');
 
 //USERNAME POP UP
 
@@ -68,6 +72,7 @@ title.innerHTML = `<h1>Twordle</h1><p>Made by <a href='https://www.twitch.tv/col
 title.classList.add('Title');
 twordleHTML.appendChild(title);
 let grid = document.createElement('div');
+grid.id = 'grid';
 for (let rowCount = 1; rowCount <= 6; rowCount++){
   let row = document.createElement('div');
   row.id = `row${rowCount}`;
@@ -83,6 +88,8 @@ for (let rowCount = 1; rowCount <= 6; rowCount++){
 twordleHTML.appendChild(grid);
 
 //EVENT BOX GENERATION
+let Bottom = document.createElement('div');
+Bottom.id = 'bottom';
 let eventbox = document.createElement('div');
 eventbox.className = 'eventbox';
 eventbox.innerHTML = `<h2>Pick a 5 letter word</h2>`;
@@ -96,19 +103,23 @@ startButton.id = 'start';
 startButton.innerHTML = "Start!";
 startButton.id = 'enter';
 eventbox.appendChild(startButton);
-twordleHTML.appendChild(eventbox);
-// POTENTIAL RANDOM WORD GEN
-/* let extraButton = document.createElement('button');
-extraButton.innerHTML ='Random Word!';
-eventbox.appendChild(extraButton); */
+Bottom.appendChild(eventbox);
+twordleHTML.appendChild(Bottom);
 let letStart = false;
 
+let personalised = {
+  "coollike" : "https://static-cdn.jtvnw.net/emoticons/v2/304037430/default/light/3.0",
+  "lbx0": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_44ede65082fb45ef9473c9966c3cd9ea/default/light/3.0",
+  "letsbrock": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_7d127fea0d5d481e886c7161d45b4d78/default/light/3.0",
+  "arcasian": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_e79955dcfb654887bd08f4d551583d97/default/light/3.0" 
+}
+
 if (params.u){
-  if (params.u === 'coollike'){
-    let charlie = document.createElement('img');
-    charlie.src = "https://static-cdn.jtvnw.net/emoticons/v2/304037430/default/light/3.0"
-    charlie.id = 'charlie';
-    eventbox.appendChild(charlie);
+  if (personalised.hasOwnProperty(params.u)){
+    let streamerIcon = document.createElement('img');
+    streamerIcon.src = personalised[params.u];
+    streamerIcon.id = 'charlie';
+    eventbox.appendChild(streamerIcon);
   }
 }
 
@@ -138,10 +149,14 @@ startButton.addEventListener('click', ()=> {
   },1000);
 })
 
-if (params.levi){
-  twordleHTML.style.backgroundColor = '#232323';
-  newBody.style.backgroundColor = '#232323';
+function darkMode(){
+  document.documentElement.setAttribute('data-theme', 'light');
+  if (params.dark){
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
 }
+
+darkMode();
 
 newBody.appendChild(twordleHTML);
 document.body.appendChild(newBody);
@@ -174,6 +189,7 @@ let rowMessage = [
 ]
 
 function runRow(){
+  
   gridCheck(true);
   wordsGuessed.push(guess);
   if (guess === THEWORD){
@@ -188,6 +204,7 @@ function runRow(){
       let correctText = ` letter${correct > 1 ? 's':''} correct!`;
       secondLine = `<p>${maybe ? maybe + maybeText + '<br>' : ''} ${correct ? correct + correctText : ''}</p>`
     }
+    if (params.keyboard) secondLine = '';
     eventbox.innerHTML = `<h2>${rowMessage[getRandomInt(rowMessage.length)]}</h2>${secondLine}<button id="enter" onclick="newRound()">Next Letter</button>`;
     console.log(wordsGuessed);
   }
@@ -199,6 +216,7 @@ function runRow(){
 }
 
 function gridCheck(finishedRow){
+  
   let row = grid.firstChild;
   wordsGuessed.forEach((e, i) => {
     fillIn(row, e, false);
@@ -229,14 +247,24 @@ async function fillIn(row, input,  finishedRow){
 async function colourIn(i, block){
   if (THEWORD.indexOf(guess[i]) === -1) {
     block.classList.add('wrong');
+    if (document.getElementById(guess[i])){
+      document.getElementById(guess[i]).classList.add('wrong');
+    }
     return;
   }
   if (THEWORD[i] === guess[i]) {
     block.classList.add('correct');
+    if (document.getElementById(guess[i])){
+      document.getElementById(guess[i]).classList.add('correct');
+    }
     ++correct;
     return;
   }
   block.classList.add('maybe');
+  if (document.getElementById(guess[i])){
+    let guesser = document.getElementById(guess[i]);
+    guesser.classList.add('maybe');
+  }
   ++maybe;
   return;
 }
@@ -261,6 +289,7 @@ function newRound(){
 let roundTimer = parseInt(params.round) || 30;
 
 function runRound(){
+
   playing = true;
   let timeLeft = roundTimer + 1;
   roundStartSound.play();
@@ -316,13 +345,109 @@ function finishRound(){
       if (document.getElementById('enter') && !playing) document.getElementById('enter').click();
     }, 5000)
   }
-
   gridCheck(false);
 }
 
 function beginGame(){
   setTimeout(newRound, 3000);
 }
+
+if (params.keyboard){
+  let keyboard = document.createElement('div');
+  keyboard.classList = 'keyboard';
+  keyboard.id = 'keyboard';
+  let qwerty = [['Q','W','E','R','T','Y','U','I','O','P'], ['A','S','D','F','G','H','J','K','L'], ['Z','X','C','V','B','N','M']];
+  for (let line in qwerty){
+    let row = document.createElement('div');
+    row.className = 'keyRow';
+    let letterLine = qwerty[line];
+    for (let letter in letterLine){
+      let key = document.createElement('div');
+      key.id = letterLine[letter];
+      key.classList = 'keyLetter';
+      key.innerHTML = letterLine[letter];
+      row.appendChild(key);
+    }
+    keyboard.appendChild(row);
+  }
+  Bottom.prepend(keyboard);
+} 
+
+let scaleX = 1;
+let scaleY = 1;
+
+
+function scaleCheck(){
+  let wordleheight = (window.innerHeight * 0.96);
+  if (window.innerHeight < 900) wordleheight = window.innerHeight;
+  let bottomHeight = Math.round(wordleheight * 0.2);
+  console.log(bottomHeight);
+  let titleGrab = title.getBoundingClientRect();
+  let titleSize = titleGrab.height;
+  let keyHeight = bottomHeight * 0.5;
+  console.log(bottomHeight);
+  console.log(keyHeight);
+
+  let maxKeyboardHeight = 125
+  let maxKeyRowHeight = 40;
+
+  eventbox.style.maxHeight = `${bottomHeight}px`;
+  if (params.keyboard) {
+    bottomHeight = Math.round(wordleheight * 0.3);
+    eventbox.style.maxHeight = `${bottomHeight - keyHeight}px`;
+  }
+  Bottom.style.height = `${bottomHeight}px`;
+  if (window.innerHeight >= 1000) Bottom.style.height = 'max-content'
+
+  //KEYBOARD
+  if(params.keyboard){
+    //if ((bottomHeight * 0.5) > maxKeyboardHeight) 
+    keyHeight = maxKeyboardHeight;
+    console.log(keyHeight);
+    keyboard.style.height = `${keyHeight}px`;
+    if (Math.round(bottomHeight * 0.1) < 13) keyboard.style.fontSize = `${Math.round(bottomHeight * 0.1)}px`;
+    let keyRows = document.getElementsByClassName('keyRow');
+    let keyLetters = document.getElementsByClassName('keyLetter');
+    //max font size 15px 
+    for (let r2 = 0; r2 < keyRows.length; r2++ ){
+      let targetSize = Math.round(bottomHeight * 0.2);
+      console.log('target size ' + targetSize)
+      if (targetSize > maxKeyRowHeight) targetSize = maxKeyRowHeight;
+      keyRows[r2].style.height = `${targetSize}px`
+    }
+    for (let l2 = 0; l2 < keyLetters.length; l2++ ){
+      if (Math.round(bottomHeight * 0.1) < 13) {
+        keyLetters[l2].style.padding = `0px ${Math.round(bottomHeight*0.1)}px`
+      } else {
+        keyLetters[l2].style.padding = `0px 13px`
+      }
+    }
+  }
+
+  //Grid
+  let gridSize = wordleheight - bottomHeight - titleSize;
+  if (gridSize > 420) gridSize = 420;
+  grid.style.height = `${gridSize}px`;
+  grid.style.width = `${gridSize * (5/6)}px`;
+  Bottom.style.minWidth = `${gridSize * (5/6)}px`;
+  eventbox.style.minWidth = `${gridSize * (25/27)}px`;
+  let rows = document.getElementsByClassName('row');
+  let numbs = document.getElementsByClassName('num');
+  for (let r = 0; r < rows.length; r++ ){
+    rows[r].style.height = `${gridSize / 6}px`;
+    rows[r].style.width = `${gridSize * (5/6)}px`
+  }
+  for (let n = 0; n < numbs.length; n++){
+    numbs[n].style.height = `${gridSize / 7}px`;
+    numbs[n].style.width = `${gridSize / 7}px`;
+  }
+}
+
+scaleCheck();
+window.addEventListener('resize', () => {
+  scaleCheck();
+  setTimeout(scaleCheck(), 500);
+});
 
 function success(){
   jsConfetti.addConfetti();
@@ -345,13 +470,15 @@ document.addEventListener("keyup", function(event) {
   }
 });
 
-
 //TEST INPUTS
-/* setInterval(() => {
-  let keys = Object.keys(poll);
-  let targetLetter = keys[getRandomInt(26)];
-  let testingLetters = ['C','B','D'];
-  ++poll['D'];
-  ++poll[targetLetter];
-  ++poll[testingLetters[getRandomInt(3)]]
-}, 2000); */
+
+if (params.demo){
+  setInterval(() => {
+    let keys = Object.keys(poll);
+    let targetLetter = keys[getRandomInt(26)];
+    let testingLetters = ['C','B','D'];
+    //++poll['D'];
+    //++poll[targetLetter];
+    ++poll[testingLetters[getRandomInt(3)]]
+  }, 2000);
+}

@@ -18,7 +18,12 @@ if (!params.u){
         <input type="checkbox" id="Auto Mode" class="check">
         <span class="checkmark"></span>
       </label>
+      <label class="checkContainer">Keyboard
+      <input type="checkbox" id="Keyboard" class="check">
+      <span class="checkmark"></span>
+    </label>
     </div>
+
     <div>
       Round Timer
       <input type='number' value="25" id="Round Timer"></input>
@@ -33,6 +38,7 @@ if (!params.u){
   let submit = document.getElementById('newURL');
   let autoMode = document.getElementById('Auto Mode');
   let darkMode = document.getElementById('Dark Mode');
+  let keyboard = document.getElementById('Keyboard');
 
   userInput.addEventListener('keyup', ()=>{
     targetUser = userInput.value;
@@ -42,7 +48,8 @@ if (!params.u){
     let urlArray = [`channel=${targetUser}`];
     urlArray.push(`dark=${darkMode.checked}`);
     urlArray.push(`auto=${autoMode.checked}`);
+    urlArray.push(`keyboard=${keyboard.checked}`);
     urlArray.push(`round=${document.getElementById('Round Timer').value}`)
-    window.open(`http://colloquial.studio/twordle?${urlArray.join('&')}`,"_self");
+    window.open(`http://colloquial.studio/twordle/beta?${urlArray.join('&')}`,"_self");
   })
 }

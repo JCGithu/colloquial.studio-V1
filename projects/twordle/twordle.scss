@@ -1,3 +1,4 @@
+
 $main: rgb(226, 194, 147);
 $purple: rgb(128, 77, 223);
 $green: rgb(67, 148, 67);
@@ -5,6 +6,23 @@ $orange: rgb(212, 145, 58);
 
 html{
   overflow: hidden;
+  --main: #{$main};
+  --mainDarken5: #{darken($main, 5)};
+  --mainDarken10: #{darken($main, 10)};
+  --mainDarken15: #{darken($main, 15)};
+  --mainDarken20: #{darken($main, 20)};
+  --mainDarken40: #{darken($main, 40)};
+  --mainLighten10: #{lighten($main, 10)};
+  --mainLighten15: #{lighten($main, 15)};
+  --textColour: white;
+  --dark: #232323;
+  --howTo: #{$main};
+  --titleShadow: 1px 1px 0px rgb(255, 255, 255), 2px 2px 0px rgb(255, 255, 255);
+  &[data-theme='dark'] {
+    --main: #232323;
+    --textColour: white;
+    --titleShadow: none;
+  }
 }
 
 body{
@@ -20,28 +38,30 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  min-height: 100vh;
+  height: 100vh;
   width: 100vw;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: $main;
+  background-color: var(--main);
 }
 
 #twordle {
-  height: 100%;
-  max-height: 96vh;
+  overflow-y: hidden;
+  height: 96vh;
+  width: 100vw;
+  @media only screen and (max-height: '900px' ) {
+    height: 100vh;
+  }
   display: flex;
   position: relative;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   color: white;
+  //transform: scale(1.1);
   //background-color: black;
-  padding: 2rem;
-  @media only screen and (max-height: '800px' ) {
-    padding: 0.5rem;
-  }
-  border-radius: 1rem;
+  transition: all 0.1s ease-in-out;
 }
 
 
@@ -51,16 +71,18 @@ body{
 }
 
 .num {
-  border-color: darken($main, 15);
+  border-color: var(--mainDarken15);
   border-radius: 2px;
-  width: 3.5rem;
-  height: 3.5rem;
-  font-size: x-large;
+  width: 6vh;
+  height: 6vh;
+  max-width: 60px;
+  max-height: 60px;
+  font-size: 2rem;
   display: flex;
   text-align: center;
   justify-content: center;
   align-items: center;
-  border-width: 4px;
+  border-width: 3px;
   transform: scale(0);
   transition: 0.5s all;
   animation-name: popIn;
@@ -82,29 +104,33 @@ body{
   display: flex;
   flex-direction: row;
   width: 100%;
+  max-height: 70px;
+  max-width: calc(70px * 5);
   justify-content: space-between;
-  padding: 0.5rem 0rem;
+  //padding: 0.5rem 0rem;
 }
 
 .Title {
+  max-height: 115px;
   display: flex;
   flex-direction: column;
-  img{
-    width: 1rem;
-  }
+  padding-bottom: 1vh;
+  justify-content: flex-end;
+  text-align: center;
+  font-size: clamp(0.3rem, 2vh, 1rem);
   button{
     padding: 0rem 0rem;
     margin: 0.3rem 0rem;
-    background-color: darken($main, 15);
+    background-color: var(--mainDarken15);
     cursor: pointer;
   }
   h1 {
     color: $purple;
     text-align: center;
     text-shadow: none;
-    font-size: xx-large;
+    font-size: clamp(1rem, 4vh, 3rem);
     font-weight: bold;
-    text-shadow: 1px 1px 0px rgb(255, 255, 255), 2px 2px 0px rgb(255, 255, 255);
+    text-shadow: var(--titleShadow);
   }
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   a {
@@ -112,41 +138,65 @@ body{
   }
 }
 
+#grid{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 350px;
+/*   height: 47vh;
+  max-height: 460px;
+  @media only screen and (max-height: '900px' ) {
+    transform: scale(0.9) translateY(-2vh);
+    max-height: max-content;
+  } */
+}
+
 .eventbox {
   position: relative;
-  background-color: darken($main, 20);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--mainDarken20);
+  width: max-content;
   width: 90%;
-  height: auto;
+  height: max-content;
+  max-height: 15vh;
   z-index: 4;
   text-align: center;
   border-radius: 1rem;
-  margin: 5%;
-  padding: 0 0.5rem;
+  margin-top: 0.5em;
+  font-size: clamp(1px, 100%, 16px);
+  @media only screen and (max-height: '800px' ) {
+    margin-top: 0; 
+  }
+  @media only screen and (max-height: '700px' ) {
+    font-size: clamp(1px, 60%, 16px);
+  }
+  padding: 0.2em 0.5em;
   transition: 1s all;
   ::selection{
     background-color: $purple;
   }
-  h2{
+  h1, h2{
     color: white;
-    padding: 0.5rem 1rem;
-    font-size: large;
+  }
+  h2{
+    font-size: 1.3em;
   }
   h1{
-    color: white;
-    padding: 0.5rem 1rem;
-    font-size: x-large;
+    font-size: 1.7em;
   }
   h4{
-    font-size: small;
-    margin-top: -0.7rem;
+    font-size: 1em;
   }
   button{
-    background-color: darken($main, 10);
+    background-color: var(--mainDarken10);
     border-radius: 1rem;
     padding: 0.5rem 1rem;
     margin: 0.5rem;
     transition: 0.2s all;
-    width: auto;
+    width: max-content;
     &:hover{
       transform: scale(1.02);
       box-shadow: 0px 0px 10px inset rgba(255, 255, 255, 0.2);
@@ -154,16 +204,58 @@ body{
   }
 }
 
+#bottom{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: max-content;
+  @media only screen and (max-height: '830px' ) {
+    flex-direction: row;
+  }
+}
+
+.keyboard{
+  font-size: 13px;
+  transition: all 0.5s;
+}
+
+.keyRow{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 2px;
+  &:nth-child(3){
+    *{
+      //margin: 0 0.4em;
+      width: 2.4em;
+    }
+  }
+}
+
+.keyLetter{
+  width: 2.2em;
+  height: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0.25em;
+  border-radius: 0.2rem;
+  background-color: var(--mainDarken10);
+  color: var(--textColour);
+}
+
 input{
   padding: 0.5rem 1rem;
   border-radius: 1rem;
-  background-color: lighten($main, 10);
+  width: 100%;
+  background-color: var(--mainLighten10);
   color: $purple;
   transition: 0.5s all;
   outline: none;
   text-align: center;
   &::placeholder{
-    color: darken($main,10);
+    color: var(--mainDarken10);
   }
   &:focus{
     border-width: 0;
@@ -174,7 +266,7 @@ input{
 
 #voted{
   position: absolute;
-  background-color: lighten($main, 10);
+  background-color: var(--mainLighten10);
   border-radius: 1rem;
   padding: 0.5rem;
   margin-left: 1.5rem;
@@ -186,9 +278,14 @@ input{
 }
 
 .wrong{
-  background-color: darken($main,5);
+  background-color: var(--mainDarken5);
   border-width: 0;
   opacity: 0.6;
+}
+
+.maybe{
+  background-color: $orange;
+  border-width: 0;
 }
 
 .correct {
@@ -199,11 +296,6 @@ input{
     background-color: lighten($green, 10);
     color: white;
   }
-}
-
-.maybe{
-  background-color: $orange;
-  border-width: 0;
 }
 
 #popup{
@@ -239,7 +331,7 @@ input{
     position: relative;
     padding: 0rem 1rem;
     margin: 0 0.5rem;
-    background-color: lighten($main,10);
+    background-color: var(--mainLighten10);
     border-radius: 0.3rem;
     transition: 0.2s all;
     &:after{
@@ -253,12 +345,12 @@ input{
   }
   &:hover{
     input ~ span{
-      background-color: lighten($main, 15);
+      background-color: var(--mainLighten15);
       box-shadow: 0px 0px 3px white inset;
     }
   }
   input:checked ~ span {
-    background-color: darken($main,5);
+    background-color: var(--mainDarken5);
     justify-content: center;
     display: flex;
     align-content: center;
@@ -277,7 +369,7 @@ input{
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: $main;
+  background-color: var(--main);
   padding: 2rem;
   color: white;
   max-width: 90%;
@@ -311,7 +403,7 @@ input{
     font-size: larger;
   }
   button{
-    background-color: darken($main, 10) !important;
+    background-color: var(--mainDarken10) !important;
     width: max-content;
     padding: 0.5rem 2rem;
     border-radius: 1rem;
@@ -326,9 +418,9 @@ input{
   max-height: 90vh;
   border-radius: 1rem;
   overflow-y: auto;
-  color: darken($main, 40) ;
+  color: var(--mainDarken40);
   font-size: 20px;
-  background-color: $main;
+  background-color: var(--howTo);
   padding: 2rem;
   code{
     background-color: #232323;
@@ -348,7 +440,7 @@ input{
     justify-content: center;
   }
   button{
-    background-color: darken($main, 10) !important;
+    background-color: var(--mainDarken10) !important;
     width: max-content;
     color: white;
     padding: 0.5rem 2rem;
@@ -376,10 +468,10 @@ input{
     align-items: center;
     justify-content: center;
     border-width: 4px;
-    border-color: lighten($main, 15);
+    border-color: var(--mainLighten15);
   }
   :nth-child(1){
-    background-color: darken($main, 10);
+    background-color: var(--mainDarken10);
   }
   :nth-child(2){
     background-color: $orange;
