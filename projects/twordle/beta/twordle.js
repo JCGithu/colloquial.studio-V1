@@ -390,6 +390,7 @@ function scaleCheck(){
     eventbox.style.maxHeight = `${bottomHeight - keyHeight}px`;
   }
   Bottom.style.height = `${bottomHeight}px`;
+  if (window.innerHeight >= 1000) Bottom.style.height = 'max-content'
 
   //KEYBOARD
   if(params.keyboard){

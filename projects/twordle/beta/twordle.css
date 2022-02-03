@@ -383,7 +383,7 @@ body {
   text-align: center;
   border-radius: 1rem;
   margin-top: 0.5em;
-  font-size: clamp(16px, 1vh, 3px);
+  font-size: clamp(1px, 100%, 16px);
   padding: 0.2em 0.5em;
   -webkit-transition: 1s all;
   transition: 1s all;
@@ -392,6 +392,12 @@ body {
 @media only screen and (max-height: 800px) {
   .eventbox {
     margin-top: 0;
+  }
+}
+
+@media only screen and (max-height: 700px) {
+  .eventbox {
+    font-size: clamp(1px, 60%, 16px);
   }
 }
 
