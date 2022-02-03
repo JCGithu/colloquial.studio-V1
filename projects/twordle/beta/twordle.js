@@ -68,7 +68,7 @@ newBody.id = 'twordleBody';
 let twordleHTML = document.createElement('div');
 twordleHTML.id = 'twordle';
 let title = document.createElement('div');
-title.innerHTML = `<h1>Twordle</h1><p>Made by <a href='https://www.twitch.tv/colloquialowl'>ColloquialOwl</a>, Inspired by <a href='https://www.powerlanguage.co.uk/wordle/'>Wordle</a> ${params.u ? params.u === 'coollike' ? 'tests <img src="https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_561564985653480f92a4198486e1179f/default/light/3.0"></img>' : 'nope' : 'nada'}.</p><button onclick='howTo()'>How to Play</button>`
+title.innerHTML = `<h1>Twordle</h1><p>Made by <a href='https://www.twitch.tv/colloquialowl'>ColloquialOwl</a>, Inspired by <a href='https://www.powerlanguage.co.uk/wordle/'>Wordle</a>.</p><button onclick='howTo()'>How to Play</button>`
 title.classList.add('Title');
 twordleHTML.appendChild(title);
 let grid = document.createElement('div');
@@ -106,6 +106,15 @@ eventbox.appendChild(startButton);
 Bottom.appendChild(eventbox);
 twordleHTML.appendChild(Bottom);
 let letStart = false;
+
+if (params.u){
+  if (params.u === 'coollike'){
+    let charlie = document.createElement('img');
+    charlie.src = "https://static-cdn.jtvnw.net/emoticons/v2/304037430/default/light/3.0"
+    charlie.id = 'charlie';
+    eventbox.appendChild(charlie);
+  }
+}
 
 //SOUNDS
 let roundStartSound = new Audio('./projects/twordle/race.mp3');
@@ -247,7 +256,7 @@ async function colourIn(i, block){
   block.classList.add('maybe');
   if (document.getElementById(guess[i])){
     let guesser = document.getElementById(guess[i]);
-    if (!guesser.contains('correct')) guesser.classList.add('maybe');
+    guesser.classList.add('maybe');
   }
   ++maybe;
   return;
@@ -363,25 +372,37 @@ let scaleY = 1;
 
 function scaleCheck(){
   let wordleheight = (window.innerHeight * 0.96);
+  if (window.innerHeight < 700) wordleheight = window.innerHeight;
   let bottomHeight = Math.round(wordleheight * 0.2);
   console.log(bottomHeight);
   let titleGrab = title.getBoundingClientRect();
   let titleSize = titleGrab.height;
   let keyHeight = bottomHeight * 0.5;
+  console.log(bottomHeight);
+  console.log(keyHeight);
 
   let maxKeyboardHeight = 125
   let maxKeyRowHeight = 40;
 
+  eventbox.style.maxHeight = `${bottomHeight}px`;
+  if (params.keyboard) {
+    bottomHeight = Math.round(wordleheight * 0.3);
+    eventbox.style.maxHeight = `${bottomHeight - keyHeight}px`;
+  }
+  Bottom.style.height = `${bottomHeight}px`;
+
   //KEYBOARD
   if(params.keyboard){
     if ((bottomHeight * 0.5) > maxKeyboardHeight) keyHeight = maxKeyboardHeight;
+    console.log(keyHeight);
     keyboard.style.height = `${keyHeight}px`;
     if (Math.round(bottomHeight * 0.1) < 13) keyboard.style.fontSize = `${Math.round(bottomHeight * 0.1)}px`;
     let keyRows = document.getElementsByClassName('keyRow');
     let keyLetters = document.getElementsByClassName('keyLetter');
     //max font size 15px 
     for (let r2 = 0; r2 < keyRows.length; r2++ ){
-      let targetSize = Math.round(bottomHeight *0.15);
+      let targetSize = Math.round(bottomHeight * 0.2);
+      console.log('target size ' + targetSize)
       if (targetSize > maxKeyRowHeight) targetSize = maxKeyRowHeight;
       keyRows[r2].style.height = `${targetSize}px`
     }
@@ -394,19 +415,13 @@ function scaleCheck(){
     }
   }
 
-  eventbox.style.maxHeight = `${bottomHeight}px`;
-  if (params.keyboard) {
-    bottomHeight = Math.round(wordleheight * 0.3);
-    eventbox.style.maxHeight = `${bottomHeight - keyHeight}px`;
-  }
-  Bottom.style.height = `${bottomHeight}px`;
-  
-
   //Grid
   let gridSize = wordleheight - bottomHeight - titleSize;
   if (gridSize > 420) gridSize = 420;
   grid.style.height = `${gridSize}px`;
   grid.style.width = `${gridSize * (5/6)}px`;
+  Bottom.style.minWidth = `${gridSize * (5/6)}px`;
+  eventbox.style.minWidth = `${gridSize * (25/27)}px`;
   let rows = document.getElementsByClassName('row');
   let numbs = document.getElementsByClassName('num');
   for (let r = 0; r < rows.length; r++ ){

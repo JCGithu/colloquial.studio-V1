@@ -82,15 +82,6 @@ for (let rowCount = 1; rowCount <= 6; rowCount++){
 }
 twordleHTML.appendChild(grid);
 
-if (params.u){
-  if (params.u === 'coollike'){
-    let charlie = document.createElement('img');
-    charlie.src = "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_561564985653480f92a4198486e1179f/default/light/3.0"
-    charlie.id = 'charlie';
-    document.body.appendChild(charlie);
-  }
-}
-
 //EVENT BOX GENERATION
 let eventbox = document.createElement('div');
 eventbox.className = 'eventbox';
@@ -111,6 +102,15 @@ twordleHTML.appendChild(eventbox);
 extraButton.innerHTML ='Random Word!';
 eventbox.appendChild(extraButton); */
 let letStart = false;
+
+if (params.u){
+  if (params.u === 'coollike'){
+    let charlie = document.createElement('img');
+    charlie.src = "https://static-cdn.jtvnw.net/emoticons/v2/304037430/default/light/3.0"
+    charlie.id = 'charlie';
+    eventbox.appendChild(charlie);
+  }
+}
 
 //SOUNDS
 let roundStartSound = new Audio('./projects/twordle/race.mp3');

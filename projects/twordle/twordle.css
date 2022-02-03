@@ -91,7 +91,7 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-width: 0.2rem;
+  border-width: 4px;
   -webkit-transform: scale(0);
           transform: scale(0);
   -webkit-transition: 0.5s all;
@@ -430,13 +430,6 @@ input:focus {
   border-width: 0;
 }
 
-form:required:focus:invalid {
-  border: 1px solid red;
-  color: red;
-  -webkit-box-shadow: 0 0 0 1px;
-          box-shadow: 0 0 0 1px;
-}
-
 #popup {
   position: absolute;
   width: 100vw;
@@ -705,8 +698,10 @@ form:required:focus:invalid {
 
 #charlie {
   position: absolute;
+  height: 2em;
+  width: 2em;
   z-index: 10;
   bottom: 0;
-  left: 0;
+  right: 2em;
 }
 /*# sourceMappingURL=twordle.css.map */

@@ -60,7 +60,7 @@ body{
   text-align: center;
   justify-content: center;
   align-items: center;
-  border-width: 0.2rem;
+  border-width: 4px;
   transform: scale(0);
   transition: 0.5s all;
   animation-name: popIn;
@@ -204,14 +204,6 @@ input{
 .maybe{
   background-color: $orange;
   border-width: 0;
-}
-
-form{
-  &:required:focus:invalid {
-		border: 1px solid red;
-		color: red;
-		box-shadow: 0 0 0 1px;
-	}
 }
 
 #popup{
@@ -409,7 +401,9 @@ form{
 
 #charlie{
   position: absolute;
+  height: 2em;
+  width: 2em;
   z-index: 10;
   bottom: 0;
-  left: 0;
+  right: 2em;
 }
