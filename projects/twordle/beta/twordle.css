@@ -71,7 +71,7 @@ body {
   transition: all 0.1s ease-in-out;
 }
 
-@media only screen and (max-height: 700px) {
+@media only screen and (max-height: 900px) {
   #twordle {
     height: 100vh;
   }
@@ -454,7 +454,7 @@ body {
   width: max-content;
 }
 
-@media only screen and (max-height: 800px) {
+@media only screen and (max-height: 830px) {
   #bottom {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;

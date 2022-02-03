@@ -372,7 +372,7 @@ let scaleY = 1;
 
 function scaleCheck(){
   let wordleheight = (window.innerHeight * 0.96);
-  if (window.innerHeight < 700) wordleheight = window.innerHeight;
+  if (window.innerHeight < 900) wordleheight = window.innerHeight;
   let bottomHeight = Math.round(wordleheight * 0.2);
   console.log(bottomHeight);
   let titleGrab = title.getBoundingClientRect();
@@ -393,7 +393,8 @@ function scaleCheck(){
 
   //KEYBOARD
   if(params.keyboard){
-    if ((bottomHeight * 0.5) > maxKeyboardHeight) keyHeight = maxKeyboardHeight;
+    //if ((bottomHeight * 0.5) > maxKeyboardHeight) 
+    keyHeight = maxKeyboardHeight;
     console.log(keyHeight);
     keyboard.style.height = `${keyHeight}px`;
     if (Math.round(bottomHeight * 0.1) < 13) keyboard.style.fontSize = `${Math.round(bottomHeight * 0.1)}px`;

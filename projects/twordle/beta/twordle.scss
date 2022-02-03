@@ -50,7 +50,7 @@ body{
   overflow-y: hidden;
   height: 96vh;
   width: 100vw;
-  @media only screen and (max-height: '700px' ) {
+  @media only screen and (max-height: '900px' ) {
     height: 100vh;
   }
   display: flex;
@@ -206,7 +206,7 @@ body{
   flex-direction: column;
   justify-content: center;
   width: max-content;
-  @media only screen and (max-height: '800px' ) {
+  @media only screen and (max-height: '830px' ) {
     flex-direction: row;
   }
 }
