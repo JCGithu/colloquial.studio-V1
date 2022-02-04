@@ -14,6 +14,7 @@ params.dark = (params.dark === 'true');
 console.log(params.dark);
 params.auto = (params.auto === 'true');
 params.keyboard = (params.keyboard === 'true');
+if (onMobile) params.keyboard = false;
 
 //USERNAME POP UP
 
