@@ -71,7 +71,24 @@ function runDrop({u,b,s,e,l,t}){
 
   client.connect();
   client.on('message', (channel, tags, message, self) => {
+    
+    if (tags.badges.broadcaster || tags.badges.moderator){
+      if (message === '!emotewipe'){
+        //Composite.remove(world, )
+        console.log(Composite.allBodies(world))
+        Composite.allBodies(world).forEach((body)=>{
+          if (body.label === 'Circle Body'){
+            Composite.remove(world, body);
+          }
+        });
+        return;
+      }
+    } 
+
+    
+    
     let batch = [];
+
     for (let i in tags.emotes){
       for(let k in tags.emotes[i]){
         let newCircle = Bodies.circle(getRandomInt(innerWidth * 0.9), 0, ball, {
@@ -102,5 +119,8 @@ function runDrop({u,b,s,e,l,t}){
     setInterval(function(){
       Composite.remove(world, batch);
     }, time);
+
+
+
   });	
 }
