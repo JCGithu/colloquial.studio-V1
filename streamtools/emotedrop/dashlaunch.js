@@ -20,7 +20,7 @@ const settings = {
   },
   title: "Emote Drop!",
   tag: `Made on stream over at <a class="underline" href="https://twitch.tv/colloquialowl">ColloquialOwl</a>.`,
-  description: `Please input the channel of the Twitch chat you want to pull the emotes from.<br><br> Streamers and mods can wipe the screen with the <code>!emotewipe</code> command. <br><br>After picking your settings you can find the URL to put into OBS at the bottom!</p>`,
+  description: `Please input the channel of the Twitch chat you want to pull the emotes from.<br><br> Streamers and mods can wipe the screen with the <code>!emotewipe</code> command, or delete a set number e.g. <code>!emotewipe 5</code>. <br><br>After picking your settings you can find the URL to put into OBS at the bottom!</p>`,
 }
 
 const data = [

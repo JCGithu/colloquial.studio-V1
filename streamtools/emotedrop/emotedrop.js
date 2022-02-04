@@ -72,17 +72,24 @@ function runDrop({u,b,s,e,l,t}){
   client.connect();
   client.on('message', (channel, tags, message, self) => {
     
-    if (tags.badges.broadcaster || tags.badges.moderator){
+    if (tags.badges.broadcaster && message.startsWith('!emotewipe') || tags.badges.moderator && message.startsWith('!emotewipe')){
+      let bodyList = Composite.allBodies(world);
       if (message === '!emotewipe'){
-        //Composite.remove(world, )
-        console.log(Composite.allBodies(world))
-        Composite.allBodies(world).forEach((body)=>{
+        console.log('deleting all!');
+        bodyList.forEach((body)=>{
           if (body.label === 'Circle Body'){
             Composite.remove(world, body);
           }
         });
         return;
       }
+      console.log('got here');
+      let num = message.split(' ')[1];
+      if (!+num) return;
+      for (let numDel = 1; numDel <= num; numDel++){
+        Composite.remove(world, bodyList[numDel+3]);
+      }
+      return;
     } 
 
     
