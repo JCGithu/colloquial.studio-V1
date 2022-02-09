@@ -111,7 +111,8 @@ let personalised = {
   "coollike" : "https://static-cdn.jtvnw.net/emoticons/v2/304037430/default/light/3.0",
   "lbx0": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_44ede65082fb45ef9473c9966c3cd9ea/default/light/3.0",
   "letsbrock": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_7d127fea0d5d481e886c7161d45b4d78/default/light/3.0",
-  "arcasian": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_e79955dcfb654887bd08f4d551583d97/default/light/3.0" 
+  "arcasian": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_e79955dcfb654887bd08f4d551583d97/default/light/3.0",
+  "certainlylaz": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_0f82cf9b2bcb41d3823ab0273c122208/default/dark/3.0"
 }
 
 if (params.u){
