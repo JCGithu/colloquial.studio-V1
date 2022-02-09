@@ -111,6 +111,13 @@ body{
   //padding: 0.5rem 0rem;
 }
 
+.rowSelected{
+  * {
+    animation: bounce 0.5s ease-out;
+    animation-iteration-count: infinite;
+  }
+}
+
 .Title {
   max-height: 115px;
   display: flex;
@@ -502,6 +509,7 @@ input{
   right: 2em;
 }
 
+<<<<<<< HEAD
 #cog{
   position: absolute;
   width: 2rem;
@@ -553,4 +561,19 @@ input{
     margin-top: 0 !important;
   }
   pointer-events: auto !important;
+=======
+@keyframes bounce
+{
+	/* weeeeee */
+	0% 		{transform-origin:50% 100%;transform:scale(1,1);}
+	10% 	{transform-origin:50% 100%;transform:scale(0.9,1.2);}
+	20% 	{transform-origin:50% 100%;transform:scale(1.5,0.5);}
+	25% 	{transform-origin:50% 100%;transform:scale(0.75,1.5) translate(0px,-10px);}
+	30% 	{transform-origin:50% 100%;transform:scale(0.8,1.2) translate(0px,-20px);}
+	60% 	{transform-origin:50% 100%;transform:scale(1,1) translate(0px,-25px);}
+	70% 	{transform-origin:50% 100%;transform:scale(2,0.5);}
+	80% 	{transform-origin:50% 100%;transform:scale(0.8,1.2);}
+	90% 	{transform-origin:50% 100%;transform:scale(1,1);}
+	100% 	{transform-origin:50% 100%;transform:scale(1,1);}
+>>>>>>> e02a558013a8c747e992580be05da50e305a21ff
 }

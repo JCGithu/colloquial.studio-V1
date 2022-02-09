@@ -1,20 +1,37 @@
 const urlParams = new URLSearchParams(window.location.search);
 const params = {
-  u: urlParams.get('channel'),
-  round: urlParams.get('round'),
-  levi: urlParams.get('levi'),
-  auto: urlParams.get('auto'),
-  dark: urlParams.get('dark'),
-  keyboard: urlParams.get('keyboard'),
   demo: urlParams.get('demo')
 }
 
-if (params.levi) params.dark = params.levi;
-params.dark = (params.dark === 'true');
-console.log(params.dark);
-params.auto = (params.auto === 'true');
-params.keyboard = (params.keyboard === 'true');
-if (onMobile) params.keyboard = false;
+console.log(localStorage);
+
+localAuto = false;
+localDark = false;
+localKeyboard = false;
+localTimer = 25;
+user = null;
+
+if (localStorage.getItem("channel")) user = localStorage.getItem('channel');
+
+if (localStorage.getItem("autoMode")) {
+  localAuto = (localStorage.getItem('autoMode') === 'true');
+}
+if (localStorage.getItem("darkMode")) {
+  localDark = (localStorage.getItem('darkMode') === 'true');
+  console.log('localDark' + localDark);
+}
+if (localStorage.getItem("keyboard")) {
+  localKeyboard = (localStorage.getItem('keyboard') === 'true');
+}
+
+function reloadTimer(){
+  if (localStorage.getItem("timer")) {
+    localTimer = parseInt(localStorage.getItem('timer'));
+  }
+}
+reloadTimer();
+
+if (onMobile) localKeyboard = false;
 
 //USERNAME POP UP
 
@@ -23,13 +40,13 @@ toast.style.transform = "scale(0)"
 toast.id = 'toast';
 document.body.appendChild(toast);
 
-if (params.u){
+if (user){
   const client = new tmi.Client({
-    channels: [params.u]
+    channels: [user]
   });
   client.on("connected", () => {
     console.log('Reading from Twitch! ✅');
-    toast.innerHTML = `Connected to ${params.u} chat`;
+    toast.innerHTML = `Connected to ${user} chat`;
     toast.style.visibility = 'visible';
     toast.style.transform = "scale(1)";
     setTimeout(()=>{
@@ -115,13 +132,11 @@ let personalised = {
   "arcasian": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_e79955dcfb654887bd08f4d551583d97/default/light/3.0" 
 }
 
-if (params.u){
-  if (personalised.hasOwnProperty(params.u)){
-    let streamerIcon = document.createElement('img');
-    streamerIcon.src = personalised[params.u];
-    streamerIcon.id = 'charlie';
-    eventbox.appendChild(streamerIcon);
-  }
+if (personalised.hasOwnProperty(localStorage.getItem("channel"))){
+  let streamerIcon = document.createElement('img');
+  streamerIcon.src = personalised[user];
+  streamerIcon.id = 'charlie';
+  eventbox.appendChild(streamerIcon);
 }
 
 //SOUNDS
@@ -152,7 +167,7 @@ startButton.addEventListener('click', ()=> {
 
 function darkMode(){
   document.documentElement.setAttribute('data-theme', 'light');
-  if (params.dark){
+  if (localDark){
     document.documentElement.setAttribute('data-theme', 'dark');
   }
 }
@@ -205,11 +220,11 @@ function runRow(){
       let correctText = ` letter${correct > 1 ? 's':''} correct!`;
       secondLine = `<p>${maybe ? maybe + maybeText + '<br>' : ''} ${correct ? correct + correctText : ''}</p>`
     }
-    if (params.keyboard) secondLine = '';
+    if (localKeyboard) secondLine = '';
     eventbox.innerHTML = `<h2>${rowMessage[getRandomInt(rowMessage.length)]}</h2>${secondLine}<button id="enter" onclick="newRound()">Next Letter</button>`;
     console.log(wordsGuessed);
   }
-  if (params.auto){
+  if (localAuto){
     setTimeout(()=>{
       if (document.getElementById('enter') && !playing) document.getElementById('enter').click();
     }, 5000)
@@ -287,12 +302,10 @@ function newRound(){
   }, 1000);
 }
 
-let roundTimer = parseInt(params.round) || 30;
-
 function runRound(){
-
+  reloadTimer();
   playing = true;
-  let timeLeft = roundTimer + 1;
+  let timeLeft = localTimer + 1;
   roundStartSound.play();
   var roundClock = setInterval(function() {
     //if (usersVoted.length > 0) votedBubble.style.visibility = 'visible';
@@ -341,7 +354,7 @@ function finishRound(){
     eventbox.innerHTML = `<h2>${finalResult}</h2><h4>(${finalPoll[finalResult]} votes)</h4><button id="enter" onClick="runRow()">Check Word</button>`;
     if (wordsGuessed.length === 5) eventbox.innerHTML = `<h2>${finalResult}</h2><br><p>Final chance! Good Luck!</p><button id="enter" onClick="runRow()">Fingers Crossed!</button>`;
   }
-  if (params.auto){
+  if (localAuto){
     setTimeout(()=>{
       if (document.getElementById('enter') && !playing) document.getElementById('enter').click();
     }, 5000)
@@ -353,7 +366,7 @@ function beginGame(){
   setTimeout(newRound, 3000);
 }
 
-if (params.keyboard){
+function addKeyboard(){
   let keyboard = document.createElement('div');
   keyboard.classList = 'keyboard';
   keyboard.id = 'keyboard';
@@ -372,7 +385,9 @@ if (params.keyboard){
     keyboard.appendChild(row);
   }
   Bottom.prepend(keyboard);
-} 
+}
+
+if (localKeyboard) addKeyboard();
 
 let scaleX = 1;
 let scaleY = 1;
@@ -393,7 +408,7 @@ function scaleCheck(){
   let maxKeyRowHeight = 40;
 
   eventbox.style.maxHeight = `${bottomHeight}px`;
-  if (params.keyboard) {
+  if (localKeyboard) {
     bottomHeight = Math.round(wordleheight * 0.3);
     eventbox.style.maxHeight = `${bottomHeight - keyHeight}px`;
   }
@@ -401,7 +416,7 @@ function scaleCheck(){
   if (window.innerHeight >= 1000) Bottom.style.height = 'max-content'
 
   //KEYBOARD
-  if(params.keyboard){
+  if(localKeyboard){
     //if ((bottomHeight * 0.5) > maxKeyboardHeight) 
     keyHeight = maxKeyboardHeight;
     console.log(keyHeight);

@@ -46,6 +46,8 @@ body {
   padding: 0;
   overflow: hidden;
   background-color: var(--main);
+  -webkit-transition: all 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
 }
 
 #twordle {
@@ -856,5 +858,78 @@ input:focus {
   z-index: 10;
   bottom: 0;
   right: 2em;
+}
+
+#cog {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  top: 0.2rem;
+  right: 0.2rem;
+  cursor: pointer;
+}
+
+#cog img > svg > path {
+  /*target the image with css*/
+  fill: var(--primary-color);
+}
+
+#settings {
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  z-index: 10;
+  opacity: 0;
+  top: 0;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+  pointer-events: none;
+}
+
+#settings div {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  background-color: var(--main);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-top: 5rem;
+  -webkit-transition: 1s all ease-in-out;
+  transition: 1s all ease-in-out;
+}
+
+#settings button {
+  background-color: var(--mainDarken10) !important;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0.5rem 2rem;
+  border-radius: 1rem;
+  color: var(--textColour);
+}
+
+#settings input {
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+
+.openSettings {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.openSettings div {
+  margin-top: 0 !important;
 }
 /*# sourceMappingURL=twordle.css.map */
