@@ -10,6 +10,7 @@ html {
   --mainLighten10: #edd9bb;
   --mainLighten15: #f2e4cf;
   --textColour: white;
+  --settingColour: #232323;
   --dark: #232323;
   --howTo: #e2c293;
   --titleShadow: 1px 1px 0px rgb(255, 255, 255), 2px 2px 0px rgb(255, 255, 255);
@@ -18,6 +19,7 @@ html {
 html[data-theme='dark'] {
   --main: #232323;
   --textColour: white;
+  --settingColour: white;
   --titleShadow: none;
 }
 
@@ -882,13 +884,6 @@ input:focus {
 }
 
 #settings {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  background-color: var(--main);
-  border-radius: 1rem;
-  padding: 1rem;
-  margin-top: 5rem;
   -webkit-transition: 1s all ease-in-out;
   transition: 1s all ease-in-out;
   background-color: rgba(0, 0, 0, 0.5);
@@ -908,9 +903,29 @@ input:focus {
   z-index: 10;
   opacity: 0;
   top: 0;
-  -webkit-transition: all 1s;
-  transition: all 1s;
   pointer-events: none;
+}
+
+#settings div {
+  width: 50%;
+  background-color: var(--main);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-top: 5rem;
+  -webkit-transition: 1s all ease-in-out;
+  transition: 1s all ease-in-out;
+  color: var(--settingColour);
+}
+
+@media only screen and (max-width: 800px) {
+  #settings div {
+    width: 100%;
+  }
+}
+
+#settings div h1 {
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 #settings button {

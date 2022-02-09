@@ -3,9 +3,9 @@ cog.src = '../projects/twordle/cog.svg';
 cog.id = 'cog';
 
 let settings = document.createElement('div');
-settings.id = 'popup';
+settings.id = 'settings';
 settings.innerHTML = `
-<div id='settings'>
+<div id='innerSettings'>
   <h1>Settings!</h1>
   <p>Change channel</p>
   <input placeholder = "[Channel Name Here]" id="channel"></input>

@@ -15,12 +15,14 @@ html{
   --mainLighten10: #{lighten($main, 10)};
   --mainLighten15: #{lighten($main, 15)};
   --textColour: white;
+  --settingColour: #232323;
   --dark: #232323;
   --howTo: #{$main};
   --titleShadow: 1px 1px 0px rgb(255, 255, 255), 2px 2px 0px rgb(255, 255, 255);
   &[data-theme='dark'] {
     --main: #232323;
     --textColour: white;
+    --settingColour: white;
     --titleShadow: none;
   }
 }
@@ -522,11 +524,6 @@ input{
 }
 
 #settings{
-  width: max-content;
-  background-color: var(--main);
-  border-radius: 1rem;
-  padding: 1rem;
-  margin-top: 5rem;
   transition: 1s all ease-in-out;
   background-color: fade-out(black, 0.5);
   text-align: center;
@@ -539,8 +536,23 @@ input{
   z-index: 10;
   opacity: 0;
   top: 0;
-  transition: all 1s;
   pointer-events: none;
+  div {
+    width: 50%;
+    @media only screen and (max-width: '800px' ) {
+      width: 100%;
+    }
+    background-color: var(--main);
+    border-radius: 1rem;
+    padding: 1rem;
+    margin-top: 5rem;
+    transition: 1s all ease-in-out;
+    color: var(--settingColour);
+    h1 {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+  }
   button{
     background-color: var(--mainDarken10) !important;
     width: max-content;
