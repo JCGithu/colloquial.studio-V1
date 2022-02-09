@@ -50,6 +50,6 @@ if (!params.u){
     urlArray.push(`auto=${autoMode.checked}`);
     urlArray.push(`keyboard=${keyboard.checked}`);
     urlArray.push(`round=${document.getElementById('Round Timer').value}`)
-    window.open(`http://colloquial.studio/twordle/beta?${urlArray.join('&')}`,"_self");
+    window.open(`http://colloquial.studio/twordle?${urlArray.join('&')}`,"_self");
   })
 }
