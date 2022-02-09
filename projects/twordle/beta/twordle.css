@@ -299,6 +299,13 @@ body {
           justify-content: space-between;
 }
 
+.rowSelected * {
+  -webkit-animation: bounce 0.5s ease-out;
+          animation: bounce 0.5s ease-out;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+
 .Title {
   max-height: 115px;
   display: -webkit-box;
@@ -875,6 +882,15 @@ input:focus {
 }
 
 #settings {
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  background-color: var(--main);
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-top: 5rem;
+  -webkit-transition: 1s all ease-in-out;
+  transition: 1s all ease-in-out;
   background-color: rgba(0, 0, 0, 0.5);
   text-align: center;
   width: 100vw;
@@ -895,18 +911,6 @@ input:focus {
   -webkit-transition: all 1s;
   transition: all 1s;
   pointer-events: none;
-}
-
-#settings div {
-  width: -webkit-max-content;
-  width: -moz-max-content;
-  width: max-content;
-  background-color: var(--main);
-  border-radius: 1rem;
-  padding: 1rem;
-  margin-top: 5rem;
-  -webkit-transition: 1s all ease-in-out;
-  transition: 1s all ease-in-out;
 }
 
 #settings button {
@@ -931,5 +935,133 @@ input:focus {
 
 .openSettings div {
   margin-top: 0 !important;
+}
+
+@-webkit-keyframes bounce {
+  /* weeeeee */
+  0% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
+  10% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(0.9, 1.2);
+            transform: scale(0.9, 1.2);
+  }
+  20% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(1.5, 0.5);
+            transform: scale(1.5, 0.5);
+  }
+  25% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(0.75, 1.5) translate(0px, -10px);
+            transform: scale(0.75, 1.5) translate(0px, -10px);
+  }
+  30% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(0.8, 1.2) translate(0px, -20px);
+            transform: scale(0.8, 1.2) translate(0px, -20px);
+  }
+  60% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(1, 1) translate(0px, -25px);
+            transform: scale(1, 1) translate(0px, -25px);
+  }
+  70% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(2, 0.5);
+            transform: scale(2, 0.5);
+  }
+  80% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(0.8, 1.2);
+            transform: scale(0.8, 1.2);
+  }
+  90% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
+  100% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
+}
+
+@keyframes bounce {
+  /* weeeeee */
+  0% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
+  10% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(0.9, 1.2);
+            transform: scale(0.9, 1.2);
+  }
+  20% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(1.5, 0.5);
+            transform: scale(1.5, 0.5);
+  }
+  25% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(0.75, 1.5) translate(0px, -10px);
+            transform: scale(0.75, 1.5) translate(0px, -10px);
+  }
+  30% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(0.8, 1.2) translate(0px, -20px);
+            transform: scale(0.8, 1.2) translate(0px, -20px);
+  }
+  60% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(1, 1) translate(0px, -25px);
+            transform: scale(1, 1) translate(0px, -25px);
+  }
+  70% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(2, 0.5);
+            transform: scale(2, 0.5);
+  }
+  80% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(0.8, 1.2);
+            transform: scale(0.8, 1.2);
+  }
+  90% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
+  100% {
+    -webkit-transform-origin: 50% 100%;
+            transform-origin: 50% 100%;
+    -webkit-transform: scale(1, 1);
+            transform: scale(1, 1);
+  }
 }
 /*# sourceMappingURL=twordle.css.map */
