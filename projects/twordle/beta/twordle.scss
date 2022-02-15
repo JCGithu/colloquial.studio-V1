@@ -503,7 +503,6 @@ input{
 }
 
 #thebuttons{
-  //@include checkmark;
   padding: 0;
   width: 100% !important;
   display: flex;
@@ -513,18 +512,11 @@ input{
   input{ 
     width: 5rem;
   }
+  label{
+    @include checkmark;
+    padding-right: 0.3rem;
+  }
 }
-
-#stats{
-  //@include checkmark;
-  padding: 0;
-  width: 100% !important;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
 
 #charlie{
   position: absolute;
@@ -587,7 +579,29 @@ input{
   input{
     padding: 0.5rem;
     margin: 0.5rem;
+    width: max-content;
   }
+}
+
+.stackVert, .stackHorz{
+  padding: 0.2rem !important;
+  width: 100% !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stackVert{
+  flex-direction: column;
+}
+
+.stackHorz{
+  flex-direction: row;
+}
+
+.volRed{
+  accent-color: grey;
+  opacity: 0.6;
 }
 
 .openSettings{

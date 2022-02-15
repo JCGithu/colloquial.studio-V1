@@ -31,6 +31,7 @@ function saveStats() {
 localAuto = false;
 localDark = false;
 localKeyboard = false;
+localVolume = 3;
 localTimer = 25;
 user = null;
 
@@ -45,6 +46,9 @@ if (localStorage.getItem("darkMode")) {
 }
 if (localStorage.getItem("keyboard")) {
   localKeyboard = (localStorage.getItem('keyboard') === 'true');
+}
+if (localStorage.getItem("volume")) {
+  localVolume = parseInt(localStorage.getItem('volume'));
 }
 
 function reloadTimer(){
@@ -164,8 +168,8 @@ if (personalised.hasOwnProperty(localStorage.getItem("channel"))){
 }
 
 //SOUNDS
-let roundStartSound = new Audio('./projects/twordle/race.mp3');
-roundStartSound.volume = 0.3;
+let roundStartSound = new Audio('../projects/twordle/race.mp3');
+roundStartSound.volume = localVolume/10;
 
 //WORD INPUT AND STARTING
 wordInput.addEventListener('keyup', ()=>{

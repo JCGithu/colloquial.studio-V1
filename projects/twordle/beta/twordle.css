@@ -882,22 +882,72 @@ input:focus {
   width: 5rem;
 }
 
-#stats {
-  padding: 0;
-  width: 100% !important;
+#thebuttons label {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  position: relative;
+  padding: 0.2rem 0.1rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  padding-right: 0.3rem;
+}
+
+#thebuttons label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+#thebuttons label span {
+  position: relative;
+  padding: 0rem 1rem;
+  margin: 0 0.5rem;
+  background-color: var(--mainLighten10);
+  border-radius: 0.3rem;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+#thebuttons label span:after {
+  content: '✔';
+  position: absolute;
+  display: none;
+  border: white;
+  color: white;
+  border-width: 0 0.2rem 0.2rem 0;
+}
+
+#thebuttons label:hover input ~ span {
+  background-color: var(--mainLighten15);
+  -webkit-box-shadow: 0px 0px 3px white inset;
+          box-shadow: 0px 0px 3px white inset;
+}
+
+#thebuttons label input:checked ~ span {
+  background-color: var(--mainDarken5);
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+#thebuttons label input:checked ~ span:after {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-item-align: center;
+      align-self: center;
+  justify-self: center;
 }
 
 #charlie {
@@ -981,6 +1031,42 @@ input:focus {
 #settings input {
   padding: 0.5rem;
   margin: 0.5rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+
+.stackVert, .stackHorz {
+  padding: 0.2rem !important;
+  width: 100% !important;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.stackVert {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.stackHorz {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.volRed {
+  accent-color: grey;
+  opacity: 0.6;
 }
 
 .openSettings {
