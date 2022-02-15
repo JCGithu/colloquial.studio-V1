@@ -11,17 +11,24 @@ settings.innerHTML = `
   <input placeholder = "[Channel Name Here]" id="channel"></input>
   <button onclick="localStorage.setItem('channel', document.getElementById('channel').value);location.reload();">Refresh!</button>
   <br>
-  <label class="checkContainer">Dark Mode
-    <input type="checkbox" id="Dark Mode" class="check">
-    <span class="checkmark"></span>
-  </label>
-  <label class="checkContainer">Auto Mode
-    <input type="checkbox" id="Auto Mode" class="check">
-    <span class="checkmark"></span>
-  </label>
+  <div id='thebuttons'>
+    <label class="checkContainer">Dark Mode
+      <input type="checkbox" id="Dark Mode" class="check">
+      <span class="checkmark"></span>
+    </label>
+    <label class="checkContainer">Auto Mode
+      <input type="checkbox" id="Auto Mode" class="check">
+      <span class="checkmark"></span>
+    </label>
   ${onMobile ? '':'<label class="checkContainer">Keyboard<input type="checkbox" id="Keyboard" class="check"><span class="checkmark"></span></label>'}
+  </div>
   Round Timer
   <input type='number' value="25" id="Round Timer"></input>
+  <div id='stats'>
+    <p>Total Votes: ${stats.votes}</p>
+    <p>Games Played: ${stats.play}</p>
+    <p>Games Won: ${stats.won}</p>
+  </div>
   <button onclick="console.log('worked!');document.getElementById('settings').classList.remove('openSettings')">Close</button>
   </div>
 `
@@ -35,6 +42,8 @@ let keyboardCheck = document.getElementById('Keyboard') || null;
 keyboardCheck.checked = localKeyboard;
 let timerCheck = document.getElementById('Round Timer');
 timerCheck.value = localTimer;
+
+let statBox = document.getElementById('stats');
 
 
 darkModeCheck.addEventListener('change', () => {

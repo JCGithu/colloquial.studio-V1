@@ -5,6 +5,29 @@ const params = {
 
 console.log(localStorage);
 
+let stats = {
+  play: 0,
+  won: 0,
+  votes: 0,
+  lastWord: ''
+}
+
+//localStorage.setItem('stats', JSON.stringify(stats));
+
+if (localStorage.getItem('stats')) stats = JSON.parse(localStorage.getItem('stats'));
+if (!localStorage.getItem("stats")) localStorage.setItem('stats', JSON.stringify(stats));
+
+function saveStats() {
+  localStorage.setItem('stats', JSON.stringify(stats));
+  if (statBox){
+    statBox.innerHTML = `
+      <p>Total Votes: ${stats.votes}</p>
+      <p>Games Played: ${stats.play}</p>
+      <p>Games Won: ${stats.won}</p>`;
+  }
+}
+
+
 localAuto = false;
 localDark = false;
 localKeyboard = false;
@@ -159,6 +182,8 @@ wordInput.addEventListener('keyup', ()=>{
 startButton.addEventListener('click', ()=> {
   if (!letStart) return;
   THEWORD = wordInput.value.toUpperCase(); 
+  ++stats.play
+  saveStats();
   eventbox.innerHTML = '<h2>Starting round!</h2>';
   console.log('Starting!');
   setTimeout(()=>{
@@ -206,7 +231,6 @@ let rowMessage = [
 ]
 
 function runRow(){
-  
   gridCheck(true);
   wordsGuessed.push(guess);
   if (guess === THEWORD){
@@ -360,6 +384,8 @@ function finishRound(){
       if (document.getElementById('enter') && !playing) document.getElementById('enter').click();
     }, 5000)
   }
+  stats.votes = stats.votes + usersVoted.length;
+  saveStats();
   gridCheck(false);
 }
 
@@ -467,6 +493,8 @@ window.addEventListener('resize', () => {
 });
 
 function success(){
+  ++stats.won;
+  saveStats();
   jsConfetti.addConfetti();
   eventbox.innerHTML = '<h1>CONGRATS!</h1><button id="enter" onclick="location.reload()">Play again?</button>';
 }
