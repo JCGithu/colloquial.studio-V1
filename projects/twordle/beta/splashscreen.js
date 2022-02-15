@@ -37,7 +37,7 @@ if (localStorage.getItem("autoMode") === null) {
   let autoMode = document.getElementById('Auto Mode');
   let darkMode = document.getElementById('Dark Mode');
   let keyboard = null;
-  if (!onMobile) keyboard = document.getElementById('keyboard');
+  if (!onMobile) keyboard = document.getElementById('Keyboard');
 
   userInput.addEventListener('keyup', ()=>{
     targetUser = userInput.value;
