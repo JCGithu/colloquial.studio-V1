@@ -395,7 +395,17 @@ votes: ${finalPoll[finalResult[0]]}
   gridCheck(false);
 }
 
+window.onunload = function() {
+  --stats.play
+  saveStats();
+}
+
 function beginGame(){
+  // Enable navigation prompt
+  window.onbeforeunload = function() {
+
+    return true;
+  };
   setTimeout(newRound, 3000);
 }
 
@@ -499,6 +509,8 @@ window.addEventListener('resize', () => {
 });
 
 function success(){
+  // Remove navigation prompt
+  window.onbeforeunload = null;
   ++stats.won;
   saveStats();
   jsConfetti.addConfetti();
@@ -506,6 +518,8 @@ function success(){
 }
 
 function fail(){
+  // Remove navigation prompt
+  window.onbeforeunload = null;
   eventbox.innerHTML = '<h1>FAILED!</h1><button id="enter" onclick="location.reload()">Play again?</button>';
 }
 
