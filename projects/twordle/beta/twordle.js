@@ -379,7 +379,7 @@ votes: ${finalPoll[finalResult[0]]}
   
   if (guess.length === 5){
     eventbox.innerHTML = `<h2>${finalResult}</h2><h4>(${finalPoll[finalResult]} votes)</h4><button id="enter" onClick="runRow()">Check Word</button>`;
-    if (wordsGuessed.length === 5) eventbox.innerHTML = `<h2>${finalResult}</h2><br><p>Final chance! Good Luck!</p><button id="enter" onClick="runRow()">Fingers Crossed!</button>`;
+    if (wordsGuessed.length === 5) eventbox.innerHTML = `<h2>${finalResult}</h2><p>Final chance! Good Luck!</p><button id="enter" onClick="runRow()">Fingers Crossed!</button>`;
   }
   if (localAuto){
     setTimeout(()=>{
