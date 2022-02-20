@@ -309,6 +309,7 @@ body {
 }
 
 .Title {
+  position: relative;
   max-height: 115px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -961,11 +962,17 @@ input:focus {
 
 #cog {
   position: absolute;
-  width: 2rem;
-  height: 2rem;
-  top: 0.2rem;
+  width: 1.6rem;
+  top: -1rem;
   right: 0.2rem;
   cursor: pointer;
+}
+
+@media only screen and (max-height: 800px) {
+  #cog {
+    top: 0.2rem;
+    width: 1.2rem;
+  }
 }
 
 #cog img > svg > path {
@@ -1062,6 +1069,11 @@ input:focus {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
+}
+
+.version {
+  font-size: 0.5rem;
+  opacity: 0.5;
 }
 
 .volRed {

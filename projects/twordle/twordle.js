@@ -1,19 +1,64 @@
 const urlParams = new URLSearchParams(window.location.search);
 const params = {
-  u: urlParams.get('channel'),
-  round: urlParams.get('round'),
-  levi: urlParams.get('levi'),
-  auto: urlParams.get('auto'),
-  dark: urlParams.get('dark'),
-  keyboard: urlParams.get('keyboard'),
   demo: urlParams.get('demo')
 }
 
-if (params.levi) params.dark = params.levi;
-params.dark = (params.dark === 'true');
-console.log(params.dark);
-params.auto = (params.auto === 'true');
-params.keyboard = (params.keyboard === 'true');
+console.log(localStorage);
+
+let stats = {
+  play: 0,
+  won: 0,
+  votes: 0,
+  lastWord: ''
+}
+
+//localStorage.setItem('stats', JSON.stringify(stats));
+
+if (localStorage.getItem('stats')) stats = JSON.parse(localStorage.getItem('stats'));
+if (!localStorage.getItem("stats")) localStorage.setItem('stats', JSON.stringify(stats));
+
+function saveStats() {
+  localStorage.setItem('stats', JSON.stringify(stats));
+  if (statBox){
+    statBox.innerHTML = `
+      <p>Total Votes: ${stats.votes}</p>
+      <p>Games Played: ${stats.play}</p>
+      <p>Games Won: ${stats.won}</p>`;
+  }
+}
+
+
+localAuto = false;
+localDark = false;
+localKeyboard = false;
+localVolume = 3;
+localTimer = 25;
+user = null;
+
+if (localStorage.getItem("channel")) user = localStorage.getItem('channel');
+
+if (localStorage.getItem("autoMode")) {
+  localAuto = (localStorage.getItem('autoMode') === 'true');
+}
+if (localStorage.getItem("darkMode")) {
+  localDark = (localStorage.getItem('darkMode') === 'true');
+  console.log('localDark' + localDark);
+}
+if (localStorage.getItem("keyboard")) {
+  localKeyboard = (localStorage.getItem('keyboard') === 'true');
+}
+if (localStorage.getItem("volume")) {
+  localVolume = parseInt(localStorage.getItem('volume'));
+}
+
+function reloadTimer(){
+  if (localStorage.getItem("timer")) {
+    localTimer = parseInt(localStorage.getItem('timer'));
+  }
+}
+reloadTimer();
+
+if (onMobile) localKeyboard = false;
 
 //USERNAME POP UP
 
@@ -22,13 +67,13 @@ toast.style.transform = "scale(0)"
 toast.id = 'toast';
 document.body.appendChild(toast);
 
-if (params.u){
+if (user){
   const client = new tmi.Client({
-    channels: [params.u]
+    channels: [user]
   });
   client.on("connected", () => {
     console.log('Reading from Twitch! ✅');
-    toast.innerHTML = `Connected to ${params.u} chat`;
+    toast.innerHTML = `Connected to ${user} chat`;
     toast.style.visibility = 'visible';
     toast.style.transform = "scale(1)";
     setTimeout(()=>{
@@ -115,18 +160,16 @@ let personalised = {
   "certainlylaz": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_0f82cf9b2bcb41d3823ab0273c122208/default/dark/3.0"
 }
 
-if (params.u){
-  if (personalised.hasOwnProperty(params.u)){
-    let streamerIcon = document.createElement('img');
-    streamerIcon.src = personalised[params.u];
-    streamerIcon.id = 'charlie';
-    eventbox.appendChild(streamerIcon);
-  }
+if (personalised.hasOwnProperty(localStorage.getItem("channel"))){
+  let streamerIcon = document.createElement('img');
+  streamerIcon.src = personalised[user];
+  streamerIcon.id = 'charlie';
+  eventbox.appendChild(streamerIcon);
 }
 
 //SOUNDS
-let roundStartSound = new Audio('./projects/twordle/race.mp3');
-roundStartSound.volume = 0.3;
+let roundStartSound = new Audio('../projects/twordle/race.mp3');
+roundStartSound.volume = localVolume/10;
 
 //WORD INPUT AND STARTING
 wordInput.addEventListener('keyup', ()=>{
@@ -143,6 +186,8 @@ wordInput.addEventListener('keyup', ()=>{
 startButton.addEventListener('click', ()=> {
   if (!letStart) return;
   THEWORD = wordInput.value.toUpperCase(); 
+  ++stats.play
+  saveStats();
   eventbox.innerHTML = '<h2>Starting round!</h2>';
   console.log('Starting!');
   setTimeout(()=>{
@@ -152,7 +197,7 @@ startButton.addEventListener('click', ()=> {
 
 function darkMode(){
   document.documentElement.setAttribute('data-theme', 'light');
-  if (params.dark){
+  if (localDark){
     document.documentElement.setAttribute('data-theme', 'dark');
   }
 }
@@ -190,26 +235,21 @@ let rowMessage = [
 ]
 
 function runRow(){
-  
   gridCheck(true);
   wordsGuessed.push(guess);
-  if (guess === THEWORD){
-    return success();
-  } else if (wordsGuessed.length === 6) {
-    return fail(); 
-  } else {
-    guess = '';
-    let secondLine = ``;
-    if (maybe || correct) {
-      let maybeText = ` letter${maybe > 1 ? 's' : '' } in the word,`;
-      let correctText = ` letter${correct > 1 ? 's':''} correct!`;
-      secondLine = `<p>${maybe ? maybe + maybeText + '<br>' : ''} ${correct ? correct + correctText : ''}</p>`
-    }
-    if (params.keyboard) secondLine = '';
-    eventbox.innerHTML = `<h2>${rowMessage[getRandomInt(rowMessage.length)]}</h2>${secondLine}<button id="enter" onclick="newRound()">Next Letter</button>`;
-    console.log(wordsGuessed);
+  if (guess === THEWORD) return success();
+  if (wordsGuessed.length === 6) return fail();
+  guess = '';
+  let secondLine = ``;
+  if (maybe || correct) {
+    let maybeText = ` letter${maybe > 1 ? 's' : '' } in the word,`;
+    let correctText = ` letter${correct > 1 ? 's':''} correct!`;
+    secondLine = `<p>${maybe ? maybe + maybeText + '<br>' : ''} ${correct ? correct + correctText : ''}</p>`
   }
-  if (params.auto){
+  if (localKeyboard) secondLine = '';
+  eventbox.innerHTML = `<h2>${rowMessage[getRandomInt(rowMessage.length)]}</h2>${secondLine}<button id="enter" onclick="newRound()">Next Letter</button>`;
+  console.log(wordsGuessed);
+  if (localAuto){
     setTimeout(()=>{
       if (document.getElementById('enter') && !playing) document.getElementById('enter').click();
     }, 5000)
@@ -217,23 +257,23 @@ function runRow(){
 }
 
 function gridCheck(finishedRow){
-  
   let row = grid.firstChild;
+  console.log(`playing gridCheck for ${guess}`);
   wordsGuessed.forEach((e, i) => {
     fillIn(row, e, false);
     row = row.nextSibling;
-    console.log(row);
   })
-  fillIn(row, guess, finishedRow);
+  fillIn(row, guess, finishedRow, true);
 }
 
-async function fillIn(row, input,  finishedRow){
+async function fillIn(row, input, finishedRow, testing){
+  if (testing) console.log(`fill in playing for ${input}`);
   correct = 0;
   maybe = 0;
   for (let p = 0; p < 5; p++){
+    if (input[p] === undefined) return;
     console.log(input);
     let block = row.children[p];
-    if (input[p] === undefined) return;
     block.innerHTML = input[p];
     if (finishedRow){
       colourIn(p, block);
@@ -287,12 +327,10 @@ function newRound(){
   }, 1000);
 }
 
-let roundTimer = parseInt(params.round) || 30;
-
 function runRound(){
-
+  reloadTimer();
   playing = true;
-  let timeLeft = roundTimer + 1;
+  let timeLeft = localTimer + 1;
   roundStartSound.play();
   var roundClock = setInterval(function() {
     //if (usersVoted.length > 0) votedBubble.style.visibility = 'visible';
@@ -320,10 +358,12 @@ function finishRound(){
   let finalResult = getMax(finalPoll);
   let mainText, subText;
   let buttonText = 'Retry?';
-  console.log('== ROUND BREAKDOWN ==');
+  console.log(`== ROUND BREAKDOWN ==
+${finalResult}
+votes: ${finalPoll[finalResult[0]]}
+`);
   console.log(finalPoll);
-  console.log(finalResult);
-  console.log("votes: " + finalPoll[finalResult[0]]);
+  console.log('==========================');
   if (finalPoll[finalResult[0]] === 0) {mainText = 'No one entered!'; subText = ''}
   else if (finalResult.length > 1) {
     mainText = `Draw!`
@@ -341,11 +381,17 @@ function finishRound(){
     eventbox.innerHTML = `<h2>${finalResult}</h2><h4>(${finalPoll[finalResult]} votes)</h4><button id="enter" onClick="runRow()">Check Word</button>`;
     if (wordsGuessed.length === 5) eventbox.innerHTML = `<h2>${finalResult}</h2><br><p>Final chance! Good Luck!</p><button id="enter" onClick="runRow()">Fingers Crossed!</button>`;
   }
-  if (params.auto){
+  if (localAuto){
     setTimeout(()=>{
       if (document.getElementById('enter') && !playing) document.getElementById('enter').click();
     }, 5000)
   }
+  stats.votes = stats.votes + usersVoted.length;
+  saveStats();
+  
+  // Don't gridcheck on draw.
+  if (finalResult.length > 1) return;
+  
   gridCheck(false);
 }
 
@@ -353,7 +399,7 @@ function beginGame(){
   setTimeout(newRound, 3000);
 }
 
-if (params.keyboard){
+function addKeyboard(){
   let keyboard = document.createElement('div');
   keyboard.classList = 'keyboard';
   keyboard.id = 'keyboard';
@@ -372,7 +418,9 @@ if (params.keyboard){
     keyboard.appendChild(row);
   }
   Bottom.prepend(keyboard);
-} 
+}
+
+if (localKeyboard) addKeyboard();
 
 let scaleX = 1;
 let scaleY = 1;
@@ -393,7 +441,7 @@ function scaleCheck(){
   let maxKeyRowHeight = 40;
 
   eventbox.style.maxHeight = `${bottomHeight}px`;
-  if (params.keyboard) {
+  if (localKeyboard) {
     bottomHeight = Math.round(wordleheight * 0.3);
     eventbox.style.maxHeight = `${bottomHeight - keyHeight}px`;
   }
@@ -401,7 +449,7 @@ function scaleCheck(){
   if (window.innerHeight >= 1000) Bottom.style.height = 'max-content'
 
   //KEYBOARD
-  if(params.keyboard){
+  if(localKeyboard){
     //if ((bottomHeight * 0.5) > maxKeyboardHeight) 
     keyHeight = maxKeyboardHeight;
     console.log(keyHeight);
@@ -451,6 +499,8 @@ window.addEventListener('resize', () => {
 });
 
 function success(){
+  ++stats.won;
+  saveStats();
   jsConfetti.addConfetti();
   eventbox.innerHTML = '<h1>CONGRATS!</h1><button id="enter" onclick="location.reload()">Play again?</button>';
 }

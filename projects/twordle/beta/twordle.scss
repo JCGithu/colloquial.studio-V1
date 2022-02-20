@@ -121,6 +121,7 @@ body{
 }
 
 .Title {
+  position: relative;
   max-height: 115px;
   display: flex;
   flex-direction: column;
@@ -529,10 +530,13 @@ input{
 
 #cog{
   position: absolute;
-  width: 2rem;
-  height: 2rem;
-  top: 0.2rem;
+  width: 1.6rem;
+  top: -1rem;
   right: 0.2rem;
+  @media only screen and (max-height: '800px' ) {
+    top: 0.2rem; 
+    width: 1.2rem;
+  }
   cursor: pointer;
   img > svg> path{ /*target the image with css*/
     fill: var(--primary-color);
@@ -597,6 +601,11 @@ input{
 
 .stackHorz{
   flex-direction: row;
+}
+
+.version{
+  font-size: 0.5rem;
+  opacity: 0.5;
 }
 
 .volRed{

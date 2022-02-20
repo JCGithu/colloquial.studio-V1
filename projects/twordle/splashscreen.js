@@ -1,4 +1,4 @@
-if (!params.u){
+if (localStorage.getItem("autoMode") === null) {
   let userpopup = document.createElement('div');
   let innerPopUp = document.createElement('div');
   let targetUser = '';
@@ -18,9 +18,7 @@ if (!params.u){
         <input type="checkbox" id="Auto Mode" class="check">
         <span class="checkmark"></span>
       </label>
-      <label class="checkContainer">Keyboard
-      <input type="checkbox" id="Keyboard" class="check">
-      <span class="checkmark"></span>
+      ${onMobile ? '':'<label class="checkContainer">Keyboard<input type="checkbox" id="Keyboard" class="check"><span class="checkmark"></span>'}
     </label>
     </div>
 
@@ -38,18 +36,19 @@ if (!params.u){
   let submit = document.getElementById('newURL');
   let autoMode = document.getElementById('Auto Mode');
   let darkMode = document.getElementById('Dark Mode');
-  let keyboard = document.getElementById('Keyboard');
+  let keyboard = null;
+  if (!onMobile) keyboard = document.getElementById('Keyboard');
 
   userInput.addEventListener('keyup', ()=>{
     targetUser = userInput.value;
   });
 
-  submit.addEventListener('click', () =>{
-    let urlArray = [`channel=${targetUser}`];
-    urlArray.push(`dark=${darkMode.checked}`);
-    urlArray.push(`auto=${autoMode.checked}`);
-    urlArray.push(`keyboard=${keyboard.checked}`);
-    urlArray.push(`round=${document.getElementById('Round Timer').value}`)
-    window.open(`http://colloquial.studio/twordle?${urlArray.join('&')}`,"_self");
+  submit.addEventListener('click', () => {
+    localStorage.setItem('channel', targetUser);
+    localStorage.setItem('autoMode', autoMode.checked);
+    localStorage.setItem('darkMode', darkMode.checked);
+    if (!onMobile) localStorage.setItem('keyboard', keyboard.checked);
+    localStorage.setItem('timer', document.getElementById('Round Timer').value)
+    location.reload();
   })
 }

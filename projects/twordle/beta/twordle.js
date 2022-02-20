@@ -237,22 +237,18 @@ let rowMessage = [
 function runRow(){
   gridCheck(true);
   wordsGuessed.push(guess);
-  if (guess === THEWORD){
-    return success();
-  } else if (wordsGuessed.length === 6) {
-    return fail(); 
-  } else {
-    guess = '';
-    let secondLine = ``;
-    if (maybe || correct) {
-      let maybeText = ` letter${maybe > 1 ? 's' : '' } in the word,`;
-      let correctText = ` letter${correct > 1 ? 's':''} correct!`;
-      secondLine = `<p>${maybe ? maybe + maybeText + '<br>' : ''} ${correct ? correct + correctText : ''}</p>`
-    }
-    if (localKeyboard) secondLine = '';
-    eventbox.innerHTML = `<h2>${rowMessage[getRandomInt(rowMessage.length)]}</h2>${secondLine}<button id="enter" onclick="newRound()">Next Letter</button>`;
-    console.log(wordsGuessed);
+  if (guess === THEWORD) return success();
+  if (wordsGuessed.length === 6) return fail();
+  guess = '';
+  let secondLine = ``;
+  if (maybe || correct) {
+    let maybeText = ` letter${maybe > 1 ? 's' : '' } in the word,`;
+    let correctText = ` letter${correct > 1 ? 's':''} correct!`;
+    secondLine = `<p>${maybe ? maybe + maybeText + '<br>' : ''} ${correct ? correct + correctText : ''}</p>`
   }
+  if (localKeyboard) secondLine = '';
+  eventbox.innerHTML = `<h2>${rowMessage[getRandomInt(rowMessage.length)]}</h2>${secondLine}<button id="enter" onclick="newRound()">Next Letter</button>`;
+  console.log(wordsGuessed);
   if (localAuto){
     setTimeout(()=>{
       if (document.getElementById('enter') && !playing) document.getElementById('enter').click();
@@ -261,23 +257,23 @@ function runRow(){
 }
 
 function gridCheck(finishedRow){
-  
   let row = grid.firstChild;
+  console.log(`playing gridCheck for ${guess}`);
   wordsGuessed.forEach((e, i) => {
     fillIn(row, e, false);
     row = row.nextSibling;
-    console.log(row);
   })
-  fillIn(row, guess, finishedRow);
+  fillIn(row, guess, finishedRow, true);
 }
 
-async function fillIn(row, input,  finishedRow){
+async function fillIn(row, input, finishedRow, testing){
+  if (testing) console.log(`fill in playing for ${input}`);
   correct = 0;
   maybe = 0;
   for (let p = 0; p < 5; p++){
+    if (input[p] === undefined) return;
     console.log(input);
     let block = row.children[p];
-    if (input[p] === undefined) return;
     block.innerHTML = input[p];
     if (finishedRow){
       colourIn(p, block);
@@ -362,10 +358,12 @@ function finishRound(){
   let finalResult = getMax(finalPoll);
   let mainText, subText;
   let buttonText = 'Retry?';
-  console.log('== ROUND BREAKDOWN ==');
+  console.log(`== ROUND BREAKDOWN ==
+${finalResult}
+votes: ${finalPoll[finalResult[0]]}
+`);
   console.log(finalPoll);
-  console.log(finalResult);
-  console.log("votes: " + finalPoll[finalResult[0]]);
+  console.log('==========================');
   if (finalPoll[finalResult[0]] === 0) {mainText = 'No one entered!'; subText = ''}
   else if (finalResult.length > 1) {
     mainText = `Draw!`
@@ -390,6 +388,10 @@ function finishRound(){
   }
   stats.votes = stats.votes + usersVoted.length;
   saveStats();
+  
+  // Don't gridcheck on draw.
+  if (finalResult.length > 1) return;
+  
   gridCheck(false);
 }
 
