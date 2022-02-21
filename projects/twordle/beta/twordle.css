@@ -1081,6 +1081,10 @@ input:focus {
   opacity: 0.6;
 }
 
+::-webkit-slider-runnable-track {
+  margin: -0.5rem !important;
+}
+
 .openSettings {
   opacity: 1 !important;
   pointer-events: auto !important;
