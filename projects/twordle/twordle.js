@@ -223,6 +223,7 @@ console.log(gridPos);
 let wordsGuessed = [];
 let guess = '';
 let playing = false;
+let refreshGame = false;
 let correct = 0;
 let maybe = 0;
 
@@ -396,16 +397,16 @@ votes: ${finalPoll[finalResult[0]]}
 }
 
 window.onunload = function() {
-  --stats.play
+  if(refreshGame) --stats.play;
   saveStats();
 }
 
 function beginGame(){
   // Enable navigation prompt
   window.onbeforeunload = function() {
-
     return true;
   };
+  refreshGame = true;
   setTimeout(newRound, 3000);
 }
 
@@ -511,6 +512,7 @@ window.addEventListener('resize', () => {
 function success(){
   // Remove navigation prompt
   window.onbeforeunload = null;
+  refreshGame = false;
   ++stats.won;
   saveStats();
   jsConfetti.addConfetti();
@@ -520,6 +522,7 @@ function success(){
 function fail(){
   // Remove navigation prompt
   window.onbeforeunload = null;
+  refreshGame = false;
   eventbox.innerHTML = '<h1>FAILED!</h1><button id="enter" onclick="location.reload()">Play again?</button>';
 }
 
