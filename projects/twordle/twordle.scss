@@ -519,13 +519,10 @@ input{
   }
 }
 
-#charlie{
-  position: absolute;
-  height: 2em;
-  width: 2em;
-  z-index: 10;
-  bottom: 0;
-  right: 2em;
+.personalised{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #cog{

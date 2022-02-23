@@ -42,7 +42,7 @@ if (localStorage.getItem("autoMode")) {
 }
 if (localStorage.getItem("darkMode")) {
   localDark = (localStorage.getItem('darkMode') === 'true');
-  console.log('localDark' + localDark);
+  console.log(`localDark: ${localDark}`);
 }
 if (localStorage.getItem("keyboard")) {
   localKeyboard = (localStorage.getItem('keyboard') === 'true');
@@ -52,12 +52,11 @@ if (localStorage.getItem("volume")) {
 }
 
 function reloadTimer(){
-  if (localStorage.getItem("timer")) {
-    localTimer = parseInt(localStorage.getItem('timer'));
-  }
+  if (!localStorage.getItem('timer')) return;
+  localTimer = parseInt(localStorage.getItem('timer'));
 }
-reloadTimer();
 
+reloadTimer();
 if (onMobile) localKeyboard = false;
 
 //USERNAME POP UP
@@ -73,21 +72,18 @@ if (user){
   });
   client.on("connected", () => {
     console.log('Reading from Twitch! ✅');
-    toast.innerHTML = `Connected to ${user} chat`;
+    toast.innerText = `Connected to ${user} chat`;
     toast.style.visibility = 'visible';
     toast.style.transform = "scale(1)";
-    setTimeout(()=>{
+    setTimeout(()=> {
       toast.style.transform = "scale(0)";
-    }, 5000)
+    }, 7000);
   })
   client.connect();
   client.on('message', (channel, tags, message, self) => {
     if (message.length > 1) return;
     let upper = message.toUpperCase();
-    if (usersVoted.includes(tags.username)){
-      console.log(`${tags.username} has already voted!`);
-      return
-    }
+    if (usersVoted.includes(tags.username)) return;
     let characterCode = upper.charCodeAt(0);
     if (characterCode >= 65 && characterCode <= 91){
       ++poll[upper];
@@ -105,7 +101,6 @@ for (let m = 0; m < 26; m++){
   poll[String.fromCharCode(m + 65)] = 0;
 }
 let pollRunning = false; 
-console.log(poll);
 
 //GRID GENERATION
 let newBody = document.createElement('div');
@@ -113,7 +108,7 @@ newBody.id = 'twordleBody';
 let twordleHTML = document.createElement('div');
 twordleHTML.id = 'twordle';
 let title = document.createElement('div');
-title.innerHTML = `<h1>Twordle</h1><p>Made by <a href='https://www.twitch.tv/colloquialowl'>ColloquialOwl</a>, Inspired by <a href='https://www.powerlanguage.co.uk/wordle/'>Wordle</a>.</p><button onclick='howTo()'>How to Play</button>`
+title.innerHTML = `<span><h1>Twordle</h1></span><p>Made by <a href='https://www.twitch.tv/colloquialowl'>ColloquialOwl</a>, Inspired by <a href='https://www.powerlanguage.co.uk/wordle/'>Wordle</a>.</p><button onclick='howTo()'>How to Play</button>`
 title.classList.add('Title');
 twordleHTML.appendChild(title);
 let grid = document.createElement('div');
@@ -155,16 +150,16 @@ let letStart = false;
 let personalised = {
   "coollike" : "https://static-cdn.jtvnw.net/emoticons/v2/304037430/default/light/3.0",
   "lbx0": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_44ede65082fb45ef9473c9966c3cd9ea/default/light/3.0",
+  "colloquialowl": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_44ede65082fb45ef9473c9966c3cd9ea/default/light/3.0",
   "letsbrock": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_7d127fea0d5d481e886c7161d45b4d78/default/light/3.0",
-  "arcasian": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_e79955dcfb654887bd08f4d551583d97/default/light/3.0",
+  "arcasian": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_c889ae6320e74a29baa2e46bd6a6d0d6/default/light/3.0",
   "certainlylaz": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_0f82cf9b2bcb41d3823ab0273c122208/default/dark/3.0"
 }
 
 if (personalised.hasOwnProperty(localStorage.getItem("channel"))){
-  let streamerIcon = document.createElement('img');
-  streamerIcon.src = personalised[user];
-  streamerIcon.id = 'charlie';
-  eventbox.appendChild(streamerIcon);
+  let titleText = title.getElementsByTagName("span")[0];
+  titleText.classList.add('personalised');
+  titleText.innerHTML = `<h1>Tw</h1><img style='height:2em' src='${personalised[user]}'></img><h1>rdle</h1>`
 }
 
 //SOUNDS
@@ -210,14 +205,6 @@ document.body.appendChild(newBody);
 const canvas = document.getElementById('your_custom_canvas_id')
 const jsConfetti = new JSConfetti({ canvas });
 
-let votedBubble = document.createElement('div');
-votedBubble.id = 'voted';
-let gridPos = grid.getBoundingClientRect();
-votedBubble.innerHTML = '';
-votedBubble.style.left = `${gridPos.right}px`;
-votedBubble.style.top = `${gridPos.top}px`;
-document.body.appendChild(votedBubble);
-
 // GAMEPLAY
 
 let wordsGuessed = [];
@@ -234,6 +221,8 @@ let rowMessage = [
   'Looking good!',
   'Wow!',
   'Nice one.',
+  'That was close!',
+  'Ooh, almost... maybe'
 ]
 
 function finishRow(){
@@ -251,7 +240,6 @@ function finishRow(){
   }
   if (localKeyboard) secondLine = '';
   eventbox.innerHTML = `<h2>${rowMessage[getRandomInt(rowMessage.length)]}</h2>${secondLine}<button id="enter" onclick="newRound()">Next Letter</button>`;
-  console.log(wordsGuessed);
   if (localAuto){
     setTimeout(()=>{
       if (document.getElementById('enter') && !playing) document.getElementById('enter').click();
@@ -261,7 +249,6 @@ function finishRow(){
 
 function gridCheck(finishedRow){
   let row = grid.firstChild;
-  console.log(`playing gridCheck for ${guess}`);
   wordsGuessed.forEach((e, i) => {
     //addLetters(row, e, false);
     row = row.nextSibling;
@@ -270,7 +257,7 @@ function gridCheck(finishedRow){
 }
 
 async function addLetters(row, input, finishedRow, testing){
-  if (testing) console.log(`fill in playing for ${input}`);
+  if (testing) console.log(`Filling in with ${input}`);
   correct = 0;
   maybe = 0;
   for (let p = 0; p < 5; p++){
@@ -337,20 +324,15 @@ let roundRunning = false;
 function runRound(){
   if (roundRunning) return;
   roundRunning = true;
-  console.log('Running a round!');
+  console.log('Round running!');
   reloadTimer();
   let timeLeft = localTimer + 1;
   roundStartSound.play();
   var roundClock = setInterval(function() {
-    //if (usersVoted.length > 0) votedBubble.style.visibility = 'visible';
     --timeLeft;
     eventbox.innerHTML =  `<h2>${timeLeft}</h2><p>${usersVoted.length} votes</p>`;
-    votedBubble.innerHTML = `${usersVoted.join(' voted!<br>')} voted!`;
-    //if (usersVoted.length === 1) votedBubble.innerHTML = `${usersVoted[0]} voted!`;
     if (timeLeft === 0) {
-      //votedBubble.style.visibility = 'hidden';
       clearInterval(roundClock);
-      console.log('run finishRound');
       roundRunning = false;
       finishRound();
     };
@@ -427,11 +409,58 @@ function beginGame(){
   setTimeout(newRound, 3000);
 }
 
+function success(){
+  // Remove navigation prompt
+  window.onbeforeunload = null;
+  refreshGame = false;
+  ++stats.won;
+  saveStats();
+  jsConfetti.addConfetti();
+  eventbox.innerHTML = '<h1>CONGRATS!</h1><button id="enter" onclick="location.reload()">Play again?</button>';
+}
+
+function fail(){
+  // Remove navigation prompt
+  window.onbeforeunload = null;
+  refreshGame = false;
+  eventbox.innerHTML = `<h1>FAILED!</h1><p>The word was ${THEWORD}</p><button id="enter" onclick="location.reload()">Play again?</button>`;
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * max);
+} 
+
+document.addEventListener("keyup", function(event) {
+  if (event.keyCode === 13) {
+    event.preventDefault();
+    document.getElementById("enter").click();
+  }
+});
+
+// TESTING
+
+if (params.demo){
+  setInterval(() => {
+    let keys = Object.keys(poll);
+    let targetLetter = keys[getRandomInt(26)];
+    let testingLetters = ['C','B','D'];
+    //++poll['D'];
+    //++poll[targetLetter];
+    ++poll[testingLetters[getRandomInt(3)]]
+  }, 2000);
+}
+
+// GRAPHICS & SCALING
+
 function addKeyboard(){
   let keyboard = document.createElement('div');
   keyboard.classList = 'keyboard';
   keyboard.id = 'keyboard';
-  let qwerty = [['Q','W','E','R','T','Y','U','I','O','P'], ['A','S','D','F','G','H','J','K','L'], ['Z','X','C','V','B','N','M']];
+  let qwerty = [
+    ['Q','W','E','R','T','Y','U','I','O','P'],
+    ['A','S','D','F','G','H','J','K','L'],
+    ['Z','X','C','V','B','N','M']
+  ];
   for (let line in qwerty){
     let row = document.createElement('div');
     row.className = 'keyRow';
@@ -453,7 +482,6 @@ if (localKeyboard) addKeyboard();
 
 let scaleX = 1;
 let scaleY = 1;
-
 
 function scaleCheck(){
   let wordleheight = (window.innerHeight * 0.96);
@@ -478,7 +506,6 @@ function scaleCheck(){
   if(localKeyboard){
     //if ((bottomHeight * 0.5) > maxKeyboardHeight) 
     keyHeight = maxKeyboardHeight;
-    console.log(keyHeight);
     keyboard.style.height = `${keyHeight}px`;
     if (Math.round(bottomHeight * 0.1) < 13) keyboard.style.fontSize = `${Math.round(bottomHeight * 0.1)}px`;
     let keyRows = document.getElementsByClassName('keyRow');
@@ -486,7 +513,6 @@ function scaleCheck(){
     //max font size 15px 
     for (let r2 = 0; r2 < keyRows.length; r2++ ){
       let targetSize = Math.round(bottomHeight * 0.2);
-      console.log('target size ' + targetSize)
       if (targetSize > maxKeyRowHeight) targetSize = maxKeyRowHeight;
       keyRows[r2].style.height = `${targetSize}px`
     }
@@ -523,45 +549,3 @@ window.addEventListener('resize', () => {
   scaleCheck();
   setTimeout(scaleCheck(), 500);
 });
-
-function success(){
-  // Remove navigation prompt
-  window.onbeforeunload = null;
-  refreshGame = false;
-  ++stats.won;
-  saveStats();
-  jsConfetti.addConfetti();
-  eventbox.innerHTML = '<h1>CONGRATS!</h1><button id="enter" onclick="location.reload()">Play again?</button>';
-}
-
-function fail(){
-  // Remove navigation prompt
-  window.onbeforeunload = null;
-  refreshGame = false;
-  eventbox.innerHTML = `<h1>FAILED!</h1><p>The word was ${THEWORD}</p><button id="enter" onclick="location.reload()">Play again?</button>`;
-}
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
-} 
-
-document.addEventListener("keyup", function(event) {
-  if (event.keyCode === 13) {
-    event.preventDefault();
-    document.get
-    document.getElementById("enter").click();
-  }
-});
-
-//TEST INPUTS
-
-if (params.demo){
-  setInterval(() => {
-    let keys = Object.keys(poll);
-    let targetLetter = keys[getRandomInt(26)];
-    let testingLetters = ['C','B','D'];
-    //++poll['D'];
-    //++poll[targetLetter];
-    ++poll[testingLetters[getRandomInt(3)]]
-  }, 2000);
-}
