@@ -312,7 +312,6 @@ async function colourIn(i, block){
 function newRound(){
   console.log('Starting a round!');
   playing = true;
-  refreshPoll();
   usersVoted = [];
   let untilRound = 4;
   var preroundTimer = setInterval(function() {
@@ -396,6 +395,7 @@ function finishRound(){
   }
   stats.votes = stats.votes + usersVoted.length;
   saveStats();
+  refreshPoll();
   // Don't gridcheck on draw.
   if (finalResult.length > 1) return;
   finalResult = [];
