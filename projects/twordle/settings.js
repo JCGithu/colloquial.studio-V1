@@ -37,6 +37,7 @@ settings.innerHTML = `
     <p>Games Won: ${stats.won}</p>
     <p class='version'>Updated 20/02/22</p>
   </div>
+  <button onclick="undoMove()">Undo Move</button>
   <button onclick="closeSettings()">Close</button>
   </div>
 `
@@ -107,7 +108,18 @@ volumeCheck.addEventListener('change', () => {
     volumeCheck.classList.add('volRed');
   }
   localVolume = volumeCheck.value;
-})
+});
+
+function undoMove(){
+  if (guess) guess = guess.slice(0, -1);
+  gridCheck(false);
+  if (document.getElementById('enter').innerText === 'Check Word'){
+    let buttonTarget = document.getElementById('enter')
+    buttonTarget.onclick = newRound;
+    buttonTarget.innerText = 'Next Letter';
+  }
+}
+
 
 cog.addEventListener('click', () => {
   if (localStorage.getItem('channel')) channelCheck.placeholder = localStorage.getItem('channel');

@@ -82,17 +82,17 @@ if (user){
   })
   client.connect();
   client.on('message', (channel, tags, message, self) => {
+    if (message.length > 1) return;
     let upper = message.toUpperCase();
-    if (message.length === 1 && !usersVoted.includes(tags.username)){
-      let characterCode = upper.charCodeAt(0);
-      if (characterCode >= 65 && characterCode <= 91){
-        ++poll[upper];
-        usersVoted.push(tags.username);
-        console.log(`${tags.username} has voted!`);
-        console.log(poll);
-      }
-    } else if (message.length === 1 && usersVoted.includes(tags.username)){
+    if (usersVoted.includes(tags.username)){
       console.log(`${tags.username} has already voted!`);
+      return
+    }
+    let characterCode = upper.charCodeAt(0);
+    if (characterCode >= 65 && characterCode <= 91){
+      ++poll[upper];
+      usersVoted.push(tags.username);
+      console.log(`${tags.username} has voted!`);
     }
   });
 }
@@ -219,6 +219,7 @@ votedBubble.style.top = `${gridPos.top}px`;
 document.body.appendChild(votedBubble);
 console.log(gridPos);
 
+// GAMEPLAY
 
 let wordsGuessed = [];
 let guess = '';
@@ -226,6 +227,7 @@ let playing = false;
 let refreshGame = false;
 let correct = 0;
 let maybe = 0;
+let roundCount = 1;
 
 let rowMessage = [
   'How did it go?',
@@ -235,7 +237,8 @@ let rowMessage = [
   'Nice one.',
 ]
 
-function runRow(){
+function finishRow(){
+  roundCount = 1;
   gridCheck(true);
   wordsGuessed.push(guess);
   if (guess === THEWORD) return success();
@@ -261,20 +264,22 @@ function gridCheck(finishedRow){
   let row = grid.firstChild;
   console.log(`playing gridCheck for ${guess}`);
   wordsGuessed.forEach((e, i) => {
-    fillIn(row, e, false);
+    //addLetters(row, e, false);
     row = row.nextSibling;
   })
-  fillIn(row, guess, finishedRow, true);
+  addLetters(row, guess, finishedRow, true);
 }
 
-async function fillIn(row, input, finishedRow, testing){
+async function addLetters(row, input, finishedRow, testing){
   if (testing) console.log(`fill in playing for ${input}`);
   correct = 0;
   maybe = 0;
   for (let p = 0; p < 5; p++){
-    if (input[p] === undefined) return;
-    console.log(input);
     let block = row.children[p];
+    if (input[p] === undefined) {
+      block.innerHTML = '';
+      return;
+    }
     block.innerHTML = input[p];
     if (finishedRow){
       colourIn(p, block);
@@ -313,9 +318,6 @@ async function colourIn(i, block){
 
 function newRound(){
   playing = true;
-  Object.keys(poll).forEach(key => {
-    poll[key] = 0;
-  });
   usersVoted = [];
   let untilRound = 4;
   var preroundTimer = setInterval(function() {
@@ -329,8 +331,8 @@ function newRound(){
 }
 
 function runRound(){
+  console.log('Starting a round!');
   reloadTimer();
-  playing = true;
   let timeLeft = localTimer + 1;
   roundStartSound.play();
   var roundClock = setInterval(function() {
@@ -342,6 +344,7 @@ function runRound(){
     if (timeLeft === 0) {
       //votedBubble.style.visibility = 'hidden';
       clearInterval(roundClock);
+      console.log('run finishRound');
       finishRound();
     };
   }, 1000);
@@ -353,17 +356,23 @@ const getMax = object => {
   }).map(x => x.toUpperCase());
 };
 
+function refreshPoll(){
+  Object.keys(poll).forEach(key => {
+    poll[key] = 0;
+  });
+}
+
 function finishRound(){
   playing = false;
   let finalPoll = poll;
   let finalResult = getMax(finalPoll);
   let mainText, subText;
   let buttonText = 'Retry?';
-  console.log(`== ROUND BREAKDOWN ==
-${finalResult}
-votes: ${finalPoll[finalResult[0]]}
-`);
+  console.log(`== ROUND BREAKDOWN ==`)
+  console.log(`${finalResult}`);
+  console.log(`${finalPoll[finalResult[0]]}`);
   console.log(finalPoll);
+  console.log('END BREAKDOWN');
   console.log('==========================');
   if (finalPoll[finalResult[0]] === 0) {mainText = 'No one entered!'; subText = ''}
   else if (finalResult.length > 1) {
@@ -372,15 +381,17 @@ votes: ${finalPoll[finalResult[0]]}
   };
   if (finalResult.length === 1) {
     guess = guess + finalResult;
+    if (guess.length > roundCount) guess = guess.slice(0, -1);
+    ++roundCount;
     buttonText = 'Next Letter';
     mainText = finalResult[0];
-    subText = `(${finalPoll[finalResult]} votes)`
+    subText = `(${finalPoll[finalResult]} votes)`;
   }
   eventbox.innerHTML = `<h2>${mainText}</h2><h4>${subText}</h4><button id="enter" onClick="newRound()">${buttonText}</button>`;
   
   if (guess.length === 5){
-    eventbox.innerHTML = `<h2>${finalResult}</h2><h4>(${finalPoll[finalResult]} votes)</h4><button id="enter" onClick="runRow()">Check Word</button>`;
-    if (wordsGuessed.length === 5) eventbox.innerHTML = `<h2>${finalResult}</h2><p>Final chance! Good Luck!</p><button id="enter" onClick="runRow()">Fingers Crossed!</button>`;
+    eventbox.innerHTML = `<h2>${finalResult}</h2><h4>(${finalPoll[finalResult]} votes)</h4><button id="enter" onClick="finishRow()">Check Word</button>`;
+    if (wordsGuessed.length === 5) eventbox.innerHTML = `<h2>${finalResult}</h2><p>Final chance! Good Luck!</p><button id="enter" onClick="finishRow()">Fingers Crossed!</button>`;
   }
   if (localAuto){
     setTimeout(()=>{
@@ -388,11 +399,11 @@ votes: ${finalPoll[finalResult[0]]}
     }, 5000)
   }
   stats.votes = stats.votes + usersVoted.length;
+  refreshPoll();
   saveStats();
-  
   // Don't gridcheck on draw.
   if (finalResult.length > 1) return;
-  
+  finalResult = [];
   gridCheck(false);
 }
 
@@ -523,7 +534,7 @@ function fail(){
   // Remove navigation prompt
   window.onbeforeunload = null;
   refreshGame = false;
-  eventbox.innerHTML = '<h1>FAILED!</h1><button id="enter" onclick="location.reload()">Play again?</button>';
+  eventbox.innerHTML = `<h1>FAILED!</h1><p>The word was ${THEWORD}</p><button id="enter" onclick="location.reload()">Play again?</button>`;
 }
 
 function getRandomInt(max) {
