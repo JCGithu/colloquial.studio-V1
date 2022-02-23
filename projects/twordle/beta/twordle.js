@@ -217,7 +217,6 @@ votedBubble.innerHTML = '';
 votedBubble.style.left = `${gridPos.right}px`;
 votedBubble.style.top = `${gridPos.top}px`;
 document.body.appendChild(votedBubble);
-console.log(gridPos);
 
 // GAMEPLAY
 
@@ -317,7 +316,9 @@ async function colourIn(i, block){
 }
 
 function newRound(){
+  console.log('Starting a round!');
   playing = true;
+  refreshPoll();
   usersVoted = [];
   let untilRound = 4;
   var preroundTimer = setInterval(function() {
@@ -330,8 +331,13 @@ function newRound(){
   }, 1000);
 }
 
+// This is to prevent random double rounds running
+let roundRunning = false;
+
 function runRound(){
-  console.log('Starting a round!');
+  if (roundRunning) return;
+  roundRunning = true;
+  console.log('Running a round!');
   reloadTimer();
   let timeLeft = localTimer + 1;
   roundStartSound.play();
@@ -345,6 +351,7 @@ function runRound(){
       //votedBubble.style.visibility = 'hidden';
       clearInterval(roundClock);
       console.log('run finishRound');
+      roundRunning = false;
       finishRound();
     };
   }, 1000);
@@ -399,7 +406,6 @@ function finishRound(){
     }, 5000)
   }
   stats.votes = stats.votes + usersVoted.length;
-  refreshPoll();
   saveStats();
   // Don't gridcheck on draw.
   if (finalResult.length > 1) return;
@@ -440,6 +446,7 @@ function addKeyboard(){
     keyboard.appendChild(row);
   }
   Bottom.prepend(keyboard);
+  scaleCheck();
 }
 
 if (localKeyboard) addKeyboard();
@@ -452,12 +459,9 @@ function scaleCheck(){
   let wordleheight = (window.innerHeight * 0.96);
   if (window.innerHeight < 900) wordleheight = window.innerHeight;
   let bottomHeight = Math.round(wordleheight * 0.2);
-  console.log(bottomHeight);
   let titleGrab = title.getBoundingClientRect();
   let titleSize = titleGrab.height;
   let keyHeight = bottomHeight * 0.5;
-  console.log(bottomHeight);
-  console.log(keyHeight);
 
   let maxKeyboardHeight = 125
   let maxKeyRowHeight = 40;
