@@ -45,6 +45,7 @@ settings.innerHTML = `
 function closeSettings(){
   document.getElementById('settings').classList.remove('openSettings');
   if (roundStartSound) roundStartSound.volume = localVolume/10;
+  if (winSound) winSound.volume = localVolume/10;
 }
 
 

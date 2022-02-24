@@ -170,8 +170,10 @@ if (personalised.hasOwnProperty(localStorage.getItem("channel"))){
 }
 
 //SOUNDS
-let roundStartSound = new Audio('../projects/twordle/race.mp3');
+let roundStartSound = new Audio('../projects/twordle/round.mp3');
+let winSound = new Audio('../projects/twordle/win.mp3');
 roundStartSound.volume = localVolume/10;
+winSound.volume = localVolume/10;
 
 //WORD INPUT AND STARTING
 wordInput.addEventListener('keyup', ()=>{
@@ -427,6 +429,7 @@ function success(){
   ++stats.won;
   saveStats();
   jsConfetti.addConfetti();
+  winSound.play();
   eventbox.innerHTML = '<h1>CONGRATS!</h1><button id="enter" onclick="location.reload()">Play again?</button>';
 }
 
