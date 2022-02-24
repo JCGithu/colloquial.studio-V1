@@ -148,7 +148,7 @@ twordleHTML.appendChild(Bottom);
 let letStart = false;
 
 let personalised = {
-  "coollike" : "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_484e1d88ea40422a97417b8f69e5c974/default/light/3.0",
+  "coollike" : "https://static-cdn.jtvnw.net/emoticons/v2/305274770/default/light/3.0",
   "lbx0": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_44ede65082fb45ef9473c9966c3cd9ea/default/light/3.0",
   "colloquialowl": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_607ddb2a873f4606b5397997c33b6bbf/default/light/3.0",
   "letsbrock": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_7d127fea0d5d481e886c7161d45b4d78/default/light/3.0",
