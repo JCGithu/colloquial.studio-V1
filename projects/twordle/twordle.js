@@ -148,7 +148,7 @@ twordleHTML.appendChild(Bottom);
 let letStart = false;
 
 let personalised = {
-  "coollike" : "https://static-cdn.jtvnw.net/emoticons/v2/304037430/default/light/3.0",
+  "coollike" : "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_484e1d88ea40422a97417b8f69e5c974/default/light/3.0",
   "lbx0": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_44ede65082fb45ef9473c9966c3cd9ea/default/light/3.0",
   "colloquialowl": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_607ddb2a873f4606b5397997c33b6bbf/default/light/3.0",
   "letsbrock": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_7d127fea0d5d481e886c7161d45b4d78/default/light/3.0",
@@ -267,6 +267,11 @@ async function addLetters(row, input, finishedRow, testing){
   if (testing) console.log(`Filling in with ${input}`);
   correct = 0;
   maybe = 0;
+  if (input.length < 5) {
+    console.log('add highlight');
+    row.children[input.length].classList.add('highlight');
+  }
+  row.children[input.length - 1].classList.remove('highlight');
   for (let p = 0; p < 5; p++){
     let block = row.children[p];
     if (input[p] === undefined) {
@@ -274,9 +279,7 @@ async function addLetters(row, input, finishedRow, testing){
       return;
     }
     block.innerHTML = input[p];
-    if (finishedRow){
-      colourIn(p, block);
-    }
+    if (finishedRow) colourIn(p, block);
   }
   if (finishedRow){
     if (guess === THEWORD) return success();
@@ -310,6 +313,7 @@ async function colourIn(i, block){
 }
 
 function newRound(){
+  gridCheck(false);
   console.log('Starting a round!');
   playing = true;
   usersVoted = [];

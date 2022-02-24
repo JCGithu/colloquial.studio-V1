@@ -87,7 +87,7 @@ body{
   align-items: center;
   border-width: 3px;
   transform: scale(0);
-  transition: 0.5s all;
+  transition: all 1s ease-in-out !important;
   animation-name: popIn;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
@@ -99,6 +99,23 @@ body{
       animation-delay: #{($i + $j) * 0.1}s;
     }
   }
+}
+
+@keyframes highlightScale {
+  from {
+    transform: scale(1);
+    border-width: 3px;
+  }
+  to {
+    transform: scale(1.05);
+    border-width: 4px;
+  }
+}
+
+.highlight{
+  filter: brightness(1.5);
+  transform: scale(1.05) !important;
+  border-width: 4px;
 }
 
 
