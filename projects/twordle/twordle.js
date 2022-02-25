@@ -78,6 +78,12 @@ if (user){
     setTimeout(()=> {
       toast.style.transform = "scale(0)";
     }, 7000);
+    if (gtag){
+      gtag('event', 'user_logged', {
+        'event_label': 'user_logged',
+        'username': user
+      });
+    }
   })
   client.connect();
   client.on('message', (channel, tags, message, self) => {
