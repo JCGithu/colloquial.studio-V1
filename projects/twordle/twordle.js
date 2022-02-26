@@ -12,8 +12,6 @@ let stats = {
   lastWord: ''
 }
 
-//localStorage.setItem('stats', JSON.stringify(stats));
-
 if (localStorage.getItem('stats')) stats = JSON.parse(localStorage.getItem('stats'));
 if (!localStorage.getItem("stats")) localStorage.setItem('stats', JSON.stringify(stats));
 
@@ -25,8 +23,22 @@ function saveStats() {
       <p>Games Played: ${stats.play}</p>
       <p>Games Won: ${stats.won}</p>`;
   }
+  return;
+  let achievements = undefined;
+  if (!achievements) {
+    return;
+  }
+  localStorage.setItem('achievements', JSON.stringify(achievements));
+  let achievementList = Object.keys(achievements);
+  for (let a = 0; a < achievementList.length; a++){
+    if (achievements[achievementList[a]] === 1){
+      // TRIGGER ANIMATION
+        //Achievement Title, subtitle, icon, status.
+      // ADD ICON TO LIST
+      achievements[achievementList[a]] = 2;
+    }
+  }
 }
-
 
 localAuto = false;
 localDark = false;
@@ -91,11 +103,13 @@ if (user){
     let upper = message.toUpperCase();
     if (usersVoted.includes(tags.username)) return;
     let characterCode = upper.charCodeAt(0);
-    if (characterCode >= 65 && characterCode <= 91){
+    if (characterCode >= 65 && characterCode <= 91 || characterCode >= 192 && characterCode <= 221){
+      if (!poll[upper]) poll[upper] = 0;
       ++poll[upper];
       usersVoted.push(tags.username);
       console.log(`${tags.username} has voted!`);
     }
+    
   });
 }
 let THEWORD = '';
@@ -265,14 +279,12 @@ function finishRow(){
 function gridCheck(finishedRow){
   let row = grid.firstChild;
   wordsGuessed.forEach((e, i) => {
-    //addLetters(row, e, false);
     row = row.nextSibling;
   })
-  addLetters(row, guess, finishedRow, true);
+  addLetters(row, guess, finishedRow);
 }
 
-async function addLetters(row, input, finishedRow, testing){
-  if (testing) console.log(`Filling in with ${input}`);
+async function addLetters(row, input, finishedRow){
   correct = 0;
   maybe = 0;
   if (input.length < 5) {
@@ -425,6 +437,12 @@ function beginGame(){
     return true;
   };
   refreshGame = true;
+
+  if (spanishLangCheck()){
+    Bottom.removeChild(document.getElementById('keyboard'));
+    addKeyboard();
+  }
+
   setTimeout(newRound, 3000);
 }
 
@@ -472,6 +490,18 @@ if (params.demo){
 
 // GRAPHICS & SCALING
 
+function spanishLangCheck(){
+  if (THEWORD){
+    for (let otherCheck = 0; otherCheck < 5; otherCheck++){
+      let characterCode = THEWORD.charCodeAt(otherCheck);
+      if (characterCode >= 192 && characterCode <= 221){
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
 function addKeyboard(){
   let keyboard = document.createElement('div');
   keyboard.classList = 'keyboard';
@@ -481,6 +511,13 @@ function addKeyboard(){
     ['A','S','D','F','G','H','J','K','L'],
     ['Z','X','C','V','B','N','M']
   ];
+
+  if (spanishLangCheck()) qwerty = [
+    ['Q','W','E','R','T','Y','U','I','O','P'],
+    ['A','S','D','F','G','H','J','K','L','Ñ'],
+    ['Z','X','C','V','B','N','M']
+  ]
+
   for (let line in qwerty){
     let row = document.createElement('div');
     row.className = 'keyRow';

@@ -1017,7 +1017,30 @@ input:focus {
   fill: var(--primary-color);
 }
 
-#settings {
+#cup {
+  position: absolute;
+  width: 1.6rem;
+  top: -1rem;
+  left: 0.2rem;
+  -webkit-filter: grayscale(100%);
+          filter: grayscale(100%);
+  opacity: 0.4;
+  cursor: pointer;
+}
+
+@media only screen and (max-height: 800px) {
+  #cup {
+    top: 0.2rem;
+    width: 1.2rem;
+  }
+}
+
+#cup img > svg > path {
+  /*target the image with css*/
+  fill: var(--primary-color);
+}
+
+.menu {
   -webkit-transition: 1s all ease-in-out;
   transition: 1s all ease-in-out;
   background-color: rgba(0, 0, 0, 0.5);
@@ -1040,7 +1063,7 @@ input:focus {
   pointer-events: none;
 }
 
-#settings div {
+.menu .innerMenu {
   width: 50%;
   background-color: var(--main);
   border-radius: 1rem;
@@ -1052,17 +1075,17 @@ input:focus {
 }
 
 @media only screen and (max-width: 800px) {
-  #settings div {
+  .menu .innerMenu {
     width: 100%;
   }
 }
 
-#settings div h1 {
+.menu .innerMenu h1 {
   font-weight: bold;
   font-size: 1.5rem;
 }
 
-#settings button {
+.menu button {
   background-color: var(--mainDarken10) !important;
   width: -webkit-max-content;
   width: -moz-max-content;
@@ -1072,7 +1095,7 @@ input:focus {
   color: var(--textColour);
 }
 
-#settings input {
+.menu input {
   padding: 0.5rem;
   margin: 0.5rem;
   width: -webkit-max-content;
@@ -1122,12 +1145,12 @@ input:focus {
   margin: -0.5rem !important;
 }
 
-.openSettings {
+.openMenu {
   opacity: 1 !important;
   pointer-events: auto !important;
 }
 
-.openSettings div {
+.openMenu div {
   margin-top: 0 !important;
 }
 

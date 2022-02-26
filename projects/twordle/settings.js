@@ -4,8 +4,9 @@ cog.id = 'cog';
 
 let settings = document.createElement('div');
 settings.id = 'settings';
+settings.className = 'menu';
 settings.innerHTML = `
-<div id='innerSettings'>
+<div class='innerMenu'>
   <h1>Settings!</h1>
   <p>Change channel</p>
   <div class='stackHorz'>
@@ -35,7 +36,7 @@ settings.innerHTML = `
     <p>Total Votes: ${stats.votes}</p>
     <p>Games Played: ${stats.play}</p>
     <p>Games Won: ${stats.won}</p>
-    <p class='version'>Updated 20/02/22</p>
+    <p class='version'><a href='https://discord.gg/Svw7utAyNr'>For updates/issues check Discord</a></p>
   </div>
   <button onclick="undoMove()">Undo Move</button>
   <button onclick="closeSettings()">Close</button>
@@ -43,7 +44,7 @@ settings.innerHTML = `
 `
 
 function closeSettings(){
-  document.getElementById('settings').classList.remove('openSettings');
+  document.getElementById('settings').classList.remove('openMenu');
   if (roundStartSound) roundStartSound.volume = localVolume/10;
   if (winSound) winSound.volume = localVolume/10;
 }
@@ -125,7 +126,7 @@ function undoMove(){
 cog.addEventListener('click', () => {
   if (localStorage.getItem('channel')) channelCheck.placeholder = localStorage.getItem('channel');
   console.log('opening!')
-  settings.classList.add('openSettings');
+  settings.classList.add('openMenu');
 })
 
 /* let twordleSize = twordleHTML.getBoundingClientRect();

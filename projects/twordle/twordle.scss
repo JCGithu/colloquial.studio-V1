@@ -557,7 +557,24 @@ input{
   }
 }
 
-#settings{
+#cup{
+  position: absolute;
+  width: 1.6rem;
+  top: -1rem;
+  left: 0.2rem;
+  filter: grayscale(100%);
+  opacity: 0.4;
+  @media only screen and (max-height: '800px' ) {
+    top: 0.2rem; 
+    width: 1.2rem;
+  }
+  cursor: pointer;
+  img > svg> path{ /*target the image with css*/
+    fill: var(--primary-color);
+  }
+}
+
+.menu{
   transition: 1s all ease-in-out;
   background-color: fade-out(black, 0.5);
   text-align: center;
@@ -571,7 +588,7 @@ input{
   opacity: 0;
   top: 0;
   pointer-events: none;
-  div {
+  .innerMenu {
     width: 50%;
     @media only screen and (max-width: '800px' ) {
       width: 100%;
@@ -631,7 +648,7 @@ input{
   margin: -0.5rem !important;
 }
 
-.openSettings{
+.openMenu{
   opacity: 1 !important;
   div {
     margin-top: 0 !important;
