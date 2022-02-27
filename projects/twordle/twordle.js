@@ -3,6 +3,26 @@ const params = {
   demo: urlParams.get('demo')
 }
 
+//LANGUAGES
+
+let languageCode = navigator.language.substring(0,2);
+let languageList = {
+  "es": "¡Los caracteres españoles son compatibles!",
+  "fr": "Les caractères français sont pris en charge!",
+  "de": "Deutsche Schriftzeichen werden unterstützt!",
+}
+
+function eszett(input){
+  return input.replace('ß','ẞ');
+}
+
+function characterChecker(input){
+  if (input >= 65 && input <= 91) return true;
+  if (input >= 192 && input <= 221) return true;
+  if (input === 338 || input === 7838) return true;
+  return false;
+}
+
 console.log(localStorage);
 
 let stats = {
@@ -100,10 +120,11 @@ if (user){
   client.connect();
   client.on('message', (channel, tags, message, self) => {
     if (message.length > 1) return;
+    message = eszett(message);
     let upper = message.toUpperCase();
     if (usersVoted.includes(tags.username)) return;
     let characterCode = upper.charCodeAt(0);
-    if (characterCode >= 65 && characterCode <= 91 || characterCode >= 192 && characterCode <= 221){
+    if (characterChecker(characterCode)){
       if (!poll[upper]) poll[upper] = 0;
       ++poll[upper];
       usersVoted.push(tags.username);
@@ -158,6 +179,11 @@ wordInput.type = 'password';
 wordInput.placeholder = "I'll hide it, promise!";
 wordInput.maxLength = 5;
 eventbox.appendChild(wordInput);
+if (Object.keys(languageList).includes(languageCode)){
+  let languageHelp = document.createElement('p');
+  languageHelp.innerText = `${languageList[languageCode]}`
+  eventbox.appendChild(languageHelp);
+}
 let startButton = document.createElement('button');
 startButton.id = 'start';
 startButton.innerHTML = "Start!";
@@ -209,7 +235,7 @@ wordInput.addEventListener('keyup', ()=>{
 
 startButton.addEventListener('click', ()=> {
   if (!letStart) return;
-  THEWORD = wordInput.value.toUpperCase(); 
+  THEWORD = eszett(wordInput.value).toUpperCase(); 
   ++stats.play
   saveStats();
   eventbox.innerHTML = '<h2>Starting round!</h2>';
@@ -438,11 +464,6 @@ function beginGame(){
   };
   refreshGame = true;
 
-  if (spanishLangCheck()){
-    Bottom.removeChild(document.getElementById('keyboard'));
-    addKeyboard();
-  }
-
   setTimeout(newRound, 3000);
 }
 
@@ -490,18 +511,6 @@ if (params.demo){
 
 // GRAPHICS & SCALING
 
-function spanishLangCheck(){
-  if (THEWORD){
-    for (let otherCheck = 0; otherCheck < 5; otherCheck++){
-      let characterCode = THEWORD.charCodeAt(otherCheck);
-      if (characterCode >= 192 && characterCode <= 221){
-        return true;
-      }
-    }
-    return false;
-  }
-}
-
 function addKeyboard(){
   let keyboard = document.createElement('div');
   keyboard.classList = 'keyboard';
@@ -512,11 +521,29 @@ function addKeyboard(){
     ['Z','X','C','V','B','N','M']
   ];
 
-  if (spanishLangCheck()) qwerty = [
-    ['Q','W','E','R','T','Y','U','I','O','P'],
-    ['A','S','D','F','G','H','J','K','L','Ñ'],
-    ['Z','X','C','V','B','N','M']
-  ]
+  if (Object.keys(languageList).includes(languageCode)){
+    if (languageCode === 'es'){
+      qwerty = [
+        ['Q','W','E','R','T','Y','U','I','O','P'],
+        ['A','S','D','F','G','H','J','K','L','Ñ'],
+        ['Z','X','C','V','B','N','M']
+      ]
+    }
+    if (languageCode === 'fr'){
+      qwerty = [
+        ['A','Z','E','R','T','Y','U','I','O','P', 'Ü'],
+        ['Q','S','D','F','G','H','J','K','L','M'],
+        ['W','X','C','V','B','N']
+      ]
+    }
+    if (languageCode === 'de'){
+      qwerty = [
+        ['Q','W','E','R','T','Z','U','I','O','P', 'Ü'],
+        ['A','S','D','F','G','H','J','K','L','Ö', 'Ä'],
+        ['Y','X','C','V','B','N','M']
+      ]
+    }
+  }
 
   for (let line in qwerty){
     let row = document.createElement('div');
