@@ -209,10 +209,11 @@ let personalised = {
   "gamesarehaunted": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_b64a784799524986894c9b6110dee173/default/light/3.0",
 }
 
-if (personalised.hasOwnProperty(localStorage.getItem("channel"))){
+let lowerCaseUser = user.toLowerCase();
+if (personalised.hasOwnProperty(lowerCaseUser)){
   let titleText = title.getElementsByTagName("span")[0];
   titleText.classList.add('personalised');
-  titleText.innerHTML = `<h1>Tw</h1><img style='height:2em' src='${personalised[user]}'></img><h1>rdle</h1>`
+  titleText.innerHTML = `<h1>Tw</h1><img style='height:2em' src='${personalised[lowerCaseUser]}'></img><h1>rdle</h1>`
 }
 
 //SOUNDS
