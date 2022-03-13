@@ -39,16 +39,18 @@ function runDrop({u,b,s,e,l,t}){
   });
 
   Render.run(render);
-  var runner = Runner.create();
-  Runner.run(runner, engine);
+
+  setInterval(function() {
+    Engine.update(engine, 1000 / 60);
+  }, 1000 / 60);
 
   let halfHeight = innerHeight * 0.5;
   let halfWidth = innerWidth * 0.5;
 
   Composite.add(world, [
-    Bodies.rectangle(halfWidth, innerHeight, innerWidth, 1, { isStatic: true }),
-    Bodies.rectangle(0, halfHeight, 1, innerHeight, { isStatic: true }),
-    Bodies.rectangle(innerWidth, halfHeight, 1, innerHeight, { isStatic: true }),
+    Bodies.rectangle(halfWidth, innerHeight, innerWidth, 10, { isStatic: true, render: {visible: false} }),
+    Bodies.rectangle(0, halfHeight, 1, innerHeight, { isStatic: true, render: {visible: false} }),
+    Bodies.rectangle(innerWidth, halfHeight, 1, innerHeight, { isStatic: true, render: {visible: false} }),
   ]);
 
   //Animation Variables
@@ -71,7 +73,6 @@ function runDrop({u,b,s,e,l,t}){
 
   client.connect();
   client.on('message', (channel, tags, message, self) => {
-    
     if (tags.badges.broadcaster && message.startsWith('!emotewipe') || tags.badges.moderator && message.startsWith('!emotewipe')){
       let bodyList = Composite.allBodies(world);
       if (message === '!emotewipe'){
@@ -83,7 +84,6 @@ function runDrop({u,b,s,e,l,t}){
         });
         return;
       }
-      console.log('got here');
       let num = message.split(' ')[1];
       if (!+num) return;
       for (let numDel = 1; numDel <= num; numDel++){
@@ -107,6 +107,7 @@ function runDrop({u,b,s,e,l,t}){
           }
         });
         Composite.add(world, [newCircle]);
+        console.log('added emote');
         batch.push(newCircle);
       }
     }
@@ -123,11 +124,8 @@ function runDrop({u,b,s,e,l,t}){
       }
     }
 
-    setInterval(function(){
+    setTimeout(function(){
       Composite.remove(world, batch);
     }, time);
-
-
-
   });	
 }
