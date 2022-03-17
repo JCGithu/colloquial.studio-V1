@@ -605,11 +605,12 @@ input{
     }
   }
   button{
-    background-color: var(--mainDarken10) !important;
+    background-color: var(--mainDarken10);
     width: max-content;
     padding: 0.5rem 2rem;
     border-radius: 1rem;
     color: var(--textColour);
+    transition: all 0.4s ease-in-out;
   }
   input{
     padding: 0.5rem;
@@ -624,6 +625,9 @@ input{
   display: flex;
   justify-content: center;
   align-items: center;
+  button{
+    margin: 0.4rem;
+  }
 }
 
 .stackVert{
@@ -654,6 +658,10 @@ input{
     margin-top: 0 !important;
   }
   pointer-events: auto !important;
+}
+
+.revealed{
+  background-color: var(--mainDarken40) !important;
 }
 
 @keyframes bounce

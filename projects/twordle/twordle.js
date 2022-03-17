@@ -43,19 +43,18 @@ function saveStats() {
       <p>Games Played: ${stats.play}</p>
       <p>Games Won: ${stats.won}</p>`;
   }
-  return;
-  let achievements = undefined;
-  if (!achievements) {
-    return;
-  }
-  localStorage.setItem('achievements', JSON.stringify(achievements));
-  let achievementList = Object.keys(achievements);
-  for (let a = 0; a < achievementList.length; a++){
-    if (achievements[achievementList[a]] === 1){
+  let awardList = [];
+  if (awards) {
+    localStorage.setItem('awards', JSON.stringify(awards));
+    awardList = Object.keys(awards);
+  } 
+  for (let a = 0; a < awardList.length; a++){
+    if (awards[awardList[a]].status === 1){
+      alert(`You unlocked the ${awards[awardList[a]].title} achievement!`)
       // TRIGGER ANIMATION
         //Achievement Title, subtitle, icon, status.
       // ADD ICON TO LIST
-      achievements[achievementList[a]] = 2;
+      awards[awardList[a]].status = 2;
     }
   }
 }
@@ -188,7 +187,15 @@ let startButton = document.createElement('button');
 startButton.id = 'start';
 startButton.innerHTML = "Start!";
 startButton.id = 'enter';
-eventbox.appendChild(startButton);
+let randomButton = document.createElement('button');
+randomButton.id = 'random';
+randomButton.innerHTML = "Random Word";
+let buttonDiv = document.createElement('div');
+
+buttonDiv.appendChild(startButton);
+buttonDiv.appendChild(randomButton);
+eventbox.appendChild(buttonDiv);
+
 Bottom.appendChild(eventbox);
 twordleHTML.appendChild(Bottom);
 let letStart = false;
@@ -202,7 +209,7 @@ let personalised = {
   "certainlylaz": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_0f82cf9b2bcb41d3823ab0273c122208/default/dark/3.0",
   "geo_master": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_46ac106df68b4a5ba4907317b2b0aafa/default/dark/3.0",
   "sskarrlett": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_9860c508ac1843f6a7f84345f97b9cd6/default/dark/3.0",
-  "astoldbyangela": "https://cdn.discordapp.com/emojis/839227716720132126.webp",
+  "astoldbyangela": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_7d4f4841c28d472cbb3a88c4b5040c27/default/dark/3.0",
   "cozygamerkat": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_75fa29d856ed4c1a979edcfe68c54448/default/light/3.0",
   "hellovonnie": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_4020d73b73714c58aa091c82eb71a4b0/default/light/3.0",
   "elliotisacoolguy": "https://static-cdn.jtvnw.net/emoticons/v2/emotesv2_6e7b14137a824c1fa175ff2d54d3414c/default/light/3.0",
@@ -234,17 +241,41 @@ wordInput.addEventListener('keyup', ()=>{
   startButton.style.opacity = 0.2;
 })
 
-startButton.addEventListener('click', ()=> {
-  if (!letStart) return;
-  THEWORD = eszett(wordInput.value).toUpperCase(); 
+function startingGame() {
   ++stats.play
   saveStats();
   eventbox.innerHTML = '<h2>Starting round!</h2>';
   console.log('Starting!');
   setTimeout(()=>{
     beginGame();
-  },1000);
-})
+  }, 1000);
+}
+
+function readTextFile(file, callback) {
+  var rawFile = new XMLHttpRequest();
+  rawFile.overrideMimeType("application/json");
+  rawFile.open("GET", file, true);
+  rawFile.onreadystatechange = function() {
+      if (rawFile.readyState === 4 && rawFile.status == "200") {
+          callback(rawFile.responseText);
+      }
+  }
+  rawFile.send(null);
+}
+
+startButton.onclick = () =>{
+  if (!letStart) return;
+  THEWORD = eszett(wordInput.value).toUpperCase(); 
+  startingGame();
+};
+randomButton.onclick = () => {
+  readTextFile('./projects/twordle/words.txt', (wordList) => {
+    wordList = wordList.split('\n');
+    THEWORD = wordList[getRandomInt(wordList.length)].toUpperCase();
+    console.log(THEWORD);
+    startingGame();
+  })
+}
 
 function darkMode(){
   document.documentElement.setAttribute('data-theme', 'light');
@@ -284,8 +315,8 @@ let rowMessage = [
 function finishRow(){
   roundCount = 1;
   gridCheck(true);
-  wordsGuessed.push(guess);
   if (guess === THEWORD) return success();
+  wordsGuessed.push(guess);
   if (wordsGuessed.length === 6) return fail();
   guess = '';
   let secondLine = ``;
@@ -314,10 +345,7 @@ function gridCheck(finishedRow){
 async function addLetters(row, input, finishedRow){
   correct = 0;
   maybe = 0;
-  if (input.length < 5) {
-    console.log('add highlight');
-    row.children[input.length].classList.add('highlight');
-  }
+  if (input.length < 5) row.children[input.length].classList.add('highlight');
   row.children[input.length - 1].classList.remove('highlight');
   for (let p = 0; p < 5; p++){
     let block = row.children[p];
@@ -473,6 +501,14 @@ function success(){
   window.onbeforeunload = null;
   refreshGame = false;
   ++stats.won;
+
+  //ACHIEVEMENTS
+  let roundAwardCheck = `${wordsGuessed.length + 1}Round`;
+  if (awards[roundAwardCheck].status === 0){
+    awards[roundAwardCheck].status = 1;
+  }
+
+  wordsGuessed.length
   saveStats();
   jsConfetti.addConfetti();
   winSound.play();
@@ -502,11 +538,11 @@ document.addEventListener("keyup", function(event) {
 if (params.demo){
   setInterval(() => {
     let keys = Object.keys(poll);
-    let targetLetter = keys[getRandomInt(26)];
+    //let targetLetter = keys[getRandomInt(26)];
     let testingLetters = ['C','B','D'];
-    //++poll['D'];
+    ++poll[params.demo];
     //++poll[targetLetter];
-    ++poll[testingLetters[getRandomInt(3)]]
+    //++poll[testingLetters[getRandomInt(3)]]
   }, 2000);
 }
 

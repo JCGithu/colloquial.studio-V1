@@ -38,7 +38,11 @@ settings.innerHTML = `
     <p>Games Won: ${stats.won}</p>
     <p class='version'><a href='https://discord.gg/Svw7utAyNr'>For updates/issues check Discord</a></p>
   </div>
-  <button onclick="undoMove()">Undo Move</button>
+  <div class='stackHorz'>
+    <button id='revealButton' onclick="revealWord()">Reveal Word</button>
+    <button onclick="undoMove()">Undo Move</button>
+  </div>
+  
   <button onclick="closeSettings()">Close</button>
   </div>
 `
@@ -63,6 +67,8 @@ let timerCheck = document.getElementById('Round Timer');
 timerCheck.value = localTimer;
 let volumeCheck = document.getElementById('volume');
 volumeCheck.value = localVolume;
+
+let revealButton = document.getElementById('revealButton');
 
 let statBox = document.getElementById('stats');
 
@@ -120,6 +126,25 @@ function undoMove(){
     buttonTarget.onclick = newRound;
     buttonTarget.innerText = 'Next Letter';
   }
+}
+
+function revealWord(){
+  revealButton.classList.remove('revealed');
+  if (revealButton.innerText === 'No word yet!'){
+    revealButton.innerText = 'Reveal Word';
+    return;
+  }
+  if (!THEWORD) {
+    revealButton.innerText = 'No word yet!';
+    revealButton.classList.add('revealed');
+    return;
+  };
+  if (revealButton.innerText === THEWORD) {
+    revealButton.innerText = 'Reveal Word';
+    return;
+  }
+  revealButton.classList.add('revealed');
+  revealButton.innerText = THEWORD;
 }
 
 
