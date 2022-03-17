@@ -44,7 +44,7 @@ function saveStats() {
       <p>Games Won: ${stats.won}</p>`;
   }
   let awardList = [];
-  if (awards) {
+/*   if (awards) {
     localStorage.setItem('awards', JSON.stringify(awards));
     awardList = Object.keys(awards);
   } 
@@ -56,7 +56,7 @@ function saveStats() {
       // ADD ICON TO LIST
       awards[awardList[a]].status = 2;
     }
-  }
+  } */
 }
 
 localAuto = false;
@@ -504,9 +504,9 @@ function success(){
 
   //ACHIEVEMENTS
   let roundAwardCheck = `${wordsGuessed.length + 1}Round`;
-  if (awards[roundAwardCheck].status === 0){
+/*   if (awards[roundAwardCheck].status === 0){
     awards[roundAwardCheck].status = 1;
-  }
+  } */
 
   wordsGuessed.length
   saveStats();
