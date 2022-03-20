@@ -9,8 +9,6 @@ function urlBuild(settings){
   return urlString
 }
 
-
-
 async function loadDashboard(settings, data){
 
   let pageBody = document.getElementById('show');
