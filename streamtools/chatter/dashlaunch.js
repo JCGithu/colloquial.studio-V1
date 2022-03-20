@@ -5,6 +5,8 @@ const params = {
   align: urlParams.get('align'),
   fontsize: urlParams.get('fontsize'),
   chatcolour: urlParams.get('chatcolour'),
+  chatopacity: urlParams.get('chatopacity'),
+  highlight: urlParams.get('highlight'),
   highcolour: urlParams.get('highcolour'),
   bgcolour: urlParams.get('bgcolour'),
   fontcolour: urlParams.get('fontcolour'),
@@ -80,10 +82,28 @@ const data = [
     value: '#262d36'
   },
   {
+    title: 'Chat bubble background opacity',
+    id: 'chatopacity',
+    type: 'range',
+    min: 0,
+    max: 10,
+    value: 10,
+  },
+  {
     title: 'Font colour',
     id: 'fontcolour',
     type: 'color',
     value: '#f7f7ff'
+  },
+  {
+    title: 'Show Chat Highlight',
+    id: 'highlight',
+    type: 'checkbox'
+  },
+  {
+    title: 'Use Twitch user colours for chat highlights',
+    id: 'togglecol',
+    type: 'checkbox'
   },
   {
     title: 'Default chat highlight colour',
@@ -116,11 +136,6 @@ const data = [
     subtitle: 'Split with commas and write full command e.g. !play', 
     id: 'hidecom',
     type: 'text'
-  },
-  {
-    title: 'Use Twitch user colours for chat highlights',
-    id: 'togglecol',
-    type: 'checkbox'
   },
   {
     title: 'Show badges',

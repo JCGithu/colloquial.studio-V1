@@ -5,6 +5,22 @@ let bound = document.createElement('div');
 bound.id = 'chatBoundary';
 document.body.appendChild(bound);
 
+function trueCheck(val) {return (val === 'true')};
+function splitList(val) {
+  val = val.toLowerCase().replace(/\s/g, '');
+  return val.split(',');
+};
+
+// TRUE/FALSE CONVERT
+if (!params.highlight) params.highlight = true;
+if (params.highlight) params.highlight = trueCheck(params.highlight);
+if (params.badges) params.badges = trueCheck(params.badges);
+if (params.bttv) params.bttv = trueCheck(params.bttv);
+
+//SPLIT LISTS
+if (params.hidebot) params.hidebot = splitList(params.hidebot);
+if (params.hidecom) params.hidecom = splitList(params.hidecom);
+
 // BGCOLOUR AND OPACITY
 function addAlpha(color, opacity) {
   var _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
@@ -20,24 +36,16 @@ if (params.bgopacity) {
     bound.style.backgroundColor = `#${alpha_ed}`;
   }
 }
+if (!params.chatopacity) params.chatopacity = 1;
+if (params.chatopacity === '0') {
+  params.chatcolour = `rgba(0,0,0,0)`;
+} else {
+  let alpha_ed = addAlpha(params.chatcolour, (parseInt(params.chatopacity) * 0.1))
+  params.chatcolour = `#${alpha_ed}`;
+}
 
 if (params.highcolour) params.highcolour = `#${params.highcolour}`;
-if (params.chatcolour) params.chatcolour = `#${params.chatcolour}`;
 if (params.fontcolour) params.fontcolour = `#${params.fontcolour}`;
-
-function trueCheck(val) {return (val === 'true')};
-function splitList(val) {
-  val = val.toLowerCase().replace(/\s/g, '');
-  return val.split(',');
-};
-
-// TRUE/FALSE CONVERT
-if (params.badges) params.badges = trueCheck(params.badges);
-if (params.bttv) params.bttv = trueCheck(params.bttv);
-
-//SPLIT LISTS
-if (params.hidebot) params.hidebot = splitList(params.hidebot);
-if (params.hidecom) params.hidecom = splitList(params.hidecom);
 
 if (params.align) {
   if (params.align === 'Left' || params.align === 'left') params.align = 'flex-start';
@@ -145,15 +153,14 @@ function postBox(channel, tags, message, self, italics){
   if (params.chatcolour) chatBubble.style.backgroundColor = `#${params.chatcolour}`
   let emotes = formatEmotes(message, tags.emotes, bttvEmoteCache);
   let chatName = document.createElement('p');
-  //chatName.classList.add('chatPart');
   chatName.innerHTML = `<b>${tags.username}: </b>`;
 
   if (!tags.color || tags.color === '#FFFFFF' || !params.togglecol) tags.color = params.highcolour;
 
   chatName.style.color = tags.color;
-  //chatName.classList.add('chatName');
   chatBubble.style.color = tags.color;
   chatBubble.style.backgroundColor = params.chatcolour;
+  if (!tags.highlight) chatBubble.style.color = 'rgba(0,0,0,0)';
 
   if (tags.badges && params.badges){
     Object.keys(tags.badges).forEach((k) => {
@@ -165,19 +172,12 @@ function postBox(channel, tags, message, self, italics){
       }
     })
   }
-
-  //let chatText = document.createElement('div');
-  //chatText.classList.add('chatPart');
-  //chatText.style.color = params.fontcolour;
-  //chatText.style.fontFamily = 'Poppins';
   let messageSpan = document.createElement('span');
   messageSpan.innerHTML = emotes;
   messageSpan.style.color = params.fontcolour;
   chatName.appendChild(messageSpan);
-  //chatName.innerHTML = `${chatName.innerHTML} ${emotes}`;
   chatBubble.classList.add('chatbox');
   chatBubble.appendChild(chatName);
-  //chatBubble.appendChild(chatText);
   bound.appendChild(chatBubble);
   removeTop(chatBubble);
 }
