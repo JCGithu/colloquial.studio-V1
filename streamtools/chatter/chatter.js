@@ -163,7 +163,7 @@ function postBox(channel, tags, message, self, italics){
   chatName.style.color = tags.color;
   chatBubble.style.color = tags.color;
   chatBubble.style.backgroundColor = params.chatcolour;
-  if (!tags.highlight) chatBubble.style.color = 'rgba(0,0,0,0)';
+  if (!params.highlight) chatBubble.style.color = 'rgba(0,0,0,0)';
 
   if (tags.badges && params.badges){
     Object.keys(tags.badges).forEach((k) => {
