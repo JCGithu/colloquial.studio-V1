@@ -12,8 +12,11 @@ function splitList(val) {
 };
 
 // TRUE/FALSE CONVERT
-if (!params.highlight) params.highlight = true;
-if (params.highlight) params.highlight = trueCheck(params.highlight);
+if (params.highlight) {
+  params.highlight = trueCheck(params.highlight)
+} else {
+  params.highlight = true;
+};
 if (params.badges) params.badges = trueCheck(params.badges);
 if (params.bttv) params.bttv = trueCheck(params.bttv);
 
@@ -36,7 +39,7 @@ if (params.bgopacity) {
     bound.style.backgroundColor = `#${alpha_ed}`;
   }
 }
-if (!params.chatopacity) params.chatopacity = 1;
+if (!params.chatopacity) params.chatopacity = 10;
 if (params.chatopacity === '0') {
   params.chatcolour = `rgba(0,0,0,0)`;
 } else {
