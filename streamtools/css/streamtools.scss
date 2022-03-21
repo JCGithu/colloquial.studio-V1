@@ -266,6 +266,7 @@ h3 {
     text-shadow: 2px 2px 0px $white;
   }
 }
+
 #backlink{
   font-size: 0.7rem;
   color: $purple;
@@ -290,6 +291,39 @@ button {
   &:hover{
     transform: scale(1.05);
   }
+}
+
+.collapsible {
+  cursor: pointer;
+  text-align: center;
+  h2{
+    color: white;
+  }
+  background-color: #525be1;
+  &:hover{
+    background-color: #656eeb;
+  }
+  padding: 1rem;
+  margin: 1rem;
+  margin-bottom: 0rem;
+  border-radius: 1rem;
+  z-index: 2;
+}
+
+.opened {
+  background-color: #424242;
+  &:hover{
+    background-color: #525252;
+  }
+}
+
+.group{
+  background-color: #525be171;
+  padding: 3rem 2rem 1rem 2rem;
+  border-radius: 1rem;
+  margin-top: -2rem;
+  display: flex;
+  flex-direction: column;
 }
 
 //C: SIDES

@@ -9,6 +9,83 @@ function urlBuild(settings){
   return urlString
 }
 
+async function buildObject(obj, target){
+  let div = document.createElement('div');
+  div.classList.add('dashInput');
+
+  // CHECKBOX
+  if (obj.type === 'checkbox'){
+    div.innerHTML = `
+    <label class="checkContainer">${obj.title}
+      <input type="checkbox" id="${obj.id}" class="urlBuild check" checked="checked">
+      <span class="checkmark"></span>
+    </label>`
+    target.appendChild(div);
+    return;
+  }
+
+  //SELECT
+  if (obj.type === 'select'){
+    div.innerHTML = `<h2>${obj.title}</h2>`;
+    let select = document.createElement('select');
+    select.classList.add('dashInput');
+    select.classList.add('urlBuild');
+    select.id = obj.id;
+    for (let o in obj.options){
+      let option = document.createElement("option");
+      option.text = obj.options[o];
+      option.value = obj.options[o];
+      option.style.fontFamily = `${obj.options[o]} !important`;
+      select.add(option);
+    }
+    div.appendChild(select);
+    target.appendChild(div);
+    return;
+  }
+
+  div.innerHTML = `<h2>${obj.title}</h2>`;
+  let div2 = document.createElement('div');
+
+  if (obj.group){
+    div.classList.remove('dashInput');
+    div.classList.add('collapsible');
+    div2.classList.add('group');
+    div2.style.display = 'none';
+    //div2.innerHTML = 'nwubfni'
+    for (let item in obj.group){
+      buildObject(obj.group[item], div2);
+    }
+    target.appendChild(div);
+    target.appendChild(div2);
+    return;
+  }
+
+  // TEXT, NUMBER, RANGE
+  div2.classList.add('dashInput');
+  let el = document.createElement('input');
+  el.id = obj.id;
+  el.type = obj.type;
+  el.classList.add('urlBuild');
+  if (obj.value) el.value = obj.value;
+  if (obj.min) el.min = obj.min;
+  if (obj.max) el.max = obj.max;
+  if (obj.required) el.classList.add('required');
+  if (obj.subtitle) div.innerHTML = `${div.innerHTML} <p>${obj.subtitle}</p>`;
+  if (obj.type === 'color'){
+    let colourBlock = document.createElement('div');
+    colourBlock.classList.add('colourBlock');
+    let extraStyle = ''; 
+    let hsl = hexToHSL(obj.value);
+    if (hsl.l >= 70) extraStyle = ' class="invert"';
+    console.log(hsl);
+    colourBlock.innerHTML = `<p id="colour${obj.id}" ${extraStyle}>${obj.value}</p>`;
+    div2.appendChild(colourBlock)
+  }
+  target.appendChild(div);
+  div2.appendChild(el);
+  target.appendChild(div2);
+}
+
 async function loadDashboard(settings, data){
 
   let pageBody = document.getElementById('show');
@@ -36,67 +113,7 @@ async function loadDashboard(settings, data){
   dashControls.id = 'dashControls';
   dashControls.classList.add('flex-items');
   for (let d in data){
-    let obj = data[d];
-    let div = document.createElement('div');
-    div.classList.add('dashInput');
-
-
-    // CHECKBOX
-    if (obj.type === 'checkbox'){
-      div.innerHTML = `
-      <label class="checkContainer">${obj.title}
-        <input type="checkbox" id="${obj.id}" class="urlBuild check" checked="checked">
-        <span class="checkmark"></span>
-      </label>`
-      dashControls.appendChild(div);
-      continue;
-    }
-
-    //SELECT
-    if (obj.type === 'select'){
-      div.innerHTML = `<h2>${obj.title}</h2>`;
-      let select = document.createElement('select');
-      select.classList.add('dashInput');
-      select.classList.add('urlBuild');
-      select.id = obj.id;
-      for (let o in obj.options){
-        let option = document.createElement("option");
-        option.text = obj.options[o];
-        option.value = obj.options[o];
-        option.style.fontFamily = `${obj.options[o]} !important`;
-        select.add(option);
-      }
-      div.appendChild(select);
-      dashControls.appendChild(div);
-      continue;
-    }
-
-    // TEXT, NUMBER, RANGE
-    div.innerHTML = `<h2>${obj.title}</h2>`;
-    let div2 = document.createElement('div');
-    div2.classList.add('dashInput');
-    let el = document.createElement('input');
-    el.id = obj.id;
-    el.type = obj.type;
-    el.classList.add('urlBuild');
-    if (obj.value) el.value = obj.value;
-    if (obj.min) el.min = obj.min;
-    if (obj.max) el.max = obj.max;
-    if (obj.required) el.classList.add('required');
-    if (obj.subtitle) div.innerHTML = `${div.innerHTML} <p>${obj.subtitle}</p>`;
-    if (obj.type === 'color'){
-      let colourBlock = document.createElement('div');
-      colourBlock.classList.add('colourBlock');
-      let extraStyle = ''; 
-      let hsl = hexToHSL(obj.value);
-      if (hsl.l >= 70) extraStyle = ' class="invert"';
-      console.log(hsl);
-      colourBlock.innerHTML = `<p id="colour${obj.id}" ${extraStyle}>${obj.value}</p>`;
-      div2.appendChild(colourBlock)
-    }
-    dashControls.appendChild(div);
-    div2.appendChild(el);
-    dashControls.appendChild(div2);
+    buildObject(data[d], dashControls);
   }
   dash.appendChild(dashControls);
 
@@ -138,6 +155,19 @@ async function loadDashboard(settings, data){
     })
   }
 
+  var coll = document.getElementsByClassName("collapsible");
+
+  for (let i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("opened");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
+  }
 
   go.addEventListener('click', () =>{
     window.open(output.value,"_self");

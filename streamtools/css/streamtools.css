@@ -112,6 +112,47 @@ button:hover {
           transform: scale(1.05);
 }
 
+.collapsible {
+  cursor: pointer;
+  text-align: center;
+  background-color: #525be1;
+  padding: 1rem;
+  margin: 1rem;
+  margin-bottom: 0rem;
+  border-radius: 1rem;
+  z-index: 2;
+}
+
+.collapsible h2 {
+  color: white;
+}
+
+.collapsible:hover {
+  background-color: #656eeb;
+}
+
+.opened {
+  background-color: #424242;
+}
+
+.opened:hover {
+  background-color: #525252;
+}
+
+.group {
+  background-color: #525be171;
+  padding: 3rem 2rem 1rem 2rem;
+  border-radius: 1rem;
+  margin-top: -2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 #DashTitle {
   background-color: #d4d1ff;
   border-radius: 0rem 2rem 2rem 0rem;
