@@ -185,5 +185,6 @@ function postBox(channel, tags, message, self, italics){
   removeTop(chatBubble);
 }
 
-client.on('chat', (channel, tags, message, self) => {postBox(channel, tags, message, self, false)});
-client.on('action', (channel, tags, message, self) => {postBox(channel, tags, message, self, false)});
+client.on('chat', (channel, tags, message, self) => {postBox(channel, tags, message, self, false)})
+client.on('action', (channel, tags, message, self) => {postBox(channel, tags, message, self, false)})
+client.on('cheer', (channel, tags, message) => {postBox(channel, tags, message, false, false)});
