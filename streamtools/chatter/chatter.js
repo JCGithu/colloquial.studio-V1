@@ -157,12 +157,14 @@ function postBox(channel, tags, message, self, italics){
   let emotes = formatEmotes(message, tags.emotes, bttvEmoteCache);
   let chatName = document.createElement('p');
   chatName.innerHTML = `<b>${tags.username}: </b>`;
+  if (italics) chatName.innerHTML = tags.username + ' ';
 
   if (!tags.color || tags.color === '#FFFFFF' || !params.togglecol) tags.color = params.highcolour;
 
   chatName.style.color = tags.color;
   chatBubble.style.color = tags.color;
   chatBubble.style.backgroundColor = params.chatcolour;
+  if (italics) chatName.style.fontStyle = 'italic';
   if (!params.highlight) chatBubble.style.color = 'rgba(0,0,0,0)';
 
   if (tags.badges && params.badges){
@@ -178,6 +180,7 @@ function postBox(channel, tags, message, self, italics){
   let messageSpan = document.createElement('span');
   messageSpan.innerHTML = emotes;
   messageSpan.style.color = params.fontcolour;
+  if (italics) messageSpan.style.color = tags.color;
   chatName.appendChild(messageSpan);
   chatBubble.classList.add('chatbox');
   chatBubble.appendChild(chatName);
@@ -185,6 +188,23 @@ function postBox(channel, tags, message, self, italics){
   removeTop(chatBubble);
 }
 
+function removeChatsFromUser(username){
+  let bubbles = document.querySelectorAll('.chatbox');
+  bubbles.forEach((value, i, obj) => {
+    let innerText = value.innerText;
+    if (innerText.includes(username)) bound.removeChild(bubbles[i]);
+  })
+}
+
 client.on('chat', (channel, tags, message, self) => {postBox(channel, tags, message, self, false)})
-client.on('action', (channel, tags, message, self) => {postBox(channel, tags, message, self, false)})
+client.on('action', (channel, tags, message, self) => {postBox(channel, tags, message, self, true)})
 client.on('cheer', (channel, tags, message) => {postBox(channel, tags, message, false, false)});
+client.on('clearchat', (channel) => {bound.innerHTML = ''});
+
+client.on("ban", (channel, username, reason, tags) => {
+  removeChatsFromUser(username);
+});
+
+client.on("timeout", (channel, username, reason, duration, userstate) => {
+  removeChatsFromUser(username);
+});
