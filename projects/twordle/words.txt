@@ -1876,7 +1876,6 @@ kinda
 spelt
 prick
 audio
-modal
 fluke
 motif
 fella
@@ -1886,7 +1885,6 @@ aloha
 glyph
 azure
 riser
-blest
 locus
 lumpy
 tuner
@@ -1952,9 +1950,7 @@ awash
 libel
 spurn
 sabre
-rebut
 obese
-tacit
 greek
 xenon
 pique
@@ -1962,12 +1958,10 @@ roger
 gecko
 beget
 uncut
-quint
 clunk
 diode
 hertz
 kiosk
-apace
 cawed
 peter
 tango
@@ -2019,7 +2013,6 @@ pudgy
 mater
 manic
 pesky
-strep
 slurp
 pylon
 puree
@@ -2214,7 +2207,6 @@ moxie
 druid
 rehab
 octet
-eared
 scone
 hyper
 salsa
@@ -2240,7 +2232,6 @@ disco
 boozy
 soppy
 gonzo
-durst
 wader
 catty
 glitz
@@ -2249,7 +2240,6 @@ shard
 matte
 droid
 vapid
-mixup
 clone
 hazed
 macho
@@ -2265,7 +2255,6 @@ girly
 gnarl
 zippy
 grail
-roust
 cabal
 quark
 stash
@@ -2284,7 +2273,6 @@ retry
 karma
 deuce
 promo
-snafu
 sauna
 condo
 loopy
@@ -2298,9 +2286,7 @@ campy
 tweet
 hyped
 byway
-texas
 futon
-carom
 kebab
 modem
 psych
@@ -2320,26 +2306,20 @@ skint
 payed
 astro
 teary
-masse
 bazar
 plunk
 chile
 nippy
 litre
-magna
 hydro
-feued
 inapt
 baulk
 scrum
 quiff
 welsh
 podgy
-costa
 hades
 punky
-wifey
-momma
 memes
 prise
 dishy
@@ -2349,8 +2329,6 @@ lippy
 carer
 gamer
 seeth
-cuppa
-asker
 vocab
 indie
 punny
@@ -2366,8 +2344,6 @@ hunky
 snark
 swede
 ninja
-holer
-doter
 whelm
 morph
 chino
