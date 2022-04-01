@@ -132,7 +132,6 @@ function removeTop(chatDiv) {
 let firstM = true;
 console.log(params);
 
-
 function postBox(channel, tags, message, self, italics){
   console.log(tags);
   if (firstM){
@@ -154,7 +153,7 @@ function postBox(channel, tags, message, self, italics){
   
   let chatBubble = document.createElement('div');
   if (params.chatcolour) chatBubble.style.backgroundColor = `#${params.chatcolour}`
-  let emotes = formatEmotes(message, tags.emotes, bttvEmoteCache);
+  let emotes = formatEmotes(message, tags.emotes, bttvEmoteCache, tags.bits);
   let chatName = document.createElement('p');
   chatName.innerHTML = `<b>${tags.username}: </b>`;
   if (italics) chatName.innerHTML = tags.username + ' ';
@@ -198,8 +197,28 @@ function removeChatsFromUser(username){
 
 client.on('chat', (channel, tags, message, self) => {postBox(channel, tags, message, self, false)})
 client.on('action', (channel, tags, message, self) => {postBox(channel, tags, message, self, true)})
-client.on('cheer', (channel, tags, message) => {postBox(channel, tags, message, false, false)});
+client.on('cheer', (channel, tags, message) => {
+  console.log(tags);
+  postBox(channel, tags, message, false, false)
+});
 client.on('clearchat', (channel) => {bound.innerHTML = ''});
+
+/* client.on('raw_message', (messageCloned, message) => {
+  console.log(messageCloned);
+  console.log(message);
+}) */
+
+//ANNOUNCEMENTS
+client.on('usernotice', (noticeType, channel, tags, message) => {
+  if (noticeType === 'announcement'){
+    console.log(tags);
+    tags.username = 'ANNOUNCEMENT 🎉';
+    tags.color = '#9147FF';
+    tags.badges = '';
+    postBox(channel, tags, message, false, false);
+  }
+})
+
 
 client.on("ban", (channel, username, reason, tags) => {
   removeChatsFromUser(username);
