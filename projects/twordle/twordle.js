@@ -293,7 +293,7 @@ newBody.appendChild(twordleHTML);
 document.body.appendChild(newBody);
 
 if (params.charlie){
-  body.style.setProperty('--main','#B2CCFF');
+  document.body.style.setProperty('--main','#B2CCFF');
 }
 
 const canvas = document.getElementById('your_custom_canvas_id')
