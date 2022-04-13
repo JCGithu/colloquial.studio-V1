@@ -352,8 +352,13 @@ function gridCheck(finishedRow){
 async function addLetters(row, input, finishedRow){
   correct = 0;
   maybe = 0;
-  if (input.length < 5) row.children[input.length].classList.add('highlight');
-  row.children[input.length - 1].classList.remove('highlight');
+
+  let currentL = row.children[input.length];
+  if (row.children[input.length - 1]){
+    let prevL = row.children[input.length - 1];
+    prevL.classList.remove('highlight');
+  }
+  if (input.length < 5) currentL.classList.add('highlight');
   for (let p = 0; p < 5; p++){
     let block = row.children[p];
     if (input[p] === undefined) {
