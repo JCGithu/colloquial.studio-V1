@@ -1,7 +1,10 @@
 const urlParams = new URLSearchParams(window.location.search);
 const params = {
-  demo: urlParams.get('demo')
+  demo: urlParams.get('demo'),
+  charlie: urlParams.get('charlie'),
 }
+
+
 
 //LANGUAGES
 
@@ -288,6 +291,10 @@ darkMode();
 
 newBody.appendChild(twordleHTML);
 document.body.appendChild(newBody);
+
+if (params.charlie){
+  body.style.setProperty('--main','#B2CCFF');
+}
 
 const canvas = document.getElementById('your_custom_canvas_id')
 const jsConfetti = new JSConfetti({ canvas });
