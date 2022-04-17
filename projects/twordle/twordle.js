@@ -1,7 +1,10 @@
 const urlParams = new URLSearchParams(window.location.search);
 const params = {
-  demo: urlParams.get('demo')
+  demo: urlParams.get('demo'),
+  charlie: urlParams.get('charlie'),
 }
+
+
 
 //LANGUAGES
 
@@ -289,6 +292,10 @@ darkMode();
 newBody.appendChild(twordleHTML);
 document.body.appendChild(newBody);
 
+if (params.charlie){
+  document.body.style.setProperty('--main','#B2CCFF');
+}
+
 const canvas = document.getElementById('your_custom_canvas_id')
 const jsConfetti = new JSConfetti({ canvas });
 
@@ -345,8 +352,13 @@ function gridCheck(finishedRow){
 async function addLetters(row, input, finishedRow){
   correct = 0;
   maybe = 0;
-  if (input.length < 5) row.children[input.length].classList.add('highlight');
-  row.children[input.length - 1].classList.remove('highlight');
+
+  let currentL = row.children[input.length];
+  if (row.children[input.length - 1]){
+    let prevL = row.children[input.length - 1];
+    prevL.classList.remove('highlight');
+  }
+  if (input.length < 5) currentL.classList.add('highlight');
   for (let p = 0; p < 5; p++){
     let block = row.children[p];
     if (input[p] === undefined) {
