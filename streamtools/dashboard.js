@@ -20,9 +20,11 @@ async function buildObject(obj, target){
 
   // CHECKBOX
   if (obj.type === 'checkbox'){
+    let checkName = 'checked ="checked"'
+    if (obj.false) checkName = '';
     div.innerHTML = `
     <label class="checkContainer">${obj.title}
-      <input type="checkbox" id="${obj.id}" class="urlBuild check" checked="checked">
+      <input type="checkbox" id="${obj.id}" class="urlBuild check" ${checkName}>
       <span class="checkmark"></span>
     </label>`
     target.appendChild(div);

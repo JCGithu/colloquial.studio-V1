@@ -26,8 +26,6 @@ if (params.pronouns) params.pronouns = trueCheck(params.pronouns);
 if (params.scroll) params.scroll = trueCheck(params.scroll);
 if (params.togglecol) params.togglecol = trueCheck(params.togglecol);
 
-
-
 //SPLIT LISTS
 if (params.hidebot) params.hidebot = splitList(params.hidebot);
 if (params.hidecom) params.hidecom = splitList(params.hidecom);

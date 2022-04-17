@@ -45,7 +45,7 @@ const settings = {
     bttv: 'true',
     hidebot: '',
     hidecom: '',
-    pronouns: 'true',
+    pronouns: 'false',
   },
   title: "Chatter!",
   tag: `Made on stream over at <a class="underline" href="https://twitch.tv/colloquialowl">ColloquialOwl</a>.`,
@@ -203,6 +203,7 @@ const data = [
     title: 'Show Pronouns',
     id: 'pronouns',
     type: 'checkbox',
+    false: true
   }
 
 ]
