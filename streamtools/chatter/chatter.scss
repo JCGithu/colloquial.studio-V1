@@ -31,8 +31,29 @@ body{
     border-radius: 1rem;
     height: 96vh;
     padding: 1rem 0.5rem;
-    overflow: hidden;
+    overflow-x: hidden;
+    &::-webkit-scrollbar{
+        display: none;
+    }
+    transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+    
 }
+
+#chatBackground{
+    border-radius: 1rem;
+    height: 96vh;
+    width: 100vw;
+    padding: 1rem 0.5rem;
+    overflow: hidden;
+    &::-webkit-scrollbar{
+        display: none;
+    }
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
 
 .emote{
     height: 1.1rem;
@@ -59,7 +80,6 @@ body{
     padding: 5px 15px 5px 10px;
     overflow-wrap: break-word;
     background-color: #262d36;
-    animation: shadow-pop-br 0.3s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
     .chatName{
         font-weight: bold;
         padding-right: 0.3rem;
@@ -73,7 +93,37 @@ body{
         img{
             display: initial;
         }
-    }
+    } 
+}
+
+.PopIn{
+    animation: shadow-pop-br 0.3s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+}
+
+@mixin nonPop{
+    box-shadow: 1px 1px, 2px 2px, 3px 3px, 4px 4px, 5px 5px, 6px 6px, 7px 7px, 8px 8px;
+    transform: translateX(-8px) translateY(-8px);
+}
+
+.SlideIn{
+    @include nonPop();
+    animation: slide-in 0.3s cubic-bezier(0,.4,0,.99) both;
+}
+
+.FadeIn{
+    @include nonPop();
+    animation: fade-in 0.3s cubic-bezier(0,0,.46,1) both;
+}
+
+.Grow{
+    @include nonPop();
+    animation: grow 0.3s cubic-bezier(0,.4,0,.99) both;
+}
+
+.pronoun {
+    border-radius: 1rem;
+    padding: 0 0.3rem;
+    font-size: 0.8rem;
 }
 
 $shadow: #2a313b;
@@ -91,4 +141,23 @@ $shadow: #2a313b;
         box-shadow: 1px 1px, 2px 2px, 3px 3px, 4px 4px, 5px 5px, 6px 6px, 7px 7px, 8px 8px;
         transform: translateX(-8px) translateY(-8px);
     }
+}
+
+@keyframes slide-in {
+    0%{
+        transform: translateX(100vw) translateY(-8px);
+    }
+    100% {
+        transform: translateX(-8px) translateY(-8px);
+    }
+}
+
+@keyframes fade-in{
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes grow {
+    0% { transform: translateX(-8px) translateY(-8px) scale(0); }
+    100% { transform: translateX(-8px) translateY(-8px) scale(1); }
 }

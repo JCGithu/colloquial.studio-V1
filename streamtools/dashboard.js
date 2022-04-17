@@ -1,5 +1,10 @@
 function urlBuild(settings){
   console.log(settings.url);
+  if (JSONCrush != null){
+    let urlCrush = encodeURIComponent(JSONCrush.crush(JSON.stringify(settings.url)));
+    console.log(urlCrush);
+    return `${settings.base}data=${urlCrush}`;
+  }
   let urlString = settings.base;
   for (let k in settings.url){
     let newVal = settings.url[k];
@@ -128,7 +133,7 @@ async function loadDashboard(settings, data){
       console.log('change and value is ' + evt.target.value);
       if (evt.target.type === 'checkbox'){
         let box = document.getElementById(evt.target.id);
-        settings.url[title] = box.checked;
+        settings.url[title] = `${box.checked}`;
       } else {
         settings.url[title] = evt.target.value;
       }

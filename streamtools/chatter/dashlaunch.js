@@ -1,22 +1,5 @@
 const urlParams = new URLSearchParams(window.location.search);
-const params = {
-  u: urlParams.get('channel'),
-  font: urlParams.get('font'),
-  align: urlParams.get('align'),
-  fontsize: urlParams.get('fontsize'),
-  chatcolour: urlParams.get('chatcolour'),
-  chatopacity: urlParams.get('chatopacity'),
-  highlight: urlParams.get('highlight'),
-  highcolour: urlParams.get('highcolour'),
-  bgcolour: urlParams.get('bgcolour'),
-  fontcolour: urlParams.get('fontcolour'),
-  bgopacity: urlParams.get('bgopacity'),
-  togglecol: urlParams.get('togglecol'),
-  badges: urlParams.get('badges'),
-  bttv: urlParams.get('bttv'),
-  hidebot: urlParams.get('hidebot'),
-  hidecom: urlParams.get('hidecom'),
-}
+
 const badgeData = {};
 var bttvEmoteCache = [];
 /* 
@@ -45,7 +28,7 @@ const fontCheck = new Set([
 const settings = {
   base: 'https://colloquial.studio/streamtools/chatter?',
   url: {
-    channel: "na",
+    channel: "",
     font: 'Poppins',
     fontsize: 2,
     align: 'left',
@@ -54,11 +37,15 @@ const settings = {
     bgcolour: '262d36',
     fontcolour: 'f7f7ff',
     bgopacity: 2,
-    togglecol: true,
-    badges: true,
-    bttv: true,
+    togglecol: 'true',
+    gradient: 'true',
+    animation: 'Pop In',
+    scroll: 'true',
+    badges: 'true',
+    bttv: 'true',
     hidebot: '',
-    hidecom: ''
+    hidecom: '',
+    pronouns: 'true',
   },
   title: "Chatter!",
   tag: `Made on stream over at <a class="underline" href="https://twitch.tv/colloquialowl">ColloquialOwl</a>.`,
@@ -77,6 +64,12 @@ const data = [
     type: "text",
   },
   {
+    title: 'Align',
+    id: 'align',
+    type: 'select',
+    options: ['Left', 'Center', 'Right'],
+  },
+  {
     title: 'Font Settings',
     group: [
       {
@@ -85,12 +78,6 @@ const data = [
         placeholder: 'Poppins',
         id: "font",
         type: "text",
-      },
-      {
-        title: 'Align',
-        id: 'align',
-        type: 'select',
-        options: ['Left', 'Center', 'Right'],
       },
       {
         title: "Font Size",
@@ -153,6 +140,12 @@ const data = [
     title: 'Background Settings',
     group: [
       {
+        title: 'Fade Chat at top',
+        subtitle: "A gradient fade at the top of the chatbox",
+        id: 'gradient',
+        type: 'checkbox',
+      },
+      {
         title: 'Background colour',
         id: 'bgcolour',
         type: 'color',
@@ -169,6 +162,22 @@ const data = [
     ]
   },
   {
+    title: 'Animation',
+    group: [
+      {
+        title: 'Smooth Scroll',
+        id: 'scroll',
+        type: 'checkbox',
+      },
+      {
+        title: 'Animation',
+        id: 'animation',
+        type: 'select',
+        options: ['Pop In', 'Slide In', 'Fade In', 'Grow'],
+      },
+    ]
+  },
+  {
     title: 'Hide these bots',
     subtitle: 'Split accounts with commas e.g. Nightbot, Streamelements',
     id: 'hidebot',
@@ -181,7 +190,7 @@ const data = [
     type: 'text'
   },
   {
-    title: 'Show badges',
+    title: 'Show Badges',
     id: 'badges',
     type: 'checkbox'
   },
@@ -189,13 +198,25 @@ const data = [
     title: 'Show BTTV emotes',
     id: 'bttv',
     type: 'checkbox',
+  },
+  {
+    title: 'Show Pronouns',
+    id: 'pronouns',
+    type: 'checkbox',
   }
 
 ]
 
+function getParams(){
+  if (!urlParams.get('data')) return {};
+  let data = urlParams.get('data');
+  let example = JSONCrush.uncrush(data);
+  return JSON.parse(example);
+}
+const params = getParams();
 
-if (params.u) {
-  loadScript('./chatter/formatEmotes.js').then(()=>{
+if (urlParams.get('data') || urlParams.get('channel')) {
+  loadScript('./chatter/formatEmotes.js').then((params)=>{
     loadScript('./chatter/chatter.js').then(()=>{
       console.log('loading Chatter!')
     })
