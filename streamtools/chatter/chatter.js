@@ -375,7 +375,7 @@ client.on('chat', (channel, tags, message, self) => {
   postBox(channel, tags, message, self, false)
   getPronouns(tags.username);
   let msgI = 0;
-  if (tags.badges.broadcaster && message === '!test'){
+  if (tags.username === 'colloquialowl' && message === '!test'){
     setInterval(()=>{
       if (msgI < 100) postBox(channel, tags, `${msgI}`, self, false);
       msgI++
