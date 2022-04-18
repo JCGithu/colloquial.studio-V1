@@ -311,7 +311,7 @@ function postBox(channel, tags, message, self, italics){
       //chatName.innerHTML = `<b>${tags.username} <code>${userPronouns.get(lowerCaseUser)}</code>: </b>`;
       let pronounBlock = document.createElement('span');
       pronounBlock.className = 'pronoun';
-      pronounBlock.style.backgroundColor = tags.color;
+      pronounBlock.style.border = `0.15rem solid ${tags.color}`;
       pronounBlock.style.color = params.fontcolour;
       pronounBlock.innerText = userPronouns.get(lowerCaseUser);
       chatName.innerHTML = `<b>${tags.username}</b> `
