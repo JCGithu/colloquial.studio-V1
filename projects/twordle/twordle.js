@@ -292,9 +292,7 @@ darkMode();
 newBody.appendChild(twordleHTML);
 document.body.appendChild(newBody);
 
-if (params.charlie){
-  document.body.style.setProperty('--main','#B2CCFF');
-}
+if (params.charlie) document.documentElement.setAttribute('stream-theme', 'charlie');
 
 const canvas = document.getElementById('your_custom_canvas_id')
 const jsConfetti = new JSConfetti({ canvas });

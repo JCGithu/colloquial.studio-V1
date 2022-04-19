@@ -16,11 +16,20 @@ html {
   --titleShadow: 1px 1px 0px rgb(255, 255, 255), 2px 2px 0px rgb(255, 255, 255);
 }
 
-html[data-theme='dark'] {
+html[data-theme="dark"] {
   --main: #232323;
   --textColour: white;
   --settingColour: white;
   --titleShadow: none;
+}
+
+html[stream-theme="charlie"] {
+  --mainLighten10: white;
+  --mainDarken5: #ccddff;
+  --mainDarken10: #b2ccff;
+  --mainDarken15: #99bbff;
+  --mainDarken20: #7faaff;
+  --textColour: #232323;
 }
 
 body {
@@ -455,7 +464,8 @@ body {
   background-color: #804ddf;
 }
 
-.eventbox h1, .eventbox h2 {
+.eventbox h1,
+.eventbox h2 {
   color: white;
 }
 
@@ -736,7 +746,7 @@ input:focus {
 }
 
 #innerPopUp label span:after {
-  content: '✔';
+  content: "✔";
   position: absolute;
   display: none;
   border: white;
@@ -950,7 +960,7 @@ input:focus {
 }
 
 #thebuttons label span:after {
-  content: '✔';
+  content: "✔";
   position: absolute;
   display: none;
   border: white;
@@ -1105,7 +1115,8 @@ input:focus {
   width: max-content;
 }
 
-.stackVert, .stackHorz {
+.stackVert,
+.stackHorz {
   padding: 0.2rem !important;
   width: 100% !important;
   display: -webkit-box;
@@ -1119,7 +1130,8 @@ input:focus {
           align-items: center;
 }
 
-.stackVert button, .stackHorz button {
+.stackVert button,
+.stackHorz button {
   margin: 0.4rem;
 }
 
