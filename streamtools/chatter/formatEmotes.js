@@ -65,6 +65,7 @@ function formatEmotes(text, emotes, bttvEmoteCache, bits) {
     resplit.forEach((chunk, index) => {
       if (!cheerRex.test(chunk)) return;
       let title = chunk.match(/[a-zA-z]+/g)[0];
+      title = title.toLowerCase();
       let num = parseInt(chunk.match(/\d+/g)[0]);
       cheerTiers.forEach(rank => {
         if (num >= rank){
