@@ -388,6 +388,14 @@ client.on('cheer', (channel, tags, message) => {
 client.on('clearchat', (channel) => {bound.innerHTML = ''});
 client.on("join", (channel, username, self) => getPronouns(username));
 
+client.on("resub", (channel, username, months, message, userstate, methods) => {
+  postBox(channel, tags, message, false, false);
+});
+
+client.on("subscription", (channel, username, method, message, userstate) => {
+  postBox(channel, tags, message, false, false);
+});
+
 //ANNOUNCEMENTS
 client.on('announcement', (channel, tags, message, self, colour) => {
   tags.username = 'ANNOUNCEMENT 🎉';
