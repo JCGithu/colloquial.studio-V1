@@ -105,7 +105,7 @@ const data = [
         value: '#262d36'
       },
       {
-        title: 'Chat bubble background opacity',
+        title: 'Chat bubble opacity',
         id: 'chatopacity',
         type: 'range',
         min: 0,
