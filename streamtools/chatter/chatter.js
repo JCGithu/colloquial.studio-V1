@@ -237,6 +237,12 @@ function runDelete(){
   }
 }
 
+document.addEventListener("visibilitychange", function() {
+  if (document.visibilityState === 'visible') {
+    bound.scrollTop = bound.scrollHeight;
+  };
+});
+
 function scrollDown() {
   if (bound.scrollHeight < window.innerHeight) return;
   let hideAll = document.querySelectorAll('.chatbox');
