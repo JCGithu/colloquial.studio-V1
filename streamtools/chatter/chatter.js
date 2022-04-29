@@ -238,9 +238,7 @@ function runDelete(){
 }
 
 document.addEventListener("visibilitychange", function() {
-  if (document.visibilityState === 'visible') {
-    bound.scrollTop = bound.scrollHeight;
-  };
+  if (document.visibilityState === 'visible') bound.scrollTop = bound.scrollHeight;
 });
 
 function scrollDown() {
