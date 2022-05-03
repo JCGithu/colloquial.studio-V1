@@ -123,12 +123,13 @@ const data = [
         type: 'checkbox'
       },
       {
-        title: 'Custom Colours',
+        title: 'Custom Name Colours',
+        subtitle: 'Users names will take their twitch colours',
         id: 'togglecol',
         type: 'checkbox'
       },
       {
-        title: 'Default Colour',
+        title: 'Default Name Colour',
         subtitle: "This will be used if a user hasn't set a custom colour on Twitch",
         id: 'highcolour',
         type: 'color',
