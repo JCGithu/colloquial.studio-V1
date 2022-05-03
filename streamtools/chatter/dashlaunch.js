@@ -141,8 +141,8 @@ const data = [
     title: 'Background Settings',
     group: [
       {
-        title: 'Fade Chat at top',
-        subtitle: "A gradient fade at the top of the chatbox",
+        title: 'Fade chat at top',
+        subtitle: "Add a gradient fade at the top of the chatbox",
         id: 'gradient',
         type: 'checkbox',
       },
