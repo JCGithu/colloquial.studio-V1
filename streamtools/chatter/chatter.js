@@ -170,7 +170,7 @@ client.connect();
 let topMessageValue = 0;
 
 function scrolling(element, duration, easingFunc) {
-  if (!params.scroll) {
+  if (!params.scroll || document.hidden) {
     bound.scrollTop = bound.scrollHeight;
     return;
   }
@@ -189,7 +189,6 @@ function scrolling(element, duration, easingFunc) {
     let elapsed = timestamp - startTime;
     if (bound.scrollHeight < startingHeight) {
       let difference = startingHeight - bound.scrollHeight;
-      console.log(difference);
       startPos = startPos - difference;
       scrollEndValue = scrollEndValue - difference;
       startingHeight = bound.scrollHeight;
@@ -211,7 +210,6 @@ function depacify(target){
   let duration = 1000;
   target.classList.add('depacify');
   let hiding = function(timestamp) {
-    console.log('hiding');
     startTime = startTime || timestamp;
     let elapsed = timestamp - startTime;
     let amount = easeOutCubic(elapsed/duration);
@@ -237,10 +235,6 @@ function runDelete(){
   }
 }
 
-document.addEventListener("visibilitychange", function() {
-  if (document.visibilityState === 'visible') bound.scrollTop = bound.scrollHeight;
-});
-
 function scrollDown() {
   if (bound.scrollHeight < window.innerHeight) return;
   let hideAll = document.querySelectorAll('.chatbox');
@@ -263,15 +257,6 @@ const easeInOutCubic = function(t) {
 const easeOutCubic = function(t){
   return (--t)*t*t+1
 }
-
-
-let scrollTimer = null;
-bound.addEventListener('scroll', function() {
-  if (scrollTimer) clearTimeout(scrollTimer);        
-  scrollTimer = setTimeout(function() {
-    //DO STUFF
-  }, 1500);
-}, false);
 
 let firstM = true;
 console.log(params);
