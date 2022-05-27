@@ -266,7 +266,7 @@ function postBox(channel, tags, message, self, italics){
   if (firstM){
     let badgeURL = `https://badges.twitch.tv/v1/badges/channels/${tags['room-id']}/display`
     runBadges([{"path": badgeURL, "site": true}]);
-    if (params.BTTV) getBTTVEmotes(channel, tags['room-id']);
+    if (params.bttv) getBTTVEmotes(channel, tags['room-id']);
     firstM = false;
   }
   if (params.hidebot){
