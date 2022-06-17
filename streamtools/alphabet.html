@@ -5,6 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Alphabet</title>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4HEW8J8SJ6');
+  </script>
+  <link rel="shortcut icon" href="../dist/favicons/colloquial.ico" />
   <script src='../js/tmi.js'></script>
   <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
   <style>
@@ -34,6 +41,14 @@
     }
     #current{
       font-size: 4rem;
+      transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+    #current:hover{
+      transform: scale(1.02);
+    }
+    h1 {
+      text-decoration: underline;
+      text-decoration-color: coral;
     }
   </style>
 </head>
@@ -43,6 +58,7 @@
   <p>Current letter is:</p>
   <h2 id="current">...</h2>
   <p id="extra"></p>
+  <p id="users"></p>
   <script src="./alphabet/alphabet.js"></script>
 </body>
 </html>

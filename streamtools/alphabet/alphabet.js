@@ -1,79 +1,62 @@
 const urlParams = new URLSearchParams(window.location.search);
+const current = document.getElementById('current');
+const extra = document.getElementById('extra');
+const userCount = document.getElementById('users');
 
 let channels = urlParams.get('channel')
-if(!urlParams.get('channel')){
+if(!urlParams.get('channel')) {
   channels = 'colloquialowl';
-};
-
-console.log(urlParams);
-const client = new tmi.Client({
-  channels: [channels]
-});
-
-
-let startNum = 65;
-let currNum = startNum;
-let streak = 0;
-let current = document.getElementById('current');
-let extra = document.getElementById('extra');
-let done = false;
-
-if (channels === 'elliotisacoolguy'){
-  current.style.fontFamily = 'Haus';
+  extra.innerText = 'No channel selected in URL. Please put ?channel=[CHANNELNAME] at the end!';
 }
 
-const canvas = document.getElementById('your_custom_canvas_id')
-const jsConfetti = new JSConfetti({ canvas });
-
+const client = new tmi.Client({channels: [channels]});
 client.on("connected", () => {console.log('Reading from Twitch! ✅')});
+
+let startNum = 65;
+let currNum = 64;
+let done = false;
+let userList = [];
+
+if (channels === 'elliotisacoolguy') current.style.fontFamily = 'Haus';
+
+const canvas = document.getElementById('your_custom_canvas_id');
+const jsConfetti = new JSConfetti({ canvas });
 
 function fail(username){
   current.innerText = '...';
-  extra.innerText = `${username} broke it!`;
-  currNum = startNum;
+  userList = [];
+  if (currNum > 64) extra.innerText = `${username} broke it!`;
+  currNum = startNum - 1;
 }
 
 function success(){
   current.innerText = 'Z';
   extra.innerText = 'ALPHABET COMPLETE!';
+  userCount.innerText = "Thanks to the work of " + userList.join(', ');
   jsConfetti.addConfetti();
   done = true;
 }
 
 client.on('message', (channel, tags, message, self) => {
   if (done) return;
-  console.log(message);
   if (message.length > 1) {
     fail(tags.username);
     return;
   }
   message = message.toUpperCase();
-  console.log('got');
-  if (currNum === 65 && message === 'A') {
-    console.log('woo');
+  if (currNum === 64 && message === 'A') {
+    if (!userList.includes(tags.username)) userList.push(tags.username);
     current.innerText = 'A';
+    currNum++;
     extra.innerText = '';
     return;
   }
-  console.log(message.charCodeAt(0));
   let target = currNum + 1;
   if (message.charCodeAt(0) == target){
-    console.log('WEE');
     currNum++;
     current.innerText = String.fromCharCode(currNum);
-  } else {
-    console.log(target, message.charCodeAt(0));
-    fail(tags.username);
-    return;
-  }
-  if (currNum === 90) success();
+    if (currNum === 90) success();
+  } else fail(tags.username);
 });
-
-function characterChecker(input){
-  if (input >= 65 && input <= 91) return true;
-  if (input >= 192 && input <= 221) return true;
-  if (input === 338 || input === 7838) return true;
-  return false;
-}
 
 client.connect();
