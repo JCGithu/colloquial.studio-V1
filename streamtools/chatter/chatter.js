@@ -104,15 +104,15 @@ async function loadJSON(file) {
 }
 
 async function runBadges(files){
-  console.log(files);
   for (let f in files){
-    let URL = `./chatter/${files[f].path}.json`
-    if (files[f].site) URL = files[f].path
+    let URL = `./chatter/${files[f].path}.json`;
+    if (files[f].site) URL = files[f].path;
     let data = await loadJSON(URL);
     data = JSON.parse(data)['badge_sets'];
     Object.keys(data).forEach((k) => {
       badgeData[k] = data[k];
     })
+    //console.log(badgeData);
     console.log('Badge data updated!');
   }
 }
@@ -133,9 +133,7 @@ function getBTTVEmotes(channel, id) {
   });
 }
 
-let badgeList = [{"path": 'badges'}, {"path":'https://badges.twitch.tv/v1/badges/channels/509037856/display', "site": true}];
-
-runBadges(badgeList);
+runBadges([{"path": 'badges'}]);
 
 const pronouns = {
   "aeaer": "Ae/Aer",
@@ -289,8 +287,8 @@ function postBox(channel, tags, message, self, italics){
   if (params.chatcolour) chatBubble.style.backgroundColor = `#${params.chatcolour}`
   let emotes = formatEmotes(message, tags.emotes, bttvEmoteCache, tags.bits);
   let chatName = document.createElement('p');
-  chatName.innerHTML = `<b>${tags.username}: </b>`;
-  if (italics) chatName.innerHTML = tags.username + ' ';
+  chatName.innerHTML = `<b>${tags["display-name"]}: </b>`;
+  if (italics) chatName.innerHTML = tags["display-name"] + ' ';
 
   
   if (!tags.color || tags.color === '#FFFFFF' || !params.togglecol) tags.color = params.highcolour;
@@ -304,7 +302,7 @@ function postBox(channel, tags, message, self, italics){
       pronounBlock.style.border = `0.15rem solid ${tags.color}`;
       pronounBlock.style.color = params.fontcolour;
       pronounBlock.innerText = userPronouns.get(lowerCaseUser);
-      chatName.innerHTML = `<b>${tags.username}</b> `
+      chatName.innerHTML = `<b>${tags["display-name"]}</b> `
       chatName.appendChild(pronounBlock);
       chatName.innerHTML = chatName.innerHTML + " <b>: </b>"
     }
@@ -334,9 +332,22 @@ function postBox(channel, tags, message, self, italics){
   chatName.appendChild(messageSpan);
   chatBubble.classList.add('chatbox');
   chatBubble.appendChild(chatName);
-  bound.appendChild(chatBubble);
-  if (!topMessageValue) topMessageValue = chatBubble.getBoundingClientRect().top;
-  scrollDown();
+
+  function addDown(){
+    bound.appendChild(chatBubble);
+    if (!topMessageValue) topMessageValue = chatBubble.getBoundingClientRect().top;
+    scrollDown();
+  }
+
+  if (!params.direction) {
+    addDown();
+  } else {
+    if (params.direction === 'Down'){
+      addDown();
+    } else if (params.direction === 'Up'){
+      bound.prepend(chatBubble);
+    }
+  }
 }
 
 function removeChatsFromUser(username){
@@ -388,7 +399,7 @@ client.on("subscription", (channel, username, method, message, userstate) => {
 
 //ANNOUNCEMENTS
 client.on('announcement', (channel, tags, message, self, colour) => {
-  tags.username = 'ANNOUNCEMENT 🎉';
+  tags["display-name"] = 'ANNOUNCEMENT 🎉';
   tags.color = '#9147FF';
   if (colour){
     if (colour === 'PRIMARY') colour = '#9147FF';

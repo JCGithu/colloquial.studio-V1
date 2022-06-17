@@ -27,6 +27,8 @@ const fontCheck = new Set([
 
 const settings = {
   base: 'https://colloquial.studio/streamtools/chatter?',
+  testBase: 'http://127.0.0.1:5501/streamtools/chatter.html',
+
   url: {
     channel: "",
     font: 'Poppins',
@@ -68,6 +70,13 @@ const data = [
     id: 'align',
     type: 'select',
     options: ['Left', 'Center', 'Right'],
+  },
+  {
+    title: 'Direction',
+    subtitle: 'Which way do you want chat to load in',
+    id: 'direction',
+    type: 'select',
+    options: ['Down', 'Up'],
   },
   {
     title: 'Font Settings',
