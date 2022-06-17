@@ -47,6 +47,7 @@ client.on('message', (channel, tags, message, self) => {
   if (currNum === 64 && message === 'A') {
     if (!userList.includes(tags.username)) userList.push(tags.username);
     current.innerText = 'A';
+    currNum++;
     extra.innerText = '';
     return;
   }
