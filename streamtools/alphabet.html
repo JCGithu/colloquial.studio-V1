@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alphabet</title>
+  <script src='../js/tmi.js'></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+  <style>
+    @font-face {
+      font-family: Haus;
+      src: url("./alphabet/Neue_Haus_Growtesk-Regular.otf") format("opentype");
+    }
+
+    body {
+      width: 100vw;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: 'Poppins';
+      background-color: #EAD2AC;
+    }
+    #current{
+      font-size: 3rem;
+      font-family: 'Haus';
+    }
+  </style>
+</head>
+<body>
+  <h1>Alphabet Challenge</h1>
+  <p>Current letter is:</p>
+  <h2 id="current">...</h2>
+  <p id="extra"></p>
+  <script src="./alphabet/alphabet.js"></script>
+</body>
+</html>
