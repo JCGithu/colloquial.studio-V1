@@ -32,7 +32,7 @@ function fail(username){
 function success(){
   current.innerText = 'Z';
   extra.innerText = 'ALPHABET COMPLETE!';
-  userCount = "Thanks to the work of " + userList.join(', ');
+  userCount.innerText = "Thanks to the work of " + userList.join(', ');
   jsConfetti.addConfetti();
   done = true;
 }
