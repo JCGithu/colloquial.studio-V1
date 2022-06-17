@@ -10,12 +10,17 @@ const client = new tmi.Client({
   channels: [channels]
 });
 
+
 let startNum = 65;
 let currNum = startNum;
 let streak = 0;
 let current = document.getElementById('current');
 let extra = document.getElementById('extra');
 let done = false;
+
+if (channels === 'elliotisacoolguy'){
+  current.style.fontFamily = 'Haus';
+}
 
 const canvas = document.getElementById('your_custom_canvas_id')
 const jsConfetti = new JSConfetti({ canvas });
