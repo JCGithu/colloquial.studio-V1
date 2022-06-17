@@ -104,6 +104,7 @@ async function loadJSON(file) {
 }
 
 async function runBadges(files){
+  console.log(files);
   for (let f in files){
     let URL = `./chatter/${files[f].path}.json`
     if (files[f].site) URL = files[f].path
