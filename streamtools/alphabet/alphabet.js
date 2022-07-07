@@ -4,9 +4,24 @@ const extra = document.getElementById('extra');
 const userCount = document.getElementById('users');
 
 let channels = urlParams.get('channel')
+
+let easyMode = false;
+let overlayMode = false;
+let highscore = 0;
+
+if (urlParams.get('easy')) {
+  easyMode = true;
+  extra.innerText = 'Easy mode on! \n';
+}
+if (urlParams.get('overlay')) {
+  document.body.style.backgroundColor = 'rgba(0,0,0,0)';
+  document.body.removeChild(document.getElementById('credit'));
+  document.body.removeChild(document.getElementById('title'));
+}
+
 if(!urlParams.get('channel')) {
   channels = 'colloquialowl';
-  extra.innerText = 'No channel selected in URL. Please put ?channel=[CHANNELNAME] at the end!';
+  extra.innerText = extra.innerText + 'No channel selected in URL. Please put ?channel=[CHANNELNAME] at the end!';
 }
 
 const client = new tmi.Client({channels: [channels]});
@@ -25,6 +40,10 @@ const jsConfetti = new JSConfetti({ canvas });
 function fail(username){
   current.innerText = '...';
   userList = [];
+  if (currNum > highscore){
+    highscore = currNum;
+    userCount.innerText = `Highscore is: ${String.fromCharCode(highscore)}`;
+  }
   if (currNum > 64) extra.innerText = `${username} broke it!`;
   currNum = startNum - 1;
 }
@@ -48,11 +67,13 @@ client.on('message', (channel, tags, message, self) => {
     if (!userList.includes(tags.username)) userList.push(tags.username);
     current.innerText = 'A';
     currNum++;
-    extra.innerText = '';
+    extra.innerText = ' ';
     return;
   }
   let target = currNum + 1;
-  if (message.charCodeAt(0) == target){
+  if (easyMode && message.charCodeAt(0) == target - 1){
+    extra.innerText = `Close one ${tags.username}...`;
+  } else if (message.charCodeAt(0) == target){
     currNum++;
     current.innerText = String.fromCharCode(currNum);
     if (currNum === 90) success();
