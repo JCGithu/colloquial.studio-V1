@@ -63,7 +63,8 @@ function formatEmotes(text, emotes, bttvEmoteCache, bits) {
   if (bits){
     console.log('bits are found');
     resplit.forEach((chunk, index) => {
-      if (!cheerRex.test(chunk)) return;
+      let cheerTest = cheerRex.test(chunk.toLowerCase());
+      if (!cheerTest) return;
       let title = chunk.match(/[a-zA-z]+/g)[0];
       title = title.toLowerCase();
       let num = parseInt(chunk.match(/\d+/g)[0]);
