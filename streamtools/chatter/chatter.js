@@ -409,13 +409,16 @@ client.on('announcement', (channel, tags, message, self, colour) => {
   postBox(channel, tags, message, false, false);
 });
 
-client.on("ban", (channel, username, reason, tags) => {
-  removeChatsFromUser(username);
+client.on("ban", (channel, username, reason, tags) => removeChatsFromUser(username));
+client.on("timeout", (channel, username, reason, duration, userstate) => removeChatsFromUser(username));
+client.on("messagedeleted", (channel, username, deletedMessage, userstate) => {
+  let bubbles = document.querySelectorAll('.chatbox');
+  bubbles.forEach((value, i, obj) => {
+    let innerText = value.innerText;
+    if (innerText.includes(deletedMessage)) bound.removeChild(bubbles[i]);
+  })
 });
 
-client.on("timeout", (channel, username, reason, duration, userstate) => {
-  removeChatsFromUser(username);
-});
 
 client.on("messagedeleted", (channel, username, deletedMessage, userstate) => {
   let bubbles = document.querySelectorAll('.chatbox');
