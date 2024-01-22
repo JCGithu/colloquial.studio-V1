@@ -415,7 +415,7 @@ client.on("messagedeleted", (channel, username, deletedMessage, userstate) => {
   let bubbles = document.querySelectorAll('.chatbox');
   bubbles.forEach((value, i, obj) => {
     let innerText = value.innerText;
-    if (innerText.includes(deletedMessage)) bound.removeChild(bubbles[i]);
+    if (innerText.includes(deletedMessage) || innerText.includes(username)) bound.removeChild(bubbles[i]);
   })
 });
 
